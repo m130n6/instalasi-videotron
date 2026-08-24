@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videotron Tech Hub - Portofolio</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        :root {
+            --bg-base: #060b13;
+            --card-bg: rgba(13, 23, 38, 0.85);
+            --border-glow: #00f0ff;
+            --accent-cyan: #00f0ff;
+            --accent-purple: #9d4edd;
+            --accent-green: #00ff88;
+            --text-main: #e2e8f0;
+            --text-muted: #8492a6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 240, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(157, 78, 221, 0.05) 0%, transparent 20%),
+                linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 30px 30px, 30px 30px;
+            color: var(--text-main);
+            padding-bottom: 50px;
+        }
+
+        .tech-top-bar {
+            background: rgba(8, 14, 26, 0.95);
+            border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(8px);
+        }
+
+        .admin-pill {
+            background: linear-gradient(135deg, #091a2f, #040914);
+            border: 1px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+            padding: 5px 14px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+            letter-spacing: 1px;
+            transition: all 0.2s ease;
+        }
+
+        .admin-pill.active {
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+            box-shadow: 0 0 12px rgba(0, 255, 136, 0.3);
+        }
+
+        .btn-add-item {
+            background: linear-gradient(135deg, #00f0ff, #0077b6);
+            color: #060b13;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            gap: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .navbar {
+            background: rgba(10, 18, 32, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .brand-logo-icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(0, 240, 255, 0.1);
+            border: 1px solid var(--accent-cyan);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-cyan);
+            box-shadow: 0 0 8px rgba(0, 240, 255, 0.3);
+        }
+
+        .brand-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .brand-text span {
+            color: var(--accent-cyan);
+        }
+
+        .content-container {
+            max-width: 500px;
+            margin: 18px auto;
+            padding: 0 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .card-project {
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 240, 255, 0.18);
+            border-left: 3px solid var(--accent-cyan);
+            border-radius: 8px;
+            padding: 16px;
+            position: relative;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .card-top {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .icon-circuit {
+            width: 44px;
+            height: 44px;
+            min-width: 44px;
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.15), rgba(157, 78, 221, 0.15));
+            border: 1px solid rgba(0, 240, 255, 0.4);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-cyan);
+            font-size: 1.3rem;
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.15);
+        }
+
+        .card-title-group {
+            flex: 1;
+        }
+
+        .card-title-group h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.95rem;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-bottom: 3px;
+        }
+
+        .info-row i.clock-icon { color: var(--accent-green); }
+        .info-row i.pin-icon { color: var(--accent-purple); }
+
+        .badges-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 12px 0;
+        }
+
+        .badge-pill {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-photo {
+            background: rgba(0, 255, 136, 0.08);
+            color: var(--accent-green);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+        }
+
+        .badge-video {
+            background: rgba(157, 78, 221, 0.08);
+            color: #d8b4fe;
+            border: 1px solid rgba(157, 78, 221, 0.3);
+        }
+
+        .card-quote {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+            margin-bottom: 14px;
+            border-left: 2px solid rgba(255, 255, 255, 0.1);
+            padding-left: 8px;
+        }
+
+        .action-buttons-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .btn-drive-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 38px;
+            border-radius: 6px;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.02);
+            font-size: 1.15rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-drive-photo {
+            border: 1px solid rgba(0, 255, 136, 0.4);
+            color: var(--accent-green);
+        }
+
+        .btn-drive-video {
+            border: 1px solid rgba(157, 78, 221, 0.4);
+            color: #d8b4fe;
+        }
+
+        .btn-drive-link:hover {
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+        }
+
+        .admin-controls {
+            display: none;
+            gap: 8px;
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px dashed rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-admin-act {
+            flex: 1;
+            padding: 5px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .btn-edit {
+            background: rgba(0, 240, 255, 0.15);
+            color: var(--accent-cyan);
+            border: 1px solid var(--accent-cyan);
+        }
+
+        .btn-delete {
+            background: rgba(239, 68, 68, 0.15);
+            color: #f87171;
+            border: 1px solid #ef4444;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(6px);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        .modal-card {
+            background: #0d1726;
+            border: 1px solid var(--accent-cyan);
+            border-radius: 8px;
+            width: 100%;
+            max-width: 440px;
+            padding: 20px;
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.25);
+        }
+
+        .modal-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent-cyan);
+            margin-bottom: 14px;
+            font-size: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+
+        .form-control {
+            width: 100%;
+            background: #060b13;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 4px;
+            padding: 8px 10px;
+            color: #ffffff;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 6px rgba(0, 240, 255, 0.3);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .btn-submit {
+            flex: 1;
+            background: var(--accent-cyan);
+            color: #060b13;
+            border: none;
+            padding: 8px;
+            font-weight: 700;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-cancel {
+            flex: 1;
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid var(--text-muted);
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="tech-top-bar">
+        <button id="adminAuthBtn" class="admin-pill" onclick="toggleAdminAuth()">
+            <i class="bi bi-cpu avatar-icon"></i>
+            <span id="adminStatusText">ADMIN LOGIN</span>
+        </button>
+
+        <button id="addNewBtn" class="btn-add-item" onclick="openModal()">
+            <i class="bi bi-plus-circle"></i> TAMBAH PROYEK
+        </button>
+    </div>
+
+    <header class="navbar">
+        <a href="#" class="brand-wrapper">
+            <div class="brand-logo-icon">
+                <i class="bi bi-display-fill"></i>
+            </div>
+            <span class="brand-text">VIDEOTRON<span>CORE</span></span>
+        </a>
+        <div style="color: var(--accent-cyan); font-size: 1.2rem;">
+            <i class="bi bi-grid-3x3-gap-fill"></i>
+        </div>
+    </header>
+
+    <main class="content-container" id="projectContainer">
+    </main>
+
+    <div id="projectModal" class="modal">
+        <div class="modal-card">
+            <h3 id="modalTitle">INPUT DATA PROYEK</h3>
+            <form id="projectForm" onsubmit="handleFormSubmit(event)">
+                <input type="hidden" id="editIndex" value="-1">
+                
+                <div class="form-group">
+                    <label>Nama / Judul Proyek</label>
+                    <input type="text" id="inputTitle" class="form-control" required placeholder="Contoh: VIDEOTRON OUTDOOR P3.9...">
+                </div>
+
+                <div class="form-group">
+                    <label>Tanggal / Status Selesai</label>
+                    <input type="text" id="inputDate" class="form-control" required placeholder="Contoh: Selesai: 24 Feb 2026">
+                </div>
+
+                <div class="form-group">
+                    <label>Lokasi Pemasangan</label>
+                    <input type="text" id="inputLocation" class="form-control" required placeholder="Contoh: Bestindo Sports Center">
+                </div>
+
+                <div class="form-group">
+                    <label>Deskripsi Teknis</label>
+                    <textarea id="inputDesc" class="form-control" rows="2" required placeholder="Contoh: Konfigurasi NovaStar & kalibrasi..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Direct Link Drive (Foto)</label>
+                    <input type="url" id="inputPhotoUrl" class="form-control" required placeholder="https://drive.google.com/...">
+                </div>
+
+                <div class="form-group">
+                    <label>Direct Link Drive (Video)</label>
+                    <input type="url" id="inputVideoUrl" class="form-control" required placeholder="https://drive.google.com/...">
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" onclick="closeModal()">Batal</button>
+                    <button type="submit" class="btn-submit">Simpan Data</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const ADMIN_PIN = "gretongers";
+        let isAdminLoggedIn = false;
+
+        const defaultProjects = [
+            {
+                title: "INSTALASI VIDEOTRON OUTDOOR P3.9",
+                date: "Selesai: 22 Feb 2026",
+                location: "Bestindo Sports Center",
+                desc: "Pemasangan kabinet die-cast, wiring sending card NovaStar, dan kalibrasi pixel pitch.",
+                photoUrl: "https://drive.google.com",
+                videoUrl: "https://drive.google.com"
+            },
+            {
+                title: "LED DISPLAY INDOOR P2.5 STADIUM",
+                date: "Selesai: 23 Feb 2026",
+                location: "ASIOP Stadium",
+                desc: "Rangka bracket presisi, sinkronisasi controller, dan uji coba input Resolume Arena.",
+                photoUrl: "https://drive.google.com",
+                videoUrl: "https://drive.google.com"
+            },
+            {
+                title: "MAINTENANCE & RELOKASI VIDEOTRON",
+                date: "Selesai: 24 Feb 2026",
+                location: "Avion Sport Center",
+                desc: "Penggantian power supply module, perapian kabel HUB75, serta mapping pixel ulang.",
+                photoUrl: "https://drive.google.com",
+                videoUrl: "https://drive.google.com"
+            }
+        ];
+
+        function loadProjects() {
+            const data = localStorage.getItem("tech_videotron_projects");
+            return data ? JSON.parse(data) : defaultProjects;
+        }
+
+        function saveProjects(projects) {
+            localStorage.setItem("tech_videotron_projects", JSON.stringify(projects));
+            renderProjects();
+        }
+
+        function renderProjects() {
+            const projects = loadProjects();
+            const container = document.getElementById("projectContainer");
+            container.innerHTML = "";
+
+            projects.forEach((proj, idx) => {
+                const card = document.createElement("article");
+                card.className = "card-project";
+                card.innerHTML = `
+                    <div class="card-top">
+                        <div class="icon-circuit">
+                            <i class="bi bi-motherboard"></i>
+                        </div>
+                        <div class="card-title-group">
+                            <h3>${proj.title}</h3>
+                            <div class="info-row">
+                                <i class="bi bi-clock-history clock-icon"></i> ${proj.date}
+                            </div>
+                            <div class="info-row">
+                                <i class="bi bi-geo-alt-fill pin-icon"></i> ${proj.location}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="badges-wrapper">
+                        <span class="badge-pill badge-photo">Foto Dokumentasi</span>
+                        <span class="badge-pill badge-video">Video Testing</span>
+                    </div>
+
+                    <p class="card-quote">${proj.desc}</p>
+
+                    <div class="action-buttons-group">
+                        <a href="${proj.photoUrl}" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-photo" title="Buka Folder Foto">
+                            <i class="bi bi-images"></i>
+                        </a>
+                        <a href="${proj.videoUrl}" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-video" title="Buka Folder Video">
+                            <i class="bi bi-camera-reels-fill"></i>
+                        </a>
+                    </div>
+
+                    <div class="admin-controls" style="display: ${isAdminLoggedIn ? 'flex' : 'none'};">
+                        <button class="btn-admin-act btn-edit" onclick="editProject(${idx})">
+                            <i class="bi bi-pencil-square"></i> EDIT
+                        </button>
+                        <button class="btn-admin-act btn-delete" onclick="deleteProject(${idx})">
+                            <i class="bi bi-trash3-fill"></i> HAPUS
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function toggleAdminAuth() {
+            if (!isAdminLoggedIn) {
+                const inputPin = prompt("Masukkan PIN/Password Admin:");
+                if (inputPin === ADMIN_PIN) {
+                    isAdminLoggedIn = true;
+                    document.getElementById("adminStatusText").innerText = "ADMIN ACTIVE";
+                    document.getElementById("adminAuthBtn").classList.add("active");
+                    document.getElementById("addNewBtn").style.display = "inline-flex";
+                    renderProjects();
+                } else if (inputPin !== null) {
+                    alert("Akses ditolak: PIN salah.");
+                }
+            } else {
+                if (confirm("Keluar dari sesi mode Admin?")) {
+                    isAdminLoggedIn = false;
+                    document.getElementById("adminStatusText").innerText = "ADMIN LOGIN";
+                    document.getElementById("adminAuthBtn").classList.remove("active");
+                    document.getElementById("addNewBtn").style.display = "none";
+                    renderProjects();
+                }
+            }
+        }
+
+        function openModal(index = -1) {
+            document.getElementById("projectModal").style.display = "flex";
+            document.getElementById("editIndex").value = index;
+            
+            if (index >= 0) {
+                const projects = loadProjects();
+                const item = projects[index];
+                document.getElementById("modalTitle").innerText = "EDIT DATA PROYEK";
+                document.getElementById("inputTitle").value = item.title;
+                document.getElementById("inputDate").value = item.date;
+                document.getElementById("inputLocation").value = item.location;
+                document.getElementById("inputDesc").value = item.desc;
+                document.getElementById("inputPhotoUrl").value = item.photoUrl;
+                document.getElementById("inputVideoUrl").value = item.videoUrl;
+            } else {
+                document.getElementById("modalTitle").innerText = "INPUT PROYEK BARU";
+                document.getElementById("projectForm").reset();
+            }
+        }
+
+        function closeModal() {
+            document.getElementById("projectModal").style.display = "none";
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const projects = loadProjects();
+            const index = parseInt(document.getElementById("editIndex").value);
+
+            const payload = {
+                title: document.getElementById("inputTitle").value,
+                date: document.getElementById("inputDate").value,
+                location: document.getElementById("inputLocation").value,
+                desc: document.getElementById("inputDesc").value,
+                photoUrl: document.getElementById("inputPhotoUrl").value,
+                videoUrl: document.getElementById("inputVideoUrl").value
+            };
+
+            if (index >= 0) {
+                projects[index] = payload;
+            } else {
+                projects.unshift(payload);
+            }
+
+            saveProjects(projects);
+            closeModal();
+        }
+
+        function editProject(idx) {
+            openModal(idx);
+        }
+
+        function deleteProject(idx) {
+            if (confirm("Hapus proyek ini secara permanen?")) {
+                const projects = loadProjects();
+                projects.splice(idx, 1);
+                saveProjects(projects);
+            }
+        }
+
+        renderProjects();
+    </script>
+</body>
+</html>
