@@ -52,7 +52,7 @@
             pointer-events: none;
         }
 
-        /* Struktur Seam / Sambungan Garis Antar Kabinet Videotron */
+        /* Struktur Grid Antar Kabinet Videotron */
         .cabinet-grid-overlay {
             position: fixed;
             top: 0;
@@ -67,7 +67,7 @@
             z-index: -1;
         }
 
-        /* Scanline Vertikal & Horizontal Khas Refresh Rate Tinggi */
+        /* Scanline Overlay */
         .scanline-overlay {
             position: fixed;
             top: 0;
@@ -180,45 +180,38 @@
             100% { transform: translate(-100%, 0); }
         }
 
-        /* Top Bar Minimalis */
-        .tech-top-bar {
-            padding: 16px 20px;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            max-width: 520px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 20;
-        }
-
+        /* Floating Admin Icon Button */
         .admin-icon-btn {
-            background: rgba(13, 22, 41, 0.85);
-            border: 1px solid rgba(0, 242, 254, 0.35);
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            background: rgba(13, 22, 41, 0.75);
+            border: 1px solid rgba(0, 242, 254, 0.4);
             color: var(--neon-cyan);
-            width: 42px;
-            height: 42px;
+            width: 40px;
+            height: 40px;
             border-radius: 12px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             cursor: pointer;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 14px rgba(0, 242, 254, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 14px rgba(0, 242, 254, 0.25);
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             backdrop-filter: blur(12px);
+            z-index: 30;
         }
 
         .admin-icon-btn:hover {
             transform: translateY(-2px) scale(1.05);
             border-color: var(--neon-cyan);
-            box-shadow: 0 6px 24px rgba(0, 242, 254, 0.45);
+            box-shadow: 0 6px 24px rgba(0, 242, 254, 0.5);
         }
 
         .admin-icon-btn.active {
             border-color: var(--neon-emerald);
             color: var(--neon-emerald);
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.55);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.6);
         }
 
         /* Admin Toolbar */
@@ -258,19 +251,53 @@
             filter: brightness(1.15);
         }
 
+        .btn-cover { background: linear-gradient(135deg, #0284c7, #2563eb); color: #fff; }
         .btn-export { background: linear-gradient(135deg, #10b981, #059669); color: #fff; }
         .btn-avatar { background: linear-gradient(135deg, #a855f7, #7c3aed); color: #fff; }
         .btn-marquee { background: linear-gradient(135deg, #ff1e56, #be123c); color: #fff; }
 
-        /* Profile Section */
+        /* Profile Hero Mentok ke Running Text */
         .profile-hero {
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 8px 20px 24px;
+            padding: 0 0 24px;
             text-align: center;
             position: relative;
             z-index: 20;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* Container Cover Landscape Mentok Penuh */
+        .cover-landscape-container {
+            width: 100%;
+            max-width: 600px;
+            aspect-ratio: 16 / 7;
+            position: relative;
+            border-bottom: 2px solid var(--card-border);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 25px rgba(0, 242, 254, 0.15);
+            background: #060b17;
+            overflow: hidden;
+        }
+
+        .cover-landscape-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .cover-landscape-container:hover .cover-landscape-img {
+            transform: scale(1.03);
+        }
+
+        .cover-overlay-gradient {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(2, 4, 10, 0.05) 0%, rgba(2, 4, 10, 0.8) 100%);
+            pointer-events: none;
         }
 
         .avatar-wrapper {
@@ -281,6 +308,8 @@
             background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
             box-shadow: 0 0 30px rgba(0, 242, 254, 0.45);
             transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            margin-top: -55px;
+            z-index: 5;
         }
 
         .avatar-wrapper:hover {
@@ -288,8 +317,8 @@
         }
 
         .profile-avatar-large {
-            width: 110px;
-            height: 110px;
+            width: 105px;
+            height: 105px;
             border-radius: 50%;
             object-fit: cover;
             display: block;
@@ -318,8 +347,9 @@
             font-size: 1.65rem;
             font-weight: 800;
             color: #ffffff;
-            margin-top: 16px;
+            margin-top: 14px;
             letter-spacing: 0.5px;
+            padding: 0 16px;
         }
 
         .profile-title span {
@@ -330,8 +360,9 @@
         }
 
         .profile-desc-box {
+            width: calc(100% - 32px);
             max-width: 480px;
-            margin-top: 12px;
+            margin: 12px 16px 0;
             background: var(--card-glass);
             border: 1px solid var(--card-border);
             border-radius: 18px;
@@ -455,7 +486,6 @@
             font-weight: 600;
         }
 
-        /* Ikon Lokasi Berwarna Hijau Neon */
         .location-text i {
             color: var(--neon-emerald);
             text-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
@@ -675,7 +705,7 @@
 </head>
 <body>
 
-    <!-- Canvas LED Videotron & Struktur Grid -->
+    <!-- Canvas LED Videotron & Grid -->
     <canvas id="videotronCanvas" width="411" height="784"></canvas>
     <div class="cabinet-grid-overlay"></div>
     <div class="scanline-overlay"></div>
@@ -691,20 +721,16 @@
         </div>
     </div>
 
-    <!-- Top Bar Minimalis (Icon Admin Saja) -->
-    <header class="tech-top-bar">
-        <button id="adminAuthBtn" class="admin-icon-btn" onclick="toggleAdminAuth()" title="Admin Control">
-            <i class="bi bi-cpu-fill"></i>
-        </button>
-    </header>
-
     <!-- Panel Kontrol Khusus Admin -->
     <div id="adminPanelBar" class="admin-panel-bar" style="display: none;">
-        <button class="btn-tech-action btn-marquee" onclick="openMarqueeModal()">
-            <i class="bi bi-chat-left-dots-fill"></i> RUNNING TEXT
+        <button class="btn-tech-action btn-cover" onclick="openCoverModal()">
+            <i class="bi bi-image-fill"></i> UBAH COVER
         </button>
         <button class="btn-tech-action btn-avatar" onclick="openAvatarModal()">
             <i class="bi bi-person-bounding-box"></i> UBAH AVATAR
+        </button>
+        <button class="btn-tech-action btn-marquee" onclick="openMarqueeModal()">
+            <i class="bi bi-chat-left-dots-fill"></i> RUNNING TEXT
         </button>
         <button class="btn-tech-action" onclick="openModal()">
             <i class="bi bi-plus-circle-fill"></i> TAMBAH PROYEK
@@ -714,8 +740,16 @@
         </button>
     </div>
 
-    <!-- Hero Profile -->
+    <!-- Hero Profile: Cover Landscape Mentok Penuh ke Garis Running Text -->
     <div class="profile-hero">
+        <div class="cover-landscape-container">
+            <button id="adminAuthBtn" class="admin-icon-btn" onclick="toggleAdminAuth()" title="Admin Control">
+                <i class="bi bi-cpu-fill"></i>
+            </button>
+            <img id="mainCoverBanner" class="cover-landscape-img" src="https://drive.google.com/thumbnail?id=1EFT_iZW2bGVe76LVr9N0JC_fooFDQxJX&amp;sz=w1600" alt="Cover Videotron Tech">
+            <div class="cover-overlay-gradient"></div>
+        </div>
+
         <div class="avatar-wrapper" onclick="viewAvatarModal()" title="Klik untuk melihat foto profil">
             <img id="mainProfileAvatar" class="profile-avatar-large" src="https://drive.google.com/thumbnail?id=16alnfBBKXonHadKR6ZEC75npzvjUXIgb&amp;sz=w600" alt="Teknisi Videotron">
             <div class="avatar-badge-lens">
@@ -922,8 +956,59 @@
         </div>
     </div>
 
+    <!-- Modal Ubah Cover Landscape -->
+    <div id="coverModal" class="modal">
+        <div class="modal-card">
+            <h3>GANTI COVER BANNER (LANDSCAPE)</h3>
+            <form onsubmit="handleCoverSubmit(event)">
+                <div class="form-group">
+                    <label>Link Foto / Link Google Drive</label>
+                    <input type="url" id="inputCoverUrl" class="form-control" required="" placeholder="Paste link Google Drive atau direct link gambar di sini...">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" onclick="document.getElementById('coverModal').style.display='none'">Batal</button>
+                    <button type="submit" class="btn-submit">Update Cover</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Avatar -->
+    <div id="avatarModal" class="modal">
+        <div class="modal-card">
+            <h3>GANTI FOTO PROFIL ADMIN</h3>
+            <form onsubmit="handleAvatarSubmit(event)">
+                <div class="form-group">
+                    <label>Link Foto / Link Google Drive</label>
+                    <input type="url" id="inputAvatarUrl" class="form-control" required="" placeholder="https://drive.google.com/...">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" onclick="document.getElementById('avatarModal').style.display='none'">Batal</button>
+                    <button type="submit" class="btn-submit">Update Profil</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Running Text -->
+    <div id="marqueeModal" class="modal">
+        <div class="modal-card">
+            <h3>EDIT RUNNING TEXT</h3>
+            <form onsubmit="handleMarqueeSubmit(event)">
+                <div class="form-group">
+                    <label>Isi Teks Berjalan</label>
+                    <textarea id="inputMarqueeText" class="form-control" rows="3" required=""></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" onclick="document.getElementById('marqueeModal').style.display='none'">Batal</button>
+                    <button type="submit" class="btn-submit">Update Text</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Modal Form Tambah/Edit Proyek -->
-    <div id="projectModal" class="modal" style="display: none;">
+    <div id="projectModal" class="modal">
         <div class="modal-card">
             <h3 id="modalTitle">INPUT PROYEK BARU</h3>
             <form id="projectForm" onsubmit="handleFormSubmit(event)">
@@ -956,40 +1041,6 @@
         </div>
     </div>
 
-    <!-- Modal Avatar -->
-    <div id="avatarModal" class="modal">
-        <div class="modal-card">
-            <h3>GANTI FOTO PROFIL ADMIN</h3>
-            <form onsubmit="handleAvatarSubmit(event)">
-                <div class="form-group">
-                    <label>URL Foto Profil</label>
-                    <input type="url" id="inputAvatarUrl" class="form-control" required="" placeholder="https://drive.google.com/...">
-                </div>
-                <div class="modal-actions">
-                    <button type="button" class="btn-cancel" onclick="document.getElementById('avatarModal').style.display='none'">Batal</button>
-                    <button type="submit" class="btn-submit">Update Profil</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Modal Running Text -->
-    <div id="marqueeModal" class="modal">
-        <div class="modal-card">
-            <h3>EDIT RUNNING TEXT</h3>
-            <form onsubmit="handleMarqueeSubmit(event)">
-                <div class="form-group">
-                    <label>Isi Teks Berjalan</label>
-                    <textarea id="inputMarqueeText" class="form-control" rows="3" required=""></textarea>
-                </div>
-                <div class="modal-actions">
-                    <button type="button" class="btn-cancel" onclick="document.getElementById('marqueeModal').style.display='none'">Batal</button>
-                    <button type="submit" class="btn-submit">Update Text</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
     <!-- Modal Ekspor Kode -->
     <div id="exportModal" class="modal">
         <div class="modal-card" style="max-width: 500px;">
@@ -1000,12 +1051,12 @@
             <textarea id="exportTextarea" class="form-control" rows="8" readonly="" style="font-family: monospace; font-size: 0.75rem;"></textarea>
             <div class="modal-actions">
                 <button type="button" class="btn-cancel" onclick="document.getElementById('exportModal').style.display='none'">Tutup</button>
-                <button type="button" class="btn-submit" onclick="copyExportedText()">Salin ke Clipboard</button>
+                <button type="submit" class="btn-submit" onclick="copyExportedText()">Salin ke Clipboard</button>
             </div>
         </div>
     </div>
 
-    <!-- Engine Canvas: Matrix LED Subpixel + Data Packets (HUB75 & Sending Card Simulation) -->
+    <!-- Engine Canvas -->
     <script>
         const canvas = document.getElementById('videotronCanvas');
         const ctx = canvas.getContext('2d');
@@ -1034,7 +1085,6 @@
         window.addEventListener('mouseleave', () => { mouse.x = -1000; mouse.y = -1000; });
         window.addEventListener('touchend', () => { mouse.x = -1000; mouse.y = -1000; });
 
-        // Simulasi Sinyal Data Packet (Pengiriman Frame Rate NovaStar / Colorlight)
         const packets = [];
         for (let i = 0; i < 24; i++) {
             packets.push({
@@ -1051,7 +1101,6 @@
             ctx.clearRect(0, 0, width, height);
             tick += 0.03;
 
-            // 1. Render LED Pitch Pixel Matrix (Simulasi SMD RGB LED)
             const pitch = 22;
             const rows = Math.ceil(height / pitch);
             const cols = Math.ceil(width / pitch);
@@ -1062,7 +1111,6 @@
                     const y = r * pitch;
                     const dist = Math.hypot(x - mouse.x, y - mouse.y);
 
-                    // Efek Hover / Touch: Aktivasi Lampu LED Sekitar Kursor
                     if (dist < mouse.radius) {
                         const intensity = (1 - dist / mouse.radius);
                         ctx.fillStyle = `rgba(0, 242, 254, ${intensity * 0.9})`;
@@ -1083,7 +1131,6 @@
                 }
             }
 
-            // 2. Render Aliran Jalur Sinyal Data (Data Lines)
             for (let i = 0; i < packets.length; i++) {
                 const p = packets[i];
                 p.y += p.speed;
@@ -1117,6 +1164,17 @@
         const ADMIN_PIN = "gretongers";
         let isAdminLoggedIn = false;
 
+        // Auto convert Google Drive share link ke CDN image link
+        function formatDriveUrl(url, size = 'w1600') {
+            if (!url) return '';
+            const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/) || url.match(/id=([a-zA-Z0-9_-]+)/);
+            if (match && match[1]) {
+                return `https://drive.google.com/thumbnail?id=${match[1]}&sz=${size}`;
+            }
+            return url;
+        }
+
+        let adminCoverUrl = "https://drive.google.com/thumbnail?id=1EFT_iZW2bGVe76LVr9N0JC_fooFDQxJX&sz=w1600";
         let adminAvatarUrl = "https://drive.google.com/thumbnail?id=16alnfBBKXonHadKR6ZEC75npzvjUXIgb&sz=w600";
         let runningTextContent = "SELAMAT DATANG DI PORTOFOLIO TEKNISI VIDEOTRON • MELAYANI INSTALASI, MAINTENANCE, & SETTING DISPLAY INDOOR/OUTDOOR SELURUH INDONESIA • HUBUNGI WHATSAPP KAMI";
 
@@ -1164,6 +1222,10 @@
                     "videoUrl": "https://drive.google.com/drive/folders/1oEkS8rXPr_3xlivlIx9bQJGpLBfVnwdg"
           }
 ];
+
+        function applyCover() {
+            document.getElementById("mainCoverBanner").src = adminCoverUrl;
+        }
 
         function applyAvatar() {
             document.getElementById("mainProfileAvatar").src = adminAvatarUrl;
@@ -1246,6 +1308,20 @@
             }
         }
 
+        function openCoverModal() {
+            document.getElementById("inputCoverUrl").value = adminCoverUrl;
+            document.getElementById("coverModal").style.display = "flex";
+        }
+
+        function handleCoverSubmit(e) {
+            e.preventDefault();
+            const rawUrl = document.getElementById("inputCoverUrl").value.trim();
+            adminCoverUrl = formatDriveUrl(rawUrl, 'w1600');
+            applyCover();
+            document.getElementById("coverModal").style.display = "none";
+            alert("Cover banner berhasil diganti! Klik 'EKSPOR KODE' untuk menyimpannya permanen.");
+        }
+
         function openAvatarModal() {
             document.getElementById("inputAvatarUrl").value = adminAvatarUrl;
             document.getElementById("avatarModal").style.display = "flex";
@@ -1253,10 +1329,11 @@
 
         function handleAvatarSubmit(e) {
             e.preventDefault();
-            adminAvatarUrl = document.getElementById("inputAvatarUrl").value;
+            const rawUrl = document.getElementById("inputAvatarUrl").value.trim();
+            adminAvatarUrl = formatDriveUrl(rawUrl, 'w600');
             applyAvatar();
             document.getElementById("avatarModal").style.display = "none";
-            alert("Foto profil berhasil diganti! Klik 'EKSPOR KODE' untuk menyimpannya.");
+            alert("Foto profil berhasil diganti! Klik 'EKSPOR KODE' untuk menyimpannya permanen.");
         }
 
         function openMarqueeModal() {
@@ -1331,6 +1408,7 @@
 
             const fullHtml = document.documentElement.outerHTML;
             let updatedHtml = "<!DOCTYPE html>\n" + fullHtml
+                .replace(/let adminCoverUrl = ".*?";/, `let adminCoverUrl = "${adminCoverUrl}";`)
                 .replace(/let adminAvatarUrl = ".*?";/, `let adminAvatarUrl = "${adminAvatarUrl}";`)
                 .replace(/let runningTextContent = ".*?";/, `let runningTextContent = ${JSON.stringify(runningTextContent)};`)
                 .replace(/let projectsData = \[[\s\S]*?\];/, `let projectsData = ${JSON.stringify(projectsData, null, 12)};`);
@@ -1359,10 +1437,13 @@
             });
         }
 
+        applyCover();
         applyAvatar();
         applyMarquee();
         renderProjects();
     </script>
+
+
 
 
 </body></html>
