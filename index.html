@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="id">
-<head>
+<html lang="id"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Videotron Tech Hub - Portofolio</title>
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@700;800&family=Orbitron:wght@700;900&family=JetBrains+Mono:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Syne:wght@700;800&amp;family=Orbitron:wght@700;900&amp;family=JetBrains+Mono:wght@700;800&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
         :root {
@@ -675,7 +674,7 @@
 <body>
 
     <!-- Canvas LED Videotron & Struktur Grid -->
-    <canvas id="videotronCanvas"></canvas>
+    <canvas id="videotronCanvas" width="411" height="784"></canvas>
     <div class="cabinet-grid-overlay"></div>
     <div class="scanline-overlay"></div>
     <div class="beam-scan"></div>
@@ -736,7 +735,119 @@
     </div>
 
     <!-- Container Daftar Proyek -->
-    <main class="content-container" id="projectContainer"></main>
+    <main class="content-container" id="projectContainer"><article class="card-project">
+                    <div class="card-top">
+                        <div class="icon-circuit"><i class="bi bi-motherboard"></i></div>
+                        <div class="card-title-group">
+                            <h3>PEMASANGAN MODUL INDOOR P2.5 64S</h3>
+                            
+                    <div class="location-text">
+                        <i class="bi bi-geo-alt-fill"></i> Gereja daerah Ancol
+                    </div>
+                        </div>
+                    </div>
+
+                    <div class="badges-wrapper">
+                        <span class="badge-pill badge-photo"><i class="bi bi-images"></i> Foto</span>
+                        <span class="badge-pill badge-video"><i class="bi bi-play-circle"></i> Video</span>
+                    </div>
+
+                    <p class="card-quote">Pemasangan modul indoor P2.5 64s</p>
+
+                    <div class="action-buttons-group">
+                        <a href="https://drive.google.com/drive/folders/1TO4UO4LzMY_G0gj6KMuH53IG3E9f0eTP" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-photo"><i class="bi bi-images"></i> Lihat Foto</a>
+                        <a href="https://drive.google.com/drive/folders/1TO4UO4LzMY_G0gj6KMuH53IG3E9f0eTP" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-video"><i class="bi bi-camera-reels"></i> Lihat Video</a>
+                    </div>
+
+                    <div class="admin-controls" style="display: none;">
+                        <button class="btn-admin-act btn-edit" onclick="editProject(0)"><i class="bi bi-pencil-square"></i> EDIT</button>
+                        <button class="btn-admin-act btn-delete" onclick="deleteProject(0)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
+                    </div>
+                </article><article class="card-project">
+                    <div class="card-top">
+                        <div class="icon-circuit"><i class="bi bi-motherboard"></i></div>
+                        <div class="card-title-group">
+                            <h3>INSTALASI VIDEOTRON INDOOR P2.5 32s</h3>
+                            
+                    <div class="location-text">
+                        <i class="bi bi-geo-alt-fill"></i> BEKASI
+                    </div>
+                        </div>
+                    </div>
+
+                    <div class="badges-wrapper">
+                        <span class="badge-pill badge-photo"><i class="bi bi-images"></i> Foto</span>
+                        <span class="badge-pill badge-video"><i class="bi bi-play-circle"></i> Video</span>
+                    </div>
+
+                    <p class="card-quote">Pemasangan modul indoor P2.5 menggunakan sistem dari Kystar</p>
+
+                    <div class="action-buttons-group">
+                        <a href="https://drive.google.com/drive/folders/1vRvSpK-aEwxjQqiEd-unvekPlbJWniWg" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-photo"><i class="bi bi-images"></i> Lihat Foto</a>
+                        <a href="https://drive.google.com/drive/folders/1vRvSpK-aEwxjQqiEd-unvekPlbJWniWg" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-video"><i class="bi bi-camera-reels"></i> Lihat Video</a>
+                    </div>
+
+                    <div class="admin-controls" style="display: none;">
+                        <button class="btn-admin-act btn-edit" onclick="editProject(1)"><i class="bi bi-pencil-square"></i> EDIT</button>
+                        <button class="btn-admin-act btn-delete" onclick="deleteProject(1)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
+                    </div>
+                </article><article class="card-project">
+                    <div class="card-top">
+                        <div class="icon-circuit"><i class="bi bi-motherboard"></i></div>
+                        <div class="card-title-group">
+                            <h3>LED DISPLAY INDOOR P2</h3>
+                            
+                    <div class="location-text">
+                        <i class="bi bi-geo-alt-fill"></i> SINGAPORE INTERNATIONAL SCHOOL
+                    </div>
+                        </div>
+                    </div>
+
+                    <div class="badges-wrapper">
+                        <span class="badge-pill badge-photo"><i class="bi bi-images"></i> Foto</span>
+                        <span class="badge-pill badge-video"><i class="bi bi-play-circle"></i> Video</span>
+                    </div>
+
+                    <p class="card-quote">Pemasangan modul indoor P2 menggunakan kabinet 64*48cm dengan real screen 512*288cm</p>
+
+                    <div class="action-buttons-group">
+                        <a href="https://drive.google.com/drive/folders/1ihZZG8qyJ_5Cfb0tNYzIhEtOtfY1289q" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-photo"><i class="bi bi-images"></i> Lihat Foto</a>
+                        <a href="https://drive.google.com/drive/folders/1ihZZG8qyJ_5Cfb0tNYzIhEtOtfY1289q" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-video"><i class="bi bi-camera-reels"></i> Lihat Video</a>
+                    </div>
+
+                    <div class="admin-controls" style="display: none;">
+                        <button class="btn-admin-act btn-edit" onclick="editProject(2)"><i class="bi bi-pencil-square"></i> EDIT</button>
+                        <button class="btn-admin-act btn-delete" onclick="deleteProject(2)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
+                    </div>
+                </article><article class="card-project">
+                    <div class="card-top">
+                        <div class="icon-circuit"><i class="bi bi-motherboard"></i></div>
+                        <div class="card-title-group">
+                            <h3>PEMASANGAN MODUL INDOOR P2.5 32s</h3>
+                            
+                    <div class="location-text">
+                        <i class="bi bi-geo-alt-fill"></i> GEREJA TM
+                    </div>
+                        </div>
+                    </div>
+
+                    <div class="badges-wrapper">
+                        <span class="badge-pill badge-photo"><i class="bi bi-images"></i> Foto</span>
+                        <span class="badge-pill badge-video"><i class="bi bi-play-circle"></i> Video</span>
+                    </div>
+
+                    <p class="card-quote">pemasangan modul indoor P2.5 di gereja</p>
+
+                    <div class="action-buttons-group">
+                        <a href="https://drive.google.com/drive/folders/1oEkS8rXPr_3xlivlIx9bQJGpLBfVnwdg" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-photo"><i class="bi bi-images"></i> Lihat Foto</a>
+                        <a href="https://drive.google.com/drive/folders/1oEkS8rXPr_3xlivlIx9bQJGpLBfVnwdg" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-video"><i class="bi bi-camera-reels"></i> Lihat Video</a>
+                    </div>
+
+                    <div class="admin-controls" style="display: none;">
+                        <button class="btn-admin-act btn-edit" onclick="editProject(3)"><i class="bi bi-pencil-square"></i> EDIT</button>
+                        <button class="btn-admin-act btn-delete" onclick="deleteProject(3)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
+                    </div>
+                </article></main>
 
     <!-- Floating WhatsApp Button -->
     <a href="https://wa.me/628158855537?text=Halo%20Teknisi%20Videotron,%20saya%20ingin%20berkonsultasi%20mengenai%20proyek/instalasi%20videotron." target="_blank" rel="noopener noreferrer" class="floating-wa-btn" title="Chat WhatsApp">
@@ -754,11 +865,11 @@
     </div>
 
     <!-- Modal Form Tambah/Edit Proyek -->
-    <div id="projectModal" class="modal">
+    <div id="projectModal" class="modal" style="display: none;">
         <div class="modal-card">
-            <h3 id="modalTitle">INPUT PROYEK BARU</h3>
+            <h3 id="modalTitle">EDIT DATA PROYEK</h3>
             <form id="projectForm" onsubmit="handleFormSubmit(event)">
-                <input type="hidden" id="editIndex" value="-1">
+                <input type="hidden" id="editIndex" value="3">
                 <div class="form-group">
                     <label>Nama Proyek</label>
                     <input type="text" id="inputTitle" class="form-control" required="" placeholder="Contoh: VIDEOTRON OUTDOOR P3.9...">
@@ -956,34 +1067,34 @@
 
         let projectsData = [
           {
-            "title": "PEMASANGAN MODUL INDOOR P2.5 64S",
-            "location": "Gereja daerah Ancol",
-            "desc": "Pemasangan modul indoor P2.5 64s",
-            "photoUrl": "https://drive.google.com/drive/folders/1TO4UO4LzMY_G0gj6KMuH53IG3E9f0eTP",
-            "videoUrl": "https://drive.google.com/drive/folders/1TO4UO4LzMY_G0gj6KMuH53IG3E9f0eTP"
+                    "title": "PEMASANGAN MODUL INDOOR P2.5 64S",
+                    "location": "Gereja daerah Ancol",
+                    "desc": "Pemasangan modul indoor P2.5 64s",
+                    "photoUrl": "https://drive.google.com/drive/folders/1TO4UO4LzMY_G0gj6KMuH53IG3E9f0eTP",
+                    "videoUrl": "https://drive.google.com/drive/folders/1TO4UO4LzMY_G0gj6KMuH53IG3E9f0eTP"
           },
           {
-            "title": "INSTALASI VIDEOTRON INDOOR P2.5",
-            "location": "BEKASI",
-            "desc": "Pemasangan modul indoor P2.5 menggunakan sistem dari Kystar",
-            "photoUrl": "https://drive.google.com/drive/folders/1vRvSpK-aEwxjQqiEd-unvekPlbJWniWg",
-            "videoUrl": "https://drive.google.com/drive/folders/1vRvSpK-aEwxjQqiEd-unvekPlbJWniWg"
+                    "title": "INSTALASI VIDEOTRON INDOOR P2.5 32s",
+                    "location": "BEKASI",
+                    "desc": "Pemasangan modul indoor P2.5 menggunakan sistem dari Kystar",
+                    "photoUrl": "https://drive.google.com/drive/folders/1vRvSpK-aEwxjQqiEd-unvekPlbJWniWg",
+                    "videoUrl": "https://drive.google.com/drive/folders/1vRvSpK-aEwxjQqiEd-unvekPlbJWniWg"
           },
           {
-            "title": "LED DISPLAY INDOOR P2",
-            "location": "SINGAPORE INTERNATIONAL SCHOOL",
-            "desc": "Pemasangan modul indoor P2 menggunakan kabinet 64*48cm dengan real screen 512*288cm",
-            "photoUrl": "https://drive.google.com/drive/folders/1ihZZG8qyJ_5Cfb0tNYzIhEtOtfY1289q",
-            "videoUrl": "https://drive.google.com/drive/folders/1ihZZG8qyJ_5Cfb0tNYzIhEtOtfY1289q"
+                    "title": "LED DISPLAY INDOOR P2",
+                    "location": "SINGAPORE INTERNATIONAL SCHOOL",
+                    "desc": "Pemasangan modul indoor P2 menggunakan kabinet 64*48cm dengan real screen 512*288cm",
+                    "photoUrl": "https://drive.google.com/drive/folders/1ihZZG8qyJ_5Cfb0tNYzIhEtOtfY1289q",
+                    "videoUrl": "https://drive.google.com/drive/folders/1ihZZG8qyJ_5Cfb0tNYzIhEtOtfY1289q"
           },
           {
-            "title": "PEMASANGAN MODUL INDOOR P2.5",
-            "location": "GEREJA TM",
-            "desc": "pemasangan modul indoor P2.5 di gereja",
-            "photoUrl": "https://drive.google.com/drive/folders/1oEkS8rXPr_3xlivlIx9bQJGpLBfVnwdg",
-            "videoUrl": "https://drive.google.com/drive/folders/1oEkS8rXPr_3xlivlIx9bQJGpLBfVnwdg"
+                    "title": "PEMASANGAN MODUL INDOOR P2.5 32s",
+                    "location": "GEREJA TM",
+                    "desc": "pemasangan modul indoor P2.5 di gereja",
+                    "photoUrl": "https://drive.google.com/drive/folders/1oEkS8rXPr_3xlivlIx9bQJGpLBfVnwdg",
+                    "videoUrl": "https://drive.google.com/drive/folders/1oEkS8rXPr_3xlivlIx9bQJGpLBfVnwdg"
           }
-        ];
+];
 
         function applyAvatar() {
             document.getElementById("mainProfileAvatar").src = adminAvatarUrl;
@@ -1183,5 +1294,6 @@
         applyMarquee();
         renderProjects();
     </script>
-</body>
-</html>
+
+
+</body></html>
