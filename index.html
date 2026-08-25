@@ -62,7 +62,7 @@
             background-image: 
                 linear-gradient(to right, rgba(0, 242, 254, 0.04) 1px, transparent 1px),
                 linear-gradient(to bottom, rgba(0, 242, 254, 0.04) 1px, transparent 1px);
-            background-size: 160px 160px; /* Ukuran kabinet virtual */
+            background-size: 160px 160px;
             pointer-events: none;
             z-index: -1;
         }
@@ -455,8 +455,10 @@
             font-weight: 600;
         }
 
+        /* Ikon Lokasi Berwarna Hijau Neon */
         .location-text i {
-            color: var(--neon-purple);
+            color: var(--neon-emerald);
+            text-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
         }
 
         .badges-wrapper {
@@ -682,7 +684,7 @@
     <!-- Running Text Videotron Style -->
     <div class="marquee-bar">
         <div class="marquee-tag">
-            <span class="pulse-dot"></span> LIVE STATUS
+            <span class="pulse-dot"></span> 
         </div>
         <div class="marquee-container">
             <div id="marqueeDisplay" class="marquee-content">SELAMAT DATANG DI PORTOFOLIO TEKNISI VIDEOTRON • MELAYANI INSTALASI, MAINTENANCE, &amp; SETTING DISPLAY INDOOR/OUTDOOR SELURUH INDONESIA • HUBUNGI WHATSAPP KAMI</div>
@@ -739,6 +741,62 @@
                     <div class="card-top">
                         <div class="icon-circuit"><i class="bi bi-motherboard"></i></div>
                         <div class="card-title-group">
+                            <h3>PEMASANGAN  MODUL INDOOR P1.25 COB</h3>
+                            
+                    <div class="location-text">
+                        <i class="bi bi-geo-alt-fill"></i> Menara Mandiri
+                    </div>
+                        </div>
+                    </div>
+
+                    <div class="badges-wrapper">
+                        <span class="badge-pill badge-photo"><i class="bi bi-images"></i> Foto</span>
+                        <span class="badge-pill badge-video"><i class="bi bi-play-circle"></i> Video</span>
+                    </div>
+
+                    <p class="card-quote">Pemasangan modul indoor P1.25 COB magnetic tanpa kabinet</p>
+
+                    <div class="action-buttons-group">
+                        <a href="https://drive.google.com/drive/folders/1DRz56h2LeVimIL2vCFcHEq8Ea8gugUsq" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-photo"><i class="bi bi-images"></i> Lihat Foto</a>
+                        <a href="https://drive.google.com/drive/folders/1DRz56h2LeVimIL2vCFcHEq8Ea8gugUsq" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-video"><i class="bi bi-camera-reels"></i> Lihat Video</a>
+                    </div>
+
+                    <div class="admin-controls" style="display: none;">
+                        <button class="btn-admin-act btn-edit" onclick="editProject(0)"><i class="bi bi-pencil-square"></i> EDIT</button>
+                        <button class="btn-admin-act btn-delete" onclick="deleteProject(0)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
+                    </div>
+                </article><article class="card-project">
+                    <div class="card-top">
+                        <div class="icon-circuit"><i class="bi bi-motherboard"></i></div>
+                        <div class="card-title-group">
+                            <h3>PEMASANGAN MODUL INDOOR P2.5 DAN P5</h3>
+                            
+                    <div class="location-text">
+                        <i class="bi bi-geo-alt-fill"></i> KTV Glodok
+                    </div>
+                        </div>
+                    </div>
+
+                    <div class="badges-wrapper">
+                        <span class="badge-pill badge-photo"><i class="bi bi-images"></i> Foto</span>
+                        <span class="badge-pill badge-video"><i class="bi bi-play-circle"></i> Video</span>
+                    </div>
+
+                    <p class="card-quote">Pemasangan nodul indoor P2.5 dan Ceiling P5 beberapa titik</p>
+
+                    <div class="action-buttons-group">
+                        <a href="https://drive.google.com/drive/folders/16ZEyJ6ZUtMIsPoSsXVr4AYNf5TIx1gn6" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-photo"><i class="bi bi-images"></i> Lihat Foto</a>
+                        <a href="https://drive.google.com/drive/folders/16ZEyJ6ZUtMIsPoSsXVr4AYNf5TIx1gn6" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-video"><i class="bi bi-camera-reels"></i> Lihat Video</a>
+                    </div>
+
+                    <div class="admin-controls" style="display: none;">
+                        <button class="btn-admin-act btn-edit" onclick="editProject(1)"><i class="bi bi-pencil-square"></i> EDIT</button>
+                        <button class="btn-admin-act btn-delete" onclick="deleteProject(1)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
+                    </div>
+                </article><article class="card-project">
+                    <div class="card-top">
+                        <div class="icon-circuit"><i class="bi bi-motherboard"></i></div>
+                        <div class="card-title-group">
                             <h3>PEMASANGAN MODUL INDOOR P2.5 64S</h3>
                             
                     <div class="location-text">
@@ -760,14 +818,14 @@
                     </div>
 
                     <div class="admin-controls" style="display: none;">
-                        <button class="btn-admin-act btn-edit" onclick="editProject(0)"><i class="bi bi-pencil-square"></i> EDIT</button>
-                        <button class="btn-admin-act btn-delete" onclick="deleteProject(0)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
+                        <button class="btn-admin-act btn-edit" onclick="editProject(2)"><i class="bi bi-pencil-square"></i> EDIT</button>
+                        <button class="btn-admin-act btn-delete" onclick="deleteProject(2)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
                     </div>
                 </article><article class="card-project">
                     <div class="card-top">
                         <div class="icon-circuit"><i class="bi bi-motherboard"></i></div>
                         <div class="card-title-group">
-                            <h3>INSTALASI VIDEOTRON INDOOR P2.5 32s</h3>
+                            <h3>INSTALASI VIDEOTRON INDOOR P2.5</h3>
                             
                     <div class="location-text">
                         <i class="bi bi-geo-alt-fill"></i> BEKASI
@@ -788,8 +846,8 @@
                     </div>
 
                     <div class="admin-controls" style="display: none;">
-                        <button class="btn-admin-act btn-edit" onclick="editProject(1)"><i class="bi bi-pencil-square"></i> EDIT</button>
-                        <button class="btn-admin-act btn-delete" onclick="deleteProject(1)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
+                        <button class="btn-admin-act btn-edit" onclick="editProject(3)"><i class="bi bi-pencil-square"></i> EDIT</button>
+                        <button class="btn-admin-act btn-delete" onclick="deleteProject(3)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
                     </div>
                 </article><article class="card-project">
                     <div class="card-top">
@@ -816,14 +874,14 @@
                     </div>
 
                     <div class="admin-controls" style="display: none;">
-                        <button class="btn-admin-act btn-edit" onclick="editProject(2)"><i class="bi bi-pencil-square"></i> EDIT</button>
-                        <button class="btn-admin-act btn-delete" onclick="deleteProject(2)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
+                        <button class="btn-admin-act btn-edit" onclick="editProject(4)"><i class="bi bi-pencil-square"></i> EDIT</button>
+                        <button class="btn-admin-act btn-delete" onclick="deleteProject(4)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
                     </div>
                 </article><article class="card-project">
                     <div class="card-top">
                         <div class="icon-circuit"><i class="bi bi-motherboard"></i></div>
                         <div class="card-title-group">
-                            <h3>PEMASANGAN MODUL INDOOR P2.5 32s</h3>
+                            <h3>PEMASANGAN MODUL INDOOR P2.5</h3>
                             
                     <div class="location-text">
                         <i class="bi bi-geo-alt-fill"></i> GEREJA TM
@@ -844,18 +902,18 @@
                     </div>
 
                     <div class="admin-controls" style="display: none;">
-                        <button class="btn-admin-act btn-edit" onclick="editProject(3)"><i class="bi bi-pencil-square"></i> EDIT</button>
-                        <button class="btn-admin-act btn-delete" onclick="deleteProject(3)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
+                        <button class="btn-admin-act btn-edit" onclick="editProject(5)"><i class="bi bi-pencil-square"></i> EDIT</button>
+                        <button class="btn-admin-act btn-delete" onclick="deleteProject(5)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
                     </div>
                 </article></main>
 
     <!-- Floating WhatsApp Button -->
-    <a href="https://wa.me/628158855537?text=Halo%20Mas%20Mbong,%20saya%20ingin%20berkonsultasi%20mengenai%20proyek/instalasi%20videotron." target="_blank" rel="noopener noreferrer" class="floating-wa-btn" title="Chat WhatsApp">
+    <a href="https://wa.me/628158855537?text=Halo%20Teknisi%20Videotron,%20saya%20ingin%20berkonsultasi%20mengenai%20proyek/instalasi%20videotron." target="_blank" rel="noopener noreferrer" class="floating-wa-btn" title="Chat WhatsApp">
         <i class="bi bi-whatsapp"></i>
     </a>
 
     <!-- Modal Lightbox Foto Profil -->
-    <div id="viewAvatarModal" class="modal" onclick="closeViewAvatarModal(event)">
+    <div id="viewAvatarModal" class="modal" onclick="closeViewAvatarModal(event)" style="display: none;">
         <div class="modal-card avatar-preview-box" onclick="event.stopPropagation()">
             <img id="modalPreviewImg" class="avatar-preview-img" src="https://drive.google.com/thumbnail?id=16alnfBBKXonHadKR6ZEC75npzvjUXIgb&amp;sz=w600" alt="Foto Profil">
             <h3 style="margin-bottom: 4px;">TEKNISI VIDEOTRON MBONG</h3>
@@ -867,9 +925,9 @@
     <!-- Modal Form Tambah/Edit Proyek -->
     <div id="projectModal" class="modal" style="display: none;">
         <div class="modal-card">
-            <h3 id="modalTitle">EDIT DATA PROYEK</h3>
+            <h3 id="modalTitle">INPUT PROYEK BARU</h3>
             <form id="projectForm" onsubmit="handleFormSubmit(event)">
-                <input type="hidden" id="editIndex" value="3">
+                <input type="hidden" id="editIndex" value="-1">
                 <div class="form-group">
                     <label>Nama Proyek</label>
                     <input type="text" id="inputTitle" class="form-control" required="" placeholder="Contoh: VIDEOTRON OUTDOOR P3.9...">
@@ -994,7 +1052,7 @@
             tick += 0.03;
 
             // 1. Render LED Pitch Pixel Matrix (Simulasi SMD RGB LED)
-            const pitch = 22; // Jarak antar modul LED
+            const pitch = 22;
             const rows = Math.ceil(height / pitch);
             const cols = Math.ceil(width / pitch);
 
@@ -1007,14 +1065,12 @@
                     // Efek Hover / Touch: Aktivasi Lampu LED Sekitar Kursor
                     if (dist < mouse.radius) {
                         const intensity = (1 - dist / mouse.radius);
-                        // Subpixel RGB Glow
                         ctx.fillStyle = `rgba(0, 242, 254, ${intensity * 0.9})`;
                         ctx.fillRect(x - 1.5, y - 1.5, 3, 3);
 
                         ctx.fillStyle = `rgba(255, 30, 86, ${intensity * 0.7})`;
                         ctx.fillRect(x + 2, y - 1.5, 1.5, 3);
                     } else {
-                        // Ambient Passive LED Matrix (Gelap seperti videotron standby)
                         const wave = Math.sin(tick + (r * 0.15) + (c * 0.1));
                         if (wave > 0.85) {
                             ctx.fillStyle = 'rgba(0, 242, 254, 0.18)';
@@ -1047,7 +1103,6 @@
                 ctx.lineTo(p.x, p.y);
                 ctx.stroke();
 
-                // Titik LED Aktif di Ujung Sinyal
                 ctx.fillStyle = '#ffffff';
                 ctx.fillRect(p.x - 1, p.y - 1, 2.5, 2.5);
             }
@@ -1067,6 +1122,20 @@
 
         let projectsData = [
           {
+                    "title": "PEMASANGAN  MODUL INDOOR P1.25 COB",
+                    "location": "Menara Mandiri",
+                    "desc": "Pemasangan modul indoor P1.25 COB magnetic tanpa kabinet",
+                    "photoUrl": "https://drive.google.com/drive/folders/1DRz56h2LeVimIL2vCFcHEq8Ea8gugUsq",
+                    "videoUrl": "https://drive.google.com/drive/folders/1DRz56h2LeVimIL2vCFcHEq8Ea8gugUsq"
+          },
+          {
+                    "title": "PEMASANGAN MODUL INDOOR P2.5 DAN P5",
+                    "location": "KTV Glodok",
+                    "desc": "Pemasangan nodul indoor P2.5 dan Ceiling P5 beberapa titik",
+                    "photoUrl": "https://drive.google.com/drive/folders/16ZEyJ6ZUtMIsPoSsXVr4AYNf5TIx1gn6",
+                    "videoUrl": "https://drive.google.com/drive/folders/16ZEyJ6ZUtMIsPoSsXVr4AYNf5TIx1gn6"
+          },
+          {
                     "title": "PEMASANGAN MODUL INDOOR P2.5 64S",
                     "location": "Gereja daerah Ancol",
                     "desc": "Pemasangan modul indoor P2.5 64s",
@@ -1074,7 +1143,7 @@
                     "videoUrl": "https://drive.google.com/drive/folders/1TO4UO4LzMY_G0gj6KMuH53IG3E9f0eTP"
           },
           {
-                    "title": "INSTALASI VIDEOTRON INDOOR P2.5 32s",
+                    "title": "INSTALASI VIDEOTRON INDOOR P2.5",
                     "location": "BEKASI",
                     "desc": "Pemasangan modul indoor P2.5 menggunakan sistem dari Kystar",
                     "photoUrl": "https://drive.google.com/drive/folders/1vRvSpK-aEwxjQqiEd-unvekPlbJWniWg",
@@ -1088,7 +1157,7 @@
                     "videoUrl": "https://drive.google.com/drive/folders/1ihZZG8qyJ_5Cfb0tNYzIhEtOtfY1289q"
           },
           {
-                    "title": "PEMASANGAN MODUL INDOOR P2.5 32s",
+                    "title": "PEMASANGAN MODUL INDOOR P2.5",
                     "location": "GEREJA TM",
                     "desc": "pemasangan modul indoor P2.5 di gereja",
                     "photoUrl": "https://drive.google.com/drive/folders/1oEkS8rXPr_3xlivlIx9bQJGpLBfVnwdg",
