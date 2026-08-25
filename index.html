@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="id"><head> 
+<html lang="id">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Videotron Tech Hub - Portofolio</title>
     <!-- Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&amp;family=Rajdhani:wght@500;600;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
         :root {
@@ -13,6 +14,7 @@
             --accent-cyan: #00f0ff;
             --accent-purple: #9d4edd;
             --accent-green: #00ff88;
+            --accent-red: #ff2a4b;
             --accent-wa: #25d366;
             --text-main: #e2e8f0;
             --text-muted: #8492a6;
@@ -37,13 +39,68 @@
             padding-bottom: 90px;
         }
 
+        /* Running Text / Marquee Gaya Videotron Merah */
+        .marquee-videotron-bar {
+            background: #080103;
+            border-bottom: 1px solid rgba(255, 42, 75, 0.4);
+            box-shadow: 0 0 12px rgba(255, 42, 75, 0.2);
+            display: flex;
+            align-items: center;
+            height: 32px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .marquee-tag {
+            background: linear-gradient(135deg, #ff2a4b, #990017);
+            color: #ffffff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 800;
+            padding: 0 10px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            z-index: 2;
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.5);
+        }
+
+        .marquee-container {
+            flex: 1;
+            overflow: hidden;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            white-space: nowrap;
+            padding-left: 100%;
+            animation: marqueeEffect 18s linear infinite;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-red);
+            text-shadow: 0 0 8px rgba(255, 42, 75, 0.8), 0 0 16px rgba(255, 42, 75, 0.4);
+            letter-spacing: 1.5px;
+        }
+
+        @keyframes marqueeEffect {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-100%, 0); }
+        }
+
         /* Top Header */
         .tech-top-bar {
             background: rgba(8, 14, 26, 0.95);
             border-bottom: 1px solid rgba(0, 240, 255, 0.2);
             padding: 10px 16px;
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
             align-items: center;
         }
 
@@ -104,6 +161,11 @@
 
         .btn-avatar {
             background: linear-gradient(135deg, #9d4edd, #5a189a);
+            color: #ffffff;
+        }
+
+        .btn-marquee {
+            background: linear-gradient(135deg, #ff2a4b, #b3001e);
             color: #ffffff;
         }
 
@@ -460,17 +522,31 @@
 </head>
 <body>
 
-    <!-- Header Atas -->
+    <!-- Running Text Videotron Style (Warna Merah) -->
+    <div class="marquee-videotron-bar">
+        <div class="marquee-tag">
+            <i class="bi bi-broadcast"></i> LIVE STATUS
+        </div>
+        <div class="marquee-container">
+            <div id="marqueeDisplay" class="marquee-content">
+                SELAMAT DATANG DI PORTOFOLIO TEKNISI VIDEOTRON • MELAYANI INSTALASI, MAINTENANCE, & SETTING DISPLAY INDOOR/OUTDOOR SELURUH INDONESIA • HUBUNGI WHATSAPP KAMI
+            </div>
+        </div>
+    </div>
+
+    <!-- Header Atas (Tanpa Status Online) -->
     <div class="tech-top-bar">
         <button id="adminAuthBtn" class="admin-pill" onclick="toggleAdminAuth()">
             <i class="bi bi-cpu"></i>
             <span id="adminStatusText">ADMIN LOGIN</span>
         </button>
-        <span style="font-size: 0.8rem; color: var(--text-muted);">STATUS: <b style="color: var(--accent-cyan);">ONLINE</b></span>
     </div>
 
     <!-- Panel Kontrol Khusus Admin -->
-    <div id="adminPanelBar" class="admin-panel-bar" style="display: none;">
+    <div id="adminPanelBar" class="admin-panel-bar">
+        <button class="btn-tech-action btn-marquee" onclick="openMarqueeModal()">
+            <i class="bi bi-chat-left-dots-fill"></i> RUNNING TEXT
+        </button>
         <button class="btn-tech-action btn-avatar" onclick="openAvatarModal()">
             <i class="bi bi-person-bounding-box"></i> UBAH AVATAR
         </button>
@@ -485,7 +561,7 @@
     <!-- Hero Bagian Atas -->
     <div class="profile-hero">
         <div class="profile-avatar-container" onclick="viewAvatarModal()" title="Klik untuk melihat foto profil">
-            <img id="mainProfileAvatar" class="profile-avatar-large" src="https://drive.google.com/thumbnail?id=16alnfBBKXonHadKR6ZEC75npzvjUXIgb&amp;sz=w600" alt="Teknisi Videotron Mbong">
+            <img id="mainProfileAvatar" class="profile-avatar-large" src="https://drive.google.com/thumbnail?id=16alnfBBKXonHadKR6ZEC75npzvjUXIgb&sz=w600" alt="Teknisi Videotron Mbong">
             <div class="profile-badge-icon">
                 <i class="bi bi-search"></i>
             </div>
@@ -500,125 +576,14 @@
         </div>
 
         <!-- Tombol WhatsApp Profil -->
-        <a href="https://wa.me/628158855537?text=Halo%20Mas%20Mbong,%20saya%20ingin%20berkonsultasi%20mengenai%20proyek/instalasi%20videotron." target="_blank" rel="noopener noreferrer" class="btn-wa-profile">
+        <a href="https://wa.me/628158855537?text=Halo%20Teknisi%20Videotron,%20saya%20ingin%20berkonsultasi%20mengenai%20proyek/instalasi%20videotron." target="_blank" rel="noopener noreferrer" class="btn-wa-profile">
             <i class="bi bi-whatsapp"></i> Hubungi via WhatsApp
         </a>
     </div>
 
     <!-- Daftar Kartu Proyek -->
-    <main class="content-container" id="projectContainer"><article class="card-project">
-                    <div class="card-top">
-                        <div class="icon-circuit"><i class="bi bi-motherboard"></i></div>
-                        <div class="card-title-group">
-                            <h3>PEMASANGAN MODUL INDOOR P2.5 DAN P5 (CEILING)</h3>
-                            
-                    <div class="location-text">
-                        <i class="bi bi-geo-alt-fill"></i> KTV Glodok
-                    </div>
-                        </div>
-                    </div>
-
-                    <div class="badges-wrapper">
-                        <span class="badge-pill badge-photo">Foto Dokumentasi</span>
-                        <span class="badge-pill badge-video">Video Testing</span>
-                    </div>
-
-                    <p class="card-quote">pemasangan modul indoor P2.5 dan P5 ceiling atau diatas</p>
-
-                    <div class="action-buttons-group">
-                        <a href="https://drive.google.com/drive/folders/16ZEyJ6ZUtMIsPoSsXVr4AYNf5TIx1gn6" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-photo" title="Buka Folder Foto"><i class="bi bi-images"></i></a>
-                        <a href="https://drive.google.com/drive/folders/16ZEyJ6ZUtMIsPoSsXVr4AYNf5TIx1gn6" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-video" title="Buka Folder Video"><i class="bi bi-camera-reels-fill"></i></a>
-                    </div>
-
-                    <div class="admin-controls" style="display: none;">
-                        <button class="btn-admin-act btn-edit" onclick="editProject(0)"><i class="bi bi-pencil-square"></i> EDIT</button>
-                        <button class="btn-admin-act btn-delete" onclick="deleteProject(0)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
-                    </div>
-                </article><article class="card-project">
-                    <div class="card-top">
-                        <div class="icon-circuit"><i class="bi bi-motherboard"></i></div>
-                        <div class="card-title-group">
-                            <h3>INSTALASI VIDEOTRON INDOOR P2.5</h3>
-                            
-                    <div class="location-text">
-                        <i class="bi bi-geo-alt-fill"></i> BEKASI
-                    </div>
-                        </div>
-                    </div>
-
-                    <div class="badges-wrapper">
-                        <span class="badge-pill badge-photo">Foto Dokumentasi</span>
-                        <span class="badge-pill badge-video">Video Testing</span>
-                    </div>
-
-                    <p class="card-quote">Pemasangan modul indoor P2.5 menggunakan sistem dari Kystar</p>
-
-                    <div class="action-buttons-group">
-                        <a href="https://drive.google.com/drive/folders/1vRvSpK-aEwxjQqiEd-unvekPlbJWniWg" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-photo" title="Buka Folder Foto"><i class="bi bi-images"></i></a>
-                        <a href="https://drive.google.com/drive/folders/1vRvSpK-aEwxjQqiEd-unvekPlbJWniWg" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-video" title="Buka Folder Video"><i class="bi bi-camera-reels-fill"></i></a>
-                    </div>
-
-                    <div class="admin-controls" style="display: none;">
-                        <button class="btn-admin-act btn-edit" onclick="editProject(1)"><i class="bi bi-pencil-square"></i> EDIT</button>
-                        <button class="btn-admin-act btn-delete" onclick="deleteProject(1)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
-                    </div>
-                </article><article class="card-project">
-                    <div class="card-top">
-                        <div class="icon-circuit"><i class="bi bi-motherboard"></i></div>
-                        <div class="card-title-group">
-                            <h3>LED DISPLAY INDOOR P2</h3>
-                            
-                    <div class="location-text">
-                        <i class="bi bi-geo-alt-fill"></i> SINGAPORE INTERNATIONAL SCHOOL
-                    </div>
-                        </div>
-                    </div>
-
-                    <div class="badges-wrapper">
-                        <span class="badge-pill badge-photo">Foto Dokumentasi</span>
-                        <span class="badge-pill badge-video">Video Testing</span>
-                    </div>
-
-                    <p class="card-quote">Pemasangan modul indoor P2 menggunakan kabinet 64*48cm dengan real screen 512*288cm</p>
-
-                    <div class="action-buttons-group">
-                        <a href="https://drive.google.com/drive/folders/1ihZZG8qyJ_5Cfb0tNYzIhEtOtfY1289q" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-photo" title="Buka Folder Foto"><i class="bi bi-images"></i></a>
-                        <a href="https://drive.google.com/drive/folders/1ihZZG8qyJ_5Cfb0tNYzIhEtOtfY1289q" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-video" title="Buka Folder Video"><i class="bi bi-camera-reels-fill"></i></a>
-                    </div>
-
-                    <div class="admin-controls" style="display: none;">
-                        <button class="btn-admin-act btn-edit" onclick="editProject(2)"><i class="bi bi-pencil-square"></i> EDIT</button>
-                        <button class="btn-admin-act btn-delete" onclick="deleteProject(2)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
-                    </div>
-                </article><article class="card-project">
-                    <div class="card-top">
-                        <div class="icon-circuit"><i class="bi bi-motherboard"></i></div>
-                        <div class="card-title-group">
-                            <h3>PEMASANGAN MODUL INDOOR P2.5</h3>
-                            
-                    <div class="location-text">
-                        <i class="bi bi-geo-alt-fill"></i> GEREJA TM
-                    </div>
-                        </div>
-                    </div>
-
-                    <div class="badges-wrapper">
-                        <span class="badge-pill badge-photo">Foto Dokumentasi</span>
-                        <span class="badge-pill badge-video">Video Testing</span>
-                    </div>
-
-                    <p class="card-quote">pemasangan modul indoor P2.5 di gereja</p>
-
-                    <div class="action-buttons-group">
-                        <a href="https://drive.google.com/drive/folders/1oEkS8rXPr_3xlivlIx9bQJGpLBfVnwdg" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-photo" title="Buka Folder Foto"><i class="bi bi-images"></i></a>
-                        <a href="https://drive.google.com/drive/folders/1oEkS8rXPr_3xlivlIx9bQJGpLBfVnwdg" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-video" title="Buka Folder Video"><i class="bi bi-camera-reels-fill"></i></a>
-                    </div>
-
-                    <div class="admin-controls" style="display: none;">
-                        <button class="btn-admin-act btn-edit" onclick="editProject(3)"><i class="bi bi-pencil-square"></i> EDIT</button>
-                        <button class="btn-admin-act btn-delete" onclick="deleteProject(3)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
-                    </div>
-                </article></main>
+    <main class="content-container" id="projectContainer">
+    </main>
 
     <!-- Floating WhatsApp Button -->
     <a href="https://wa.me/628158855537?text=Halo%20Teknisi%20Videotron,%20saya%20ingin%20berkonsultasi%20mengenai%20proyek/instalasi%20videotron." target="_blank" rel="noopener noreferrer" class="floating-wa-btn" title="Chat WhatsApp">
@@ -626,24 +591,24 @@
     </a>
 
     <!-- Modal Lightbox Melihat Foto Profil Besar -->
-    <div id="viewAvatarModal" class="modal" onclick="closeViewAvatarModal(event)" style="display: none;">
+    <div id="viewAvatarModal" class="modal" onclick="closeViewAvatarModal(event)">
         <div class="modal-card avatar-preview-box" onclick="event.stopPropagation()">
-            <img id="modalPreviewImg" class="avatar-preview-img" src="https://drive.google.com/thumbnail?id=16alnfBBKXonHadKR6ZEC75npzvjUXIgb&amp;sz=w600" alt="Foto Profil">
+            <img id="modalPreviewImg" class="avatar-preview-img" src="" alt="Foto Profil">
             <h3 style="margin-bottom: 6px;">TEKNISI VIDEOTRON MBONG</h3>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 14px;">Spesialis Instalasi, Wiring, &amp; Setup Videotron</p>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 14px;">Spesialis Instalasi, Wiring, & Setup Videotron</p>
             <button type="button" class="btn-cancel" style="width: 100%;" onclick="document.getElementById('viewAvatarModal').style.display='none'">Tutup</button>
         </div>
     </div>
 
     <!-- Modal Form Input / Edit Proyek -->
-    <div id="projectModal" class="modal" style="display: none;">
+    <div id="projectModal" class="modal">
         <div class="modal-card">
-            <h3 id="modalTitle">EDIT DATA PROYEK</h3>
+            <h3 id="modalTitle">DATA PROYEK</h3>
             <form id="projectForm" onsubmit="handleFormSubmit(event)">
-                <input type="hidden" id="editIndex" value="0">
+                <input type="hidden" id="editIndex" value="-1">
                 <div class="form-group">
                     <label>Nama Proyek</label>
-                    <input type="text" id="inputTitle" class="form-control" required="" placeholder="Contoh: VIDEOTRON OUTDOOR P3.9...">
+                    <input type="text" id="inputTitle" class="form-control" required placeholder="Contoh: VIDEOTRON OUTDOOR P3.9...">
                 </div>
                 <div class="form-group">
                     <label>Keterangan Tempat / Lokasi (Opsional)</label>
@@ -651,15 +616,15 @@
                 </div>
                 <div class="form-group">
                     <label>Deskripsi Teknis</label>
-                    <textarea id="inputDesc" class="form-control" rows="2" required="" placeholder="Contoh: Konfigurasi NovaStar &amp; kalibrasi..."></textarea>
+                    <textarea id="inputDesc" class="form-control" rows="2" required placeholder="Contoh: Konfigurasi NovaStar & kalibrasi..."></textarea>
                 </div>
                 <div class="form-group">
                     <label>Direct Link Drive (Foto)</label>
-                    <input type="url" id="inputPhotoUrl" class="form-control" required="" placeholder="https://drive.google.com/...">
+                    <input type="url" id="inputPhotoUrl" class="form-control" required placeholder="https://drive.google.com/...">
                 </div>
                 <div class="form-group">
                     <label>Direct Link Drive (Video)</label>
-                    <input type="url" id="inputVideoUrl" class="form-control" required="" placeholder="https://drive.google.com/...">
+                    <input type="url" id="inputVideoUrl" class="form-control" required placeholder="https://drive.google.com/...">
                 </div>
                 <div class="modal-actions">
                     <button type="button" class="btn-cancel" onclick="closeModal()">Batal</button>
@@ -670,13 +635,13 @@
     </div>
 
     <!-- Modal Ubah Foto Profil Admin -->
-    <div id="avatarModal" class="modal" style="display: none;">
+    <div id="avatarModal" class="modal">
         <div class="modal-card">
             <h3>GANTI FOTO PROFIL ADMIN</h3>
             <form onsubmit="handleAvatarSubmit(event)">
                 <div class="form-group">
                     <label>Direct Link / URL Foto Profil</label>
-                    <input type="url" id="inputAvatarUrl" class="form-control" required="" placeholder="https://... atau link direct foto drive">
+                    <input type="url" id="inputAvatarUrl" class="form-control" required placeholder="https://... atau link direct foto drive">
                 </div>
                 <div class="modal-actions">
                     <button type="button" class="btn-cancel" onclick="document.getElementById('avatarModal').style.display='none'">Batal</button>
@@ -686,14 +651,31 @@
         </div>
     </div>
 
+    <!-- Modal Ubah Running Text -->
+    <div id="marqueeModal" class="modal">
+        <div class="modal-card">
+            <h3>EDIT RUNNING TEXT VIDEOTRON</h3>
+            <form onsubmit="handleMarqueeSubmit(event)">
+                <div class="form-group">
+                    <label>Isi Teks Berjalan (Gaya Display LED)</label>
+                    <textarea id="inputMarqueeText" class="form-control" rows="3" required placeholder="Ketik teks berjalan di sini..."></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" onclick="document.getElementById('marqueeModal').style.display='none'">Batal</button>
+                    <button type="submit" class="btn-submit">Update Running Text</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Modal Tampilan Kode Ekspor -->
-    <div id="exportModal" class="modal" style="display: none;">
+    <div id="exportModal" class="modal">
         <div class="modal-card" style="max-width: 500px;">
             <h3>KODE HASIL EKSPOR</h3>
             <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">
-                Kode di bawah telah mencakup seluruh data tempat dan proyek terbaru dalam keadaan <b>Admin Nonaktif (Guest Mode)</b>. Salin dan tempelkan ke file <b>index.html</b> di GitHub Anda.
+                Kode di bawah telah mencakup seluruh data terbaru dalam kondisi <b>Admin Nonaktif</b>. Salin dan tempelkan ke file <b>index.html</b> di GitHub Anda.
             </p>
-            <textarea id="exportTextarea" class="form-control" rows="8" readonly="" style="font-family: monospace; font-size: 0.75rem;"></textarea>
+            <textarea id="exportTextarea" class="form-control" rows="8" readonly style="font-family: monospace; font-size: 0.75rem;"></textarea>
             <div class="modal-actions">
                 <button type="button" class="btn-cancel" onclick="document.getElementById('exportModal').style.display='none'">Tutup</button>
                 <button type="button" class="btn-submit" onclick="copyExportedText()">Salin ke Clipboard</button>
@@ -705,43 +687,44 @@
         const ADMIN_PIN = "gretongers";
         let isAdminLoggedIn = false;
 
+        // FOTO PROFIL ADMIN
         let adminAvatarUrl = "https://drive.google.com/thumbnail?id=16alnfBBKXonHadKR6ZEC75npzvjUXIgb&sz=w600";
+
+        // RUNNING TEXT VIDEOTRON
+        let runningTextContent = "SELAMAT DATANG DI PORTOFOLIO TEKNISI VIDEOTRON • MELAYANI INSTALASI, MAINTENANCE, & SETTING DISPLAY INDOOR/OUTDOOR SELURUH INDONESIA • HUBUNGI WHATSAPP KAMI";
 
         // DATA PROYEK UTAMA
         let projectsData = [
           {
-                    "title": "PEMASANGAN MODUL INDOOR P2.5 DAN P5 (CEILING)",
-                    "location": "KTV Glodok",
-                    "desc": "pemasangan modul indoor P2.5 dan P5 ceiling atau diatas",
-                    "photoUrl": "https://drive.google.com/drive/folders/16ZEyJ6ZUtMIsPoSsXVr4AYNf5TIx1gn6",
-                    "videoUrl": "https://drive.google.com/drive/folders/16ZEyJ6ZUtMIsPoSsXVr4AYNf5TIx1gn6"
+            "title": "INSTALASI VIDEOTRON INDOOR P2.5",
+            "location": "BEKASI",
+            "desc": "Pemasangan modul indoor P2.5 menggunakan sistem dari Kystar",
+            "photoUrl": "https://drive.google.com/drive/folders/1vRvSpK-aEwxjQqiEd-unvekPlbJWniWg",
+            "videoUrl": "https://drive.google.com/drive/folders/1vRvSpK-aEwxjQqiEd-unvekPlbJWniWg"
           },
           {
-                    "title": "INSTALASI VIDEOTRON INDOOR P2.5",
-                    "location": "BEKASI",
-                    "desc": "Pemasangan modul indoor P2.5 menggunakan sistem dari Kystar",
-                    "photoUrl": "https://drive.google.com/drive/folders/1vRvSpK-aEwxjQqiEd-unvekPlbJWniWg",
-                    "videoUrl": "https://drive.google.com/drive/folders/1vRvSpK-aEwxjQqiEd-unvekPlbJWniWg"
+            "title": "LED DISPLAY INDOOR P2",
+            "location": "SINGAPORE INTERNATIONAL SCHOOL",
+            "desc": "Pemasangan modul indoor P2 menggunakan kabinet 64*48cm dengan real screen 512*288cm",
+            "photoUrl": "https://drive.google.com/drive/folders/1ihZZG8qyJ_5Cfb0tNYzIhEtOtfY1289q",
+            "videoUrl": "https://drive.google.com/drive/folders/1ihZZG8qyJ_5Cfb0tNYzIhEtOtfY1289q"
           },
           {
-                    "title": "LED DISPLAY INDOOR P2",
-                    "location": "SINGAPORE INTERNATIONAL SCHOOL",
-                    "desc": "Pemasangan modul indoor P2 menggunakan kabinet 64*48cm dengan real screen 512*288cm",
-                    "photoUrl": "https://drive.google.com/drive/folders/1ihZZG8qyJ_5Cfb0tNYzIhEtOtfY1289q",
-                    "videoUrl": "https://drive.google.com/drive/folders/1ihZZG8qyJ_5Cfb0tNYzIhEtOtfY1289q"
-          },
-          {
-                    "title": "PEMASANGAN MODUL INDOOR P2.5",
-                    "location": "GEREJA TM",
-                    "desc": "pemasangan modul indoor P2.5 di gereja",
-                    "photoUrl": "https://drive.google.com/drive/folders/1oEkS8rXPr_3xlivlIx9bQJGpLBfVnwdg",
-                    "videoUrl": "https://drive.google.com/drive/folders/1oEkS8rXPr_3xlivlIx9bQJGpLBfVnwdg"
+            "title": "PEMASANGAN MODUL INDOOR P2.5",
+            "location": "GEREJA TM",
+            "desc": "pemasangan modul indoor P2.5 di gereja",
+            "photoUrl": "https://drive.google.com/drive/folders/1oEkS8rXPr_3xlivlIx9bQJGpLBfVnwdg",
+            "videoUrl": "https://drive.google.com/drive/folders/1oEkS8rXPr_3xlivlIx9bQJGpLBfVnwdg"
           }
-];
+        ];
 
         function applyAvatar() {
             document.getElementById("mainProfileAvatar").src = adminAvatarUrl;
             document.getElementById("modalPreviewImg").src = adminAvatarUrl;
+        }
+
+        function applyMarquee() {
+            document.getElementById("marqueeDisplay").innerText = runningTextContent;
         }
 
         function viewAvatarModal() {
@@ -831,6 +814,19 @@
             alert("Foto profil berhasil diganti! Klik tombol EKSPOR KODE TERBARU untuk menyimpannya permanen.");
         }
 
+        function openMarqueeModal() {
+            document.getElementById("inputMarqueeText").value = runningTextContent;
+            document.getElementById("marqueeModal").style.display = "flex";
+        }
+
+        function handleMarqueeSubmit(e) {
+            e.preventDefault();
+            runningTextContent = document.getElementById("inputMarqueeText").value.trim();
+            applyMarquee();
+            document.getElementById("marqueeModal").style.display = "none";
+            alert("Running text videotron berhasil diubah! Klik tombol EKSPOR KODE TERBARU untuk menyimpannya permanen.");
+        }
+
         function openModal(index = -1) {
             document.getElementById("projectModal").style.display = "flex";
             document.getElementById("editIndex").value = index;
@@ -882,7 +878,6 @@
         }
 
         function exportUpdatedCode() {
-            // Pastikan mode admin dinonaktifkan sebelum kode diekspor
             const wasAdmin = isAdminLoggedIn;
             isAdminLoggedIn = false;
             document.getElementById("adminStatusText").innerText = "ADMIN LOGIN";
@@ -893,12 +888,12 @@
             const fullHtml = document.documentElement.outerHTML;
             let updatedHtml = "<!DOCTYPE html>\n" + fullHtml
                 .replace(/let adminAvatarUrl = ".*?";/, `let adminAvatarUrl = "${adminAvatarUrl}";`)
+                .replace(/let runningTextContent = ".*?";/, `let runningTextContent = ${JSON.stringify(runningTextContent)};`)
                 .replace(/let projectsData = \[[\s\S]*?\];/, `let projectsData = ${JSON.stringify(projectsData, null, 12)};`);
             
             document.getElementById("exportTextarea").value = updatedHtml;
             document.getElementById("exportModal").style.display = "flex";
 
-            // Kembalikan status admin aktif di layar kerja saat ini
             if (wasAdmin) {
                 isAdminLoggedIn = true;
                 document.getElementById("adminStatusText").innerText = "ADMIN ACTIVE";
@@ -922,8 +917,8 @@
         }
 
         applyAvatar();
+        applyMarquee();
         renderProjects();
     </script>
-
-
-</body></html>
+</body>
+</html>
