@@ -1,71 +1,158 @@
 <!DOCTYPE html>
-<html lang="id"> 
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Videotron Tech Hub - Portofolio</title>
     <!-- Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@700;800&family=Orbitron:wght@700;900&family=JetBrains+Mono:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
         :root {
-            --bg-base: #060b13;
-            --card-bg: rgba(13, 23, 38, 0.9);
-            --accent-cyan: #00f0ff;
-            --accent-purple: #9d4edd;
-            --accent-green: #00ff88;
-            --accent-red: #ff2a4b;
-            --accent-wa: #25d366;
-            --text-main: #e2e8f0;
-            --text-muted: #8492a6;
+            --bg-deep: #02040a;
+            --card-glass: rgba(6, 11, 24, 0.82);
+            --card-border: rgba(0, 242, 254, 0.25);
+            --card-hover-border: rgba(0, 242, 254, 0.7);
+            --neon-cyan: #00f2fe;
+            --neon-blue: #38bdf8;
+            --neon-purple: #a855f7;
+            --neon-emerald: #10b981;
+            --neon-red: #ff1e56;
+            --text-title: #f8fafc;
+            --text-body: #94a3b8;
+            --text-muted: #64748b;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Rajdhani', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: var(--bg-base);
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(0, 240, 255, 0.05) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(157, 78, 221, 0.05) 0%, transparent 20%),
-                linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
-            background-size: 100% 100%, 100% 100%, 30px 30px, 30px 30px;
-            color: var(--text-main);
+            background-color: var(--bg-deep);
+            color: var(--text-title);
             padding-bottom: 90px;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        /* Running Text / Marquee Gaya Videotron Merah */
-        .marquee-videotron-bar {
-            background: #080103;
-            border-bottom: 1px solid rgba(255, 42, 75, 0.4);
-            box-shadow: 0 0 12px rgba(255, 42, 75, 0.2);
+        /* Canvas LED Module & Sinyal Data */
+        #videotronCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* Struktur Seam / Sambungan Garis Antar Kabinet Videotron */
+        .cabinet-grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: 
+                linear-gradient(to right, rgba(0, 242, 254, 0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 242, 254, 0.04) 1px, transparent 1px);
+            background-size: 160px 160px; /* Ukuran kabinet virtual */
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Scanline Vertikal & Horizontal Khas Refresh Rate Tinggi */
+        .scanline-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(
+                to bottom,
+                rgba(255, 255, 255, 0),
+                rgba(255, 255, 255, 0) 50%,
+                rgba(0, 0, 0, 0.5) 50%,
+                rgba(0, 0, 0, 0.5)
+            );
+            background-size: 100% 3px;
+            pointer-events: none;
+            z-index: 10;
+            opacity: 0.65;
+        }
+
+        /* Laser Sweep Refresh Rate */
+        .beam-scan {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 6px;
+            background: linear-gradient(90deg, transparent, rgba(0, 242, 254, 0.8), transparent);
+            box-shadow: 0 0 20px var(--neon-cyan);
+            pointer-events: none;
+            z-index: 11;
+            animation: beamMove 6s linear infinite;
+            opacity: 0.4;
+        }
+
+        @keyframes beamMove {
+            0% { top: -10px; opacity: 0; }
+            15% { opacity: 0.7; }
+            85% { opacity: 0.7; }
+            100% { top: 100vh; opacity: 0; }
+        }
+
+        /* Running Ticker / Marquee */
+        .marquee-bar {
+            background: rgba(10, 2, 8, 0.95);
+            border-bottom: 2px solid var(--neon-red);
+            box-shadow: 0 0 20px rgba(255, 30, 86, 0.45);
             display: flex;
             align-items: center;
-            height: 32px;
+            height: 48px;
             overflow: hidden;
             position: relative;
+            backdrop-filter: blur(12px);
+            z-index: 25;
         }
 
         .marquee-tag {
-            background: linear-gradient(135deg, #ff2a4b, #990017);
+            background: linear-gradient(135deg, var(--neon-red), #88001d);
             color: #ffffff;
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.72rem;
-            font-weight: 800;
-            padding: 0 10px;
+            font-size: 0.8rem;
+            font-weight: 900;
+            padding: 0 16px;
             height: 100%;
             display: flex;
             align-items: center;
-            gap: 4px;
-            z-index: 2;
+            gap: 8px;
+            z-index: 5;
+            letter-spacing: 1px;
+            box-shadow: 6px 0 20px rgba(0, 0, 0, 0.8);
             white-space: nowrap;
-            letter-spacing: 0.5px;
-            box-shadow: 2px 0 8px rgba(0,0,0,0.5);
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #ffffff;
+            animation: pulse-glow 1.2s infinite ease-in-out;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 1; transform: scale(1.1); }
+            50% { opacity: 0.3; transform: scale(0.8); }
         }
 
         .marquee-container {
@@ -80,114 +167,125 @@
             display: inline-block;
             white-space: nowrap;
             padding-left: 100%;
-            animation: marqueeEffect 18s linear infinite;
+            animation: marquee 20s linear infinite;
             font-family: 'Orbitron', monospace;
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--accent-red);
-            text-shadow: 0 0 8px rgba(255, 42, 75, 0.8), 0 0 16px rgba(255, 42, 75, 0.4);
-            letter-spacing: 1.5px;
+            font-size: 1.08rem;
+            font-weight: 800;
+            color: #ff3366;
+            text-shadow: 0 0 10px rgba(255, 51, 102, 0.9), 0 0 20px rgba(255, 30, 86, 0.6);
+            letter-spacing: 2px;
         }
 
-        @keyframes marqueeEffect {
+        @keyframes marquee {
             0% { transform: translate(0, 0); }
             100% { transform: translate(-100%, 0); }
         }
 
-        /* Top Header */
+        /* Top Bar Minimalis */
         .tech-top-bar {
-            background: rgba(8, 14, 26, 0.95);
-            border-bottom: 1px solid rgba(0, 240, 255, 0.2);
-            padding: 10px 16px;
+            padding: 16px 20px;
             display: flex;
-            justify-content: flex-start;
+            justify-content: flex-end;
             align-items: center;
+            max-width: 520px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 20;
         }
 
-        .admin-pill {
-            background: linear-gradient(135deg, #091a2f, #040914);
-            border: 1px solid var(--accent-cyan);
-            color: var(--accent-cyan);
-            padding: 5px 14px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 700;
+        .admin-icon-btn {
+            background: rgba(13, 22, 41, 0.85);
+            border: 1px solid rgba(0, 242, 254, 0.35);
+            color: var(--neon-cyan);
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
+            font-size: 1.25rem;
             cursor: pointer;
-            box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 14px rgba(0, 242, 254, 0.2);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(12px);
         }
 
-        .admin-pill.active {
-            border-color: var(--accent-green);
-            color: var(--accent-green);
-            box-shadow: 0 0 12px rgba(0, 255, 136, 0.3);
+        .admin-icon-btn:hover {
+            transform: translateY(-2px) scale(1.05);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 6px 24px rgba(0, 242, 254, 0.45);
         }
 
-        /* Admin Control Panel Toolbar */
+        .admin-icon-btn.active {
+            border-color: var(--neon-emerald);
+            color: var(--neon-emerald);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.55);
+        }
+
+        /* Admin Toolbar */
         .admin-panel-bar {
             display: none;
-            background: rgba(13, 23, 38, 0.98);
-            border-bottom: 2px solid var(--accent-cyan);
-            padding: 10px 16px;
+            background: rgba(8, 14, 28, 0.96);
+            border-bottom: 2px solid var(--neon-cyan);
+            padding: 12px 16px;
             gap: 8px;
             flex-wrap: wrap;
             justify-content: center;
             position: sticky;
             top: 0;
-            z-index: 30;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            z-index: 50;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
         }
 
         .btn-tech-action {
-            background: linear-gradient(135deg, #00f0ff, #0077b6);
-            color: #060b13;
+            background: linear-gradient(135deg, var(--neon-cyan), #0284c7);
+            color: #040914;
             border: none;
-            padding: 6px 14px;
-            border-radius: 4px;
+            padding: 8px 14px;
+            border-radius: 8px;
             font-weight: 700;
-            font-size: 0.82rem;
+            font-size: 0.8rem;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
             gap: 6px;
+            letter-spacing: 0.4px;
+            transition: all 0.2s ease;
         }
 
-        .btn-export {
-            background: linear-gradient(135deg, #00ff88, #00875a);
-            color: #060b13;
+        .btn-tech-action:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.15);
         }
 
-        .btn-avatar {
-            background: linear-gradient(135deg, #9d4edd, #5a189a);
-            color: #ffffff;
-        }
+        .btn-export { background: linear-gradient(135deg, #10b981, #059669); color: #fff; }
+        .btn-avatar { background: linear-gradient(135deg, #a855f7, #7c3aed); color: #fff; }
+        .btn-marquee { background: linear-gradient(135deg, #ff1e56, #be123c); color: #fff; }
 
-        .btn-marquee {
-            background: linear-gradient(135deg, #ff2a4b, #b3001e);
-            color: #ffffff;
-        }
-
-        /* Hero Profile Section */
+        /* Profile Section */
         .profile-hero {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 24px 16px 16px;
+            padding: 8px 20px 24px;
             text-align: center;
+            position: relative;
+            z-index: 20;
         }
 
-        .profile-avatar-container {
+        .avatar-wrapper {
             position: relative;
             cursor: pointer;
-            display: inline-block;
-            transition: transform 0.2s ease;
+            padding: 4px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+            box-shadow: 0 0 30px rgba(0, 242, 254, 0.45);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .profile-avatar-container:hover {
-            transform: scale(1.05);
+        .avatar-wrapper:hover {
+            transform: scale(1.06);
         }
 
         .profile-avatar-large {
@@ -195,91 +293,282 @@
             height: 110px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid var(--accent-cyan);
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.4), inset 0 0 10px rgba(0, 240, 255, 0.3);
             display: block;
+            border: 3px solid var(--bg-deep);
         }
 
-        .profile-badge-icon {
+        .avatar-badge-lens {
             position: absolute;
             bottom: 2px;
-            right: 4px;
-            background: #091a2f;
-            border: 1.5px solid var(--accent-cyan);
-            color: var(--accent-cyan);
+            right: 2px;
+            background: #0b1220;
+            border: 1.5px solid var(--neon-cyan);
+            color: var(--neon-cyan);
             border-radius: 50%;
-            width: 26px;
-            height: 26px;
+            width: 28px;
+            height: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
         }
 
         .profile-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.3rem;
+            font-family: 'Syne', sans-serif;
+            font-size: 1.65rem;
             font-weight: 800;
             color: #ffffff;
-            margin-top: 12px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
+            margin-top: 16px;
+            letter-spacing: 0.5px;
         }
 
         .profile-title span {
-            color: var(--accent-cyan);
+            background: linear-gradient(135deg, var(--neon-cyan), #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-left: 5px;
         }
 
         .profile-desc-box {
             max-width: 480px;
             margin-top: 12px;
-            background: rgba(13, 23, 38, 0.6);
-            border: 1px solid rgba(0, 240, 255, 0.15);
-            border-radius: 8px;
-            padding: 12px 16px;
-            text-align: center;
-            backdrop-filter: blur(4px);
+            background: var(--card-glass);
+            border: 1px solid var(--card-border);
+            border-radius: 18px;
+            padding: 16px 20px;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
         }
 
         .profile-desc-tag {
             display: inline-block;
-            color: var(--accent-cyan);
+            color: var(--neon-cyan);
             font-weight: 700;
-            font-size: 0.95rem;
-            letter-spacing: 1px;
+            font-size: 0.82rem;
+            letter-spacing: 1.4px;
             text-transform: uppercase;
             margin-bottom: 6px;
         }
 
         .profile-desc-text {
-            font-size: 0.88rem;
+            font-size: 0.9rem;
             color: #cbd5e1;
-            line-height: 1.5;
-            font-weight: 500;
+            line-height: 1.6;
         }
 
-        /* Profile WhatsApp Button */
         .btn-wa-profile {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 18px;
+            background: linear-gradient(135deg, #25d366, #15803d);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 6px 22px rgba(37, 211, 102, 0.35);
+            transition: all 0.25s ease;
+        }
+
+        .btn-wa-profile:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(37, 211, 102, 0.5);
+        }
+
+        /* Container & Proyek */
+        .content-container {
+            max-width: 500px;
+            margin: 10px auto;
+            padding: 0 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            position: relative;
+            z-index: 20;
+        }
+
+        .card-project {
+            background: var(--card-glass);
+            border: 1px solid var(--card-border);
+            border-radius: 18px;
+            padding: 18px;
+            backdrop-filter: blur(14px);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-project::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-cyan), transparent 85%);
+            opacity: 0.8;
+        }
+
+        .card-project:hover {
+            border-color: var(--card-hover-border);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 36px rgba(0, 242, 254, 0.2);
+        }
+
+        .card-top {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+
+        .icon-circuit {
+            width: 44px;
+            height: 44px;
+            min-width: 44px;
+            background: rgba(0, 242, 254, 0.08);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--neon-cyan);
+            font-size: 1.3rem;
+            box-shadow: inset 0 0 10px rgba(0, 242, 254, 0.12);
+        }
+
+        .card-title-group h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1rem;
+            color: #ffffff;
+            letter-spacing: 0.3px;
+            margin-bottom: 5px;
+            line-height: 1.3;
+        }
+
+        .location-text {
+            font-size: 0.82rem;
+            color: var(--neon-cyan);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 600;
+        }
+
+        .location-text i {
+            color: var(--neon-purple);
+        }
+
+        .badges-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin: 12px 0 10px;
+        }
+
+        .badge-pill {
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            letter-spacing: 0.4px;
+        }
+
+        .badge-photo {
+            background: rgba(16, 185, 129, 0.12);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .badge-video {
+            background: rgba(168, 85, 247, 0.12);
+            color: #c084fc;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+        }
+
+        .card-quote {
+            font-size: 0.88rem;
+            color: var(--text-body);
+            line-height: 1.5;
+            margin-bottom: 16px;
+            border-left: 2px solid rgba(255, 255, 255, 0.14);
+            padding-left: 10px;
+        }
+
+        .action-buttons-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .btn-drive-link {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            margin-top: 14px;
-            background: linear-gradient(135deg, #25d366, #128c7e);
-            color: #ffffff;
+            height: 42px;
+            border-radius: 10px;
             text-decoration: none;
-            padding: 8px 20px;
-            border-radius: 20px;
+            font-size: 0.84rem;
             font-weight: 700;
-            font-size: 0.9rem;
-            letter-spacing: 0.5px;
-            box-shadow: 0 0 15px rgba(37, 211, 102, 0.3);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: all 0.2s ease;
         }
 
-        .btn-wa-profile:hover {
-            transform: scale(1.03);
-            box-shadow: 0 0 20px rgba(37, 211, 102, 0.5);
+        .btn-drive-photo {
+            background: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            color: #34d399;
+        }
+
+        .btn-drive-photo:hover {
+            background: rgba(16, 185, 129, 0.22);
+            border-color: #34d399;
+        }
+
+        .btn-drive-video {
+            background: rgba(168, 85, 247, 0.08);
+            border: 1px solid rgba(168, 85, 247, 0.35);
+            color: #c084fc;
+        }
+
+        .btn-drive-video:hover {
+            background: rgba(168, 85, 247, 0.22);
+            border-color: #c084fc;
+        }
+
+        .admin-controls {
+            display: none;
+            gap: 8px;
+            margin-top: 14px;
+            padding-top: 12px;
+            border-top: 1px dashed rgba(255, 255, 255, 0.12);
+        }
+
+        .btn-admin-act {
+            flex: 1;
+            padding: 8px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .btn-edit {
+            background: rgba(0, 242, 254, 0.15);
+            color: var(--neon-cyan);
+            border: 1px solid var(--neon-cyan);
+        }
+
+        .btn-delete {
+            background: rgba(239, 68, 68, 0.15);
+            color: #f87171;
+            border: 1px solid #ef4444;
         }
 
         /* Floating WhatsApp Button */
@@ -295,255 +584,121 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
+            font-size: 1.7rem;
             text-decoration: none;
-            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            box-shadow: 0 6px 28px rgba(37, 211, 102, 0.45);
             z-index: 99;
-            transition: transform 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .floating-wa-btn:hover {
             transform: scale(1.1);
         }
 
-        /* Container & Cards */
-        .content-container {
-            max-width: 500px;
-            margin: 10px auto;
-            padding: 0 14px;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-
-        .card-project {
-            background: var(--card-bg);
-            border: 1px solid rgba(0, 240, 255, 0.18);
-            border-left: 3px solid var(--accent-cyan);
-            border-radius: 8px;
-            padding: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(8px);
-        }
-
-        .card-top {
-            display: flex;
-            gap: 12px;
-            align-items: flex-start;
-        }
-
-        .icon-circuit {
-            width: 44px;
-            height: 44px;
-            min-width: 44px;
-            background: linear-gradient(135deg, rgba(0, 240, 255, 0.15), rgba(157, 78, 221, 0.15));
-            border: 1px solid rgba(0, 240, 255, 0.4);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--accent-cyan);
-            font-size: 1.3rem;
-        }
-
-        .card-title-group h3 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.95rem;
-            color: #ffffff;
-            letter-spacing: 0.5px;
-            margin-bottom: 4px;
-        }
-
-        .location-text {
-            font-size: 0.85rem;
-            color: var(--accent-cyan);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-weight: 600;
-        }
-
-        .location-text i {
-            color: var(--accent-purple);
-        }
-
-        .badges-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin: 12px 0;
-        }
-
-        .badge-pill {
-            font-size: 0.75rem;
-            font-weight: 700;
-            padding: 3px 10px;
-            border-radius: 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .badge-photo {
-            background: rgba(0, 255, 136, 0.08);
-            color: var(--accent-green);
-            border: 1px solid rgba(0, 255, 136, 0.3);
-        }
-
-        .badge-video {
-            background: rgba(157, 78, 221, 0.08);
-            color: #d8b4fe;
-            border: 1px solid rgba(157, 78, 221, 0.3);
-        }
-
-        .card-quote {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            line-height: 1.4;
-            margin-bottom: 14px;
-            border-left: 2px solid rgba(255, 255, 255, 0.1);
-            padding-left: 8px;
-        }
-
-        .action-buttons-group {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .btn-drive-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 38px;
-            border-radius: 6px;
-            text-decoration: none;
-            background: rgba(255, 255, 255, 0.02);
-            font-size: 1.15rem;
-            transition: all 0.2s ease;
-        }
-
-        .btn-drive-photo {
-            border: 1px solid rgba(0, 255, 136, 0.4);
-            color: var(--accent-green);
-        }
-
-        .btn-drive-video {
-            border: 1px solid rgba(157, 78, 221, 0.4);
-            color: #d8b4fe;
-        }
-
-        .admin-controls {
-            display: none;
-            gap: 8px;
-            margin-top: 12px;
-            padding-top: 10px;
-            border-top: 1px dashed rgba(255, 255, 255, 0.1);
-        }
-
-        .btn-admin-act {
-            flex: 1;
-            padding: 6px;
-            font-size: 0.78rem;
-            font-weight: 700;
-            border-radius: 4px;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 4px;
-        }
-
-        .btn-edit {
-            background: rgba(0, 240, 255, 0.15);
-            color: var(--accent-cyan);
-            border: 1px solid var(--accent-cyan);
-        }
-
-        .btn-delete {
-            background: rgba(239, 68, 68, 0.15);
-            color: #f87171;
-            border: 1px solid #ef4444;
-        }
-
-        /* Modal Elements */
+        /* Modals */
         .modal {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(6px);
-            z-index: 100;
+            background: rgba(2, 6, 15, 0.88);
+            backdrop-filter: blur(10px);
+            z-index: 200;
             align-items: center;
             justify-content: center;
             padding: 16px;
         }
 
         .modal-card {
-            background: #0d1726;
-            border: 1px solid var(--accent-cyan);
-            border-radius: 8px;
+            background: #091020;
+            border: 1px solid var(--neon-cyan);
+            border-radius: 16px;
             width: 100%;
             max-width: 440px;
-            padding: 20px;
+            padding: 24px;
+            box-shadow: 0 10px 40px rgba(0, 242, 254, 0.25);
         }
 
         .modal-card h3 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--accent-cyan);
-            margin-bottom: 14px;
-            font-size: 1rem;
+            font-family: 'Syne', sans-serif;
+            color: var(--neon-cyan);
+            margin-bottom: 16px;
+            font-size: 1.1rem;
         }
 
-        .form-group { margin-bottom: 12px; }
-        .form-group label { display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 4px; }
-        .form-control { width: 100%; background: #060b13; border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 4px; padding: 8px 10px; color: #ffffff; outline: none; }
-        .modal-actions { display: flex; gap: 10px; margin-top: 18px; }
-        .btn-submit { flex: 1; background: var(--accent-cyan); color: #060b13; border: none; padding: 8px; font-weight: 700; border-radius: 4px; cursor: pointer; }
-        .btn-cancel { flex: 1; background: transparent; color: var(--text-muted); border: 1px solid var(--text-muted); padding: 8px; border-radius: 4px; cursor: pointer; }
-
-        /* Fullscreen Lightbox */
-        .avatar-preview-box {
-            text-align: center;
+        .form-group { margin-bottom: 14px; }
+        .form-group label { display: block; font-size: 0.8rem; color: var(--text-body); margin-bottom: 5px; font-weight: 600; }
+        .form-control { 
+            width: 100%; 
+            background: #040813; 
+            border: 1px solid rgba(255, 255, 255, 0.15); 
+            border-radius: 8px; 
+            padding: 10px 12px; 
+            color: #ffffff; 
+            outline: none; 
+            font-size: 0.88rem;
+        }
+        .form-control:focus { border-color: var(--neon-cyan); }
+        .modal-actions { display: flex; gap: 10px; margin-top: 20px; }
+        .btn-submit { 
+            flex: 1; 
+            background: linear-gradient(135deg, var(--neon-cyan), #0284c7); 
+            color: #040914; 
+            border: none; 
+            padding: 10px; 
+            font-weight: 700; 
+            border-radius: 8px; 
+            cursor: pointer; 
+        }
+        .btn-cancel { 
+            flex: 1; 
+            background: transparent; 
+            color: var(--text-body); 
+            border: 1px solid rgba(255, 255, 255, 0.2); 
+            padding: 10px; 
+            border-radius: 8px; 
+            cursor: pointer; 
         }
 
+        .avatar-preview-box { text-align: center; }
         .avatar-preview-img {
-            max-width: 280px;
-            max-height: 280px;
-            width: 100%;
-            height: auto;
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid var(--accent-cyan);
-            box-shadow: 0 0 25px rgba(0, 240, 255, 0.4);
-            margin-bottom: 16px;
+            border: 3px solid var(--neon-cyan);
+            box-shadow: 0 0 30px rgba(0, 242, 254, 0.4);
+            margin: 0 auto 16px;
+            display: block;
         }
     </style>
 </head>
 <body>
 
-    <!-- Running Text Videotron Style (Warna Merah) -->
-    <div class="marquee-videotron-bar">
+    <!-- Canvas LED Videotron & Struktur Grid -->
+    <canvas id="videotronCanvas"></canvas>
+    <div class="cabinet-grid-overlay"></div>
+    <div class="scanline-overlay"></div>
+    <div class="beam-scan"></div>
+
+    <!-- Running Text Videotron Style -->
+    <div class="marquee-bar">
         <div class="marquee-tag">
-            <i class="bi bi-broadcast"></i> LIVE STATUS
+            <span class="pulse-dot"></span> LIVE STATUS
         </div>
         <div class="marquee-container">
-            <div id="marqueeDisplay" class="marquee-content">
-                SELAMAT DATANG DI PORTOFOLIO TEKNISI VIDEOTRON • MELAYANI INSTALASI, MAINTENANCE, & SETTING DISPLAY INDOOR/OUTDOOR SELURUH INDONESIA • HUBUNGI WHATSAPP KAMI
-            </div>
+            <div id="marqueeDisplay" class="marquee-content">SELAMAT DATANG DI PORTOFOLIO TEKNISI VIDEOTRON • MELAYANI INSTALASI, MAINTENANCE, &amp; SETTING DISPLAY INDOOR/OUTDOOR SELURUH INDONESIA • HUBUNGI WHATSAPP KAMI</div>
         </div>
     </div>
 
-    <!-- Header Atas (Tanpa Status Online) -->
-    <div class="tech-top-bar">
-        <button id="adminAuthBtn" class="admin-pill" onclick="toggleAdminAuth()">
-            <i class="bi bi-cpu"></i>
-            <span id="adminStatusText">ADMIN LOGIN</span>
+    <!-- Top Bar Minimalis (Icon Admin Saja) -->
+    <header class="tech-top-bar">
+        <button id="adminAuthBtn" class="admin-icon-btn" onclick="toggleAdminAuth()" title="Admin Control">
+            <i class="bi bi-cpu-fill"></i>
         </button>
-    </div>
+    </header>
 
     <!-- Panel Kontrol Khusus Admin -->
-    <div id="adminPanelBar" class="admin-panel-bar">
+    <div id="adminPanelBar" class="admin-panel-bar" style="display: none;">
         <button class="btn-tech-action btn-marquee" onclick="openMarqueeModal()">
             <i class="bi bi-chat-left-dots-fill"></i> RUNNING TEXT
         </button>
@@ -554,77 +709,75 @@
             <i class="bi bi-plus-circle-fill"></i> TAMBAH PROYEK
         </button>
         <button class="btn-tech-action btn-export" onclick="exportUpdatedCode()">
-            <i class="bi bi-code-slash"></i> EKSPOR KODE TERBARU
+            <i class="bi bi-code-slash"></i> EKSPOR KODE
         </button>
     </div>
 
-    <!-- Hero Bagian Atas -->
+    <!-- Hero Profile -->
     <div class="profile-hero">
-        <div class="profile-avatar-container" onclick="viewAvatarModal()" title="Klik untuk melihat foto profil">
-            <img id="mainProfileAvatar" class="profile-avatar-large" src="https://drive.google.com/thumbnail?id=16alnfBBKXonHadKR6ZEC75npzvjUXIgb&sz=w600" alt="Teknisi Videotron Mbong">
-            <div class="profile-badge-icon">
-                <i class="bi bi-search"></i>
+        <div class="avatar-wrapper" onclick="viewAvatarModal()" title="Klik untuk melihat foto profil">
+            <img id="mainProfileAvatar" class="profile-avatar-large" src="https://drive.google.com/thumbnail?id=16alnfBBKXonHadKR6ZEC75npzvjUXIgb&amp;sz=w600" alt="Teknisi Videotron">
+            <div class="avatar-badge-lens">
+                <i class="bi bi-eye"></i>
             </div>
         </div>
         <h1 class="profile-title">TEKNISI<span>VIDEOTRON</span></h1>
         
         <div class="profile-desc-box">
-            <div class="profile-desc-tag">Teknisi Videotron</div>
+            <div class="profile-desc-tag">Technical Specialist</div>
             <p class="profile-desc-text">
-                Berpengalaman dalam setting videotron via remote, konfigurasi sistem, troubleshooting, hingga instalasi di lapangan. Terbiasa menangani kebutuhan teknis dengan cepat, rapi, dan menyesuaikan kondisi di lapangan.
+                Berpengalaman dalam setting videotron via remote, konfigurasi sistem, troubleshooting, hingga instalasi di lapangan. Terbiasa menangani kebutuhan teknis dengan cepat, rapi, dan adaptif.
             </p>
         </div>
 
-        <!-- Tombol WhatsApp Profil -->
         <a href="https://wa.me/628158855537?text=Halo%20Mas%20Mbong,%20saya%20ingin%20berkonsultasi%20mengenai%20proyek/instalasi%20videotron." target="_blank" rel="noopener noreferrer" class="btn-wa-profile">
-            <i class="bi bi-whatsapp"></i> Hubungi via WhatsApp
+            <i class="bi bi-whatsapp"></i> Hubungi WhatsApp
         </a>
     </div>
 
-    <!-- Daftar Kartu Proyek -->
-    <main class="content-container" id="projectContainer">
-    </main>
+    <!-- Container Daftar Proyek -->
+    <main class="content-container" id="projectContainer"></main>
 
     <!-- Floating WhatsApp Button -->
     <a href="https://wa.me/628158855537?text=Halo%20Teknisi%20Videotron,%20saya%20ingin%20berkonsultasi%20mengenai%20proyek/instalasi%20videotron." target="_blank" rel="noopener noreferrer" class="floating-wa-btn" title="Chat WhatsApp">
         <i class="bi bi-whatsapp"></i>
     </a>
 
-    <!-- Modal Lightbox Melihat Foto Profil Besar -->
+    <!-- Modal Lightbox Foto Profil -->
     <div id="viewAvatarModal" class="modal" onclick="closeViewAvatarModal(event)">
         <div class="modal-card avatar-preview-box" onclick="event.stopPropagation()">
-            <img id="modalPreviewImg" class="avatar-preview-img" src="" alt="Foto Profil">
-            <h3 style="margin-bottom: 6px;">TEKNISI VIDEOTRON MBONG</h3>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 14px;">Spesialis Instalasi, Wiring, & Setup Videotron</p>
+            <img id="modalPreviewImg" class="avatar-preview-img" src="https://drive.google.com/thumbnail?id=16alnfBBKXonHadKR6ZEC75npzvjUXIgb&amp;sz=w600" alt="Foto Profil">
+            <h3 style="margin-bottom: 4px;">TEKNISI VIDEOTRON MBONG</h3>
+            <p style="font-size: 0.85rem; color: var(--text-body); margin-bottom: 16px;">Spesialis Instalasi, Wiring, &amp; Setup Videotron</p>
             <button type="button" class="btn-cancel" style="width: 100%;" onclick="document.getElementById('viewAvatarModal').style.display='none'">Tutup</button>
         </div>
     </div>
 
-    <!-- Modal Form Input / Edit Proyek -->
+    <!-- Modal Form Tambah/Edit Proyek -->
     <div id="projectModal" class="modal">
         <div class="modal-card">
-            <h3 id="modalTitle">DATA PROYEK</h3>
+            <h3 id="modalTitle">INPUT PROYEK BARU</h3>
             <form id="projectForm" onsubmit="handleFormSubmit(event)">
                 <input type="hidden" id="editIndex" value="-1">
                 <div class="form-group">
                     <label>Nama Proyek</label>
-                    <input type="text" id="inputTitle" class="form-control" required placeholder="Contoh: VIDEOTRON OUTDOOR P3.9...">
+                    <input type="text" id="inputTitle" class="form-control" required="" placeholder="Contoh: VIDEOTRON OUTDOOR P3.9...">
                 </div>
                 <div class="form-group">
-                    <label>Keterangan Tempat / Lokasi (Opsional)</label>
-                    <input type="text" id="inputLocation" class="form-control" placeholder="Contoh: Bestindo Sports Center / Jakarta Selatan">
+                    <label>Lokasi (Opsional)</label>
+                    <input type="text" id="inputLocation" class="form-control" placeholder="Contoh: BEKASI / JAKARTA">
                 </div>
                 <div class="form-group">
                     <label>Deskripsi Teknis</label>
-                    <textarea id="inputDesc" class="form-control" rows="2" required placeholder="Contoh: Konfigurasi NovaStar & kalibrasi..."></textarea>
+                    <textarea id="inputDesc" class="form-control" rows="2" required="" placeholder="Contoh: Konfigurasi NovaStar &amp; kalibrasi..."></textarea>
                 </div>
                 <div class="form-group">
-                    <label>Direct Link Drive (Foto)</label>
-                    <input type="url" id="inputPhotoUrl" class="form-control" required placeholder="https://drive.google.com/...">
+                    <label>Link Direct Drive (Foto)</label>
+                    <input type="url" id="inputPhotoUrl" class="form-control" required="" placeholder="https://drive.google.com/...">
                 </div>
                 <div class="form-group">
-                    <label>Direct Link Drive (Video)</label>
-                    <input type="url" id="inputVideoUrl" class="form-control" required placeholder="https://drive.google.com/...">
+                    <label>Link Direct Drive (Video)</label>
+                    <input type="url" id="inputVideoUrl" class="form-control" required="" placeholder="https://drive.google.com/...">
                 </div>
                 <div class="modal-actions">
                     <button type="button" class="btn-cancel" onclick="closeModal()">Batal</button>
@@ -634,14 +787,14 @@
         </div>
     </div>
 
-    <!-- Modal Ubah Foto Profil Admin -->
+    <!-- Modal Avatar -->
     <div id="avatarModal" class="modal">
         <div class="modal-card">
             <h3>GANTI FOTO PROFIL ADMIN</h3>
             <form onsubmit="handleAvatarSubmit(event)">
                 <div class="form-group">
-                    <label>Direct Link / URL Foto Profil</label>
-                    <input type="url" id="inputAvatarUrl" class="form-control" required placeholder="https://... atau link direct foto drive">
+                    <label>URL Foto Profil</label>
+                    <input type="url" id="inputAvatarUrl" class="form-control" required="" placeholder="https://drive.google.com/...">
                 </div>
                 <div class="modal-actions">
                     <button type="button" class="btn-cancel" onclick="document.getElementById('avatarModal').style.display='none'">Batal</button>
@@ -651,31 +804,31 @@
         </div>
     </div>
 
-    <!-- Modal Ubah Running Text -->
+    <!-- Modal Running Text -->
     <div id="marqueeModal" class="modal">
         <div class="modal-card">
-            <h3>EDIT RUNNING TEXT VIDEOTRON</h3>
+            <h3>EDIT RUNNING TEXT</h3>
             <form onsubmit="handleMarqueeSubmit(event)">
                 <div class="form-group">
-                    <label>Isi Teks Berjalan (Gaya Display LED)</label>
-                    <textarea id="inputMarqueeText" class="form-control" rows="3" required placeholder="Ketik teks berjalan di sini..."></textarea>
+                    <label>Isi Teks Berjalan</label>
+                    <textarea id="inputMarqueeText" class="form-control" rows="3" required=""></textarea>
                 </div>
                 <div class="modal-actions">
                     <button type="button" class="btn-cancel" onclick="document.getElementById('marqueeModal').style.display='none'">Batal</button>
-                    <button type="submit" class="btn-submit">Update Running Text</button>
+                    <button type="submit" class="btn-submit">Update Text</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Modal Tampilan Kode Ekspor -->
+    <!-- Modal Ekspor Kode -->
     <div id="exportModal" class="modal">
         <div class="modal-card" style="max-width: 500px;">
-            <h3>KODE HASIL EKSPOR</h3>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">
-                Kode di bawah telah mencakup seluruh data terbaru dalam kondisi <b>Admin Nonaktif</b>. Salin dan tempelkan ke file <b>index.html</b> di GitHub Anda.
+            <h3>KODE EKSPOR</h3>
+            <p style="font-size: 0.85rem; color: var(--text-body); margin-bottom: 12px;">
+                Salin seluruh kode di bawah dan timpa ke file <b>index.html</b> di GitHub Anda.
             </p>
-            <textarea id="exportTextarea" class="form-control" rows="8" readonly style="font-family: monospace; font-size: 0.75rem;"></textarea>
+            <textarea id="exportTextarea" class="form-control" rows="8" readonly="" style="font-family: monospace; font-size: 0.75rem;"></textarea>
             <div class="modal-actions">
                 <button type="button" class="btn-cancel" onclick="document.getElementById('exportModal').style.display='none'">Tutup</button>
                 <button type="button" class="btn-submit" onclick="copyExportedText()">Salin ke Clipboard</button>
@@ -683,18 +836,132 @@
         </div>
     </div>
 
+    <!-- Engine Canvas: Matrix LED Subpixel + Data Packets (HUB75 & Sending Card Simulation) -->
+    <script>
+        const canvas = document.getElementById('videotronCanvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let mouse = { x: -1000, y: -1000, radius: 150 };
+
+        function resizeCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        window.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                mouse.x = e.touches[0].clientX;
+                mouse.y = e.touches[0].clientY;
+            }
+        });
+
+        window.addEventListener('mouseleave', () => { mouse.x = -1000; mouse.y = -1000; });
+        window.addEventListener('touchend', () => { mouse.x = -1000; mouse.y = -1000; });
+
+        // Simulasi Sinyal Data Packet (Pengiriman Frame Rate NovaStar / Colorlight)
+        const packets = [];
+        for (let i = 0; i < 24; i++) {
+            packets.push({
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
+                len: Math.random() * 80 + 40,
+                speed: Math.random() * 3.5 + 2.5,
+                color: Math.random() > 0.4 ? 'rgba(0, 242, 254,' : 'rgba(168, 85, 247,'
+            });
+        }
+
+        let tick = 0;
+        function renderLEDCanvas() {
+            ctx.clearRect(0, 0, width, height);
+            tick += 0.03;
+
+            // 1. Render LED Pitch Pixel Matrix (Simulasi SMD RGB LED)
+            const pitch = 22; // Jarak antar modul LED
+            const rows = Math.ceil(height / pitch);
+            const cols = Math.ceil(width / pitch);
+
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    const x = c * pitch;
+                    const y = r * pitch;
+                    const dist = Math.hypot(x - mouse.x, y - mouse.y);
+
+                    // Efek Hover / Touch: Aktivasi Lampu LED Sekitar Kursor
+                    if (dist < mouse.radius) {
+                        const intensity = (1 - dist / mouse.radius);
+                        // Subpixel RGB Glow
+                        ctx.fillStyle = `rgba(0, 242, 254, ${intensity * 0.9})`;
+                        ctx.fillRect(x - 1.5, y - 1.5, 3, 3);
+
+                        ctx.fillStyle = `rgba(255, 30, 86, ${intensity * 0.7})`;
+                        ctx.fillRect(x + 2, y - 1.5, 1.5, 3);
+                    } else {
+                        // Ambient Passive LED Matrix (Gelap seperti videotron standby)
+                        const wave = Math.sin(tick + (r * 0.15) + (c * 0.1));
+                        if (wave > 0.85) {
+                            ctx.fillStyle = 'rgba(0, 242, 254, 0.18)';
+                            ctx.fillRect(x, y, 1.8, 1.8);
+                        } else {
+                            ctx.fillStyle = 'rgba(255, 255, 255, 0.03)';
+                            ctx.fillRect(x, y, 1.2, 1.2);
+                        }
+                    }
+                }
+            }
+
+            // 2. Render Aliran Jalur Sinyal Data (Data Lines)
+            for (let i = 0; i < packets.length; i++) {
+                const p = packets[i];
+                p.y += p.speed;
+                if (p.y > height + 100) {
+                    p.y = -100;
+                    p.x = Math.random() * width;
+                }
+
+                const grad = ctx.createLinearGradient(p.x, p.y - p.len, p.x, p.y);
+                grad.addColorStop(0, p.color + '0)');
+                grad.addColorStop(1, p.color + '0.65)');
+
+                ctx.strokeStyle = grad;
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.moveTo(p.x, p.y - p.len);
+                ctx.lineTo(p.x, p.y);
+                ctx.stroke();
+
+                // Titik LED Aktif di Ujung Sinyal
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(p.x - 1, p.y - 1, 2.5, 2.5);
+            }
+
+            requestAnimationFrame(renderLEDCanvas);
+        }
+        renderLEDCanvas();
+    </script>
+
+    <!-- App Logic Script -->
     <script>
         const ADMIN_PIN = "gretongers";
         let isAdminLoggedIn = false;
 
-        // FOTO PROFIL ADMIN
         let adminAvatarUrl = "https://drive.google.com/thumbnail?id=16alnfBBKXonHadKR6ZEC75npzvjUXIgb&sz=w600";
-
-        // RUNNING TEXT VIDEOTRON
         let runningTextContent = "SELAMAT DATANG DI PORTOFOLIO TEKNISI VIDEOTRON • MELAYANI INSTALASI, MAINTENANCE, & SETTING DISPLAY INDOOR/OUTDOOR SELURUH INDONESIA • HUBUNGI WHATSAPP KAMI";
 
-        // DATA PROYEK UTAMA
         let projectsData = [
+          {
+            "title": "PEMASANGAN MODUL INDOOR P2.5 64S",
+            "location": "Gereja daerah Ancol",
+            "desc": "Pemasangan modul indoor P2.5 64s",
+            "photoUrl": "https://drive.google.com/drive/folders/1TO4UO4LzMY_G0gj6KMuH53IG3E9f0eTP",
+            "videoUrl": "https://drive.google.com/drive/folders/1TO4UO4LzMY_G0gj6KMuH53IG3E9f0eTP"
+          },
           {
             "title": "INSTALASI VIDEOTRON INDOOR P2.5",
             "location": "BEKASI",
@@ -758,15 +1025,15 @@
                     </div>
 
                     <div class="badges-wrapper">
-                        <span class="badge-pill badge-photo">Foto Dokumentasi</span>
-                        <span class="badge-pill badge-video">Video Testing</span>
+                        <span class="badge-pill badge-photo"><i class="bi bi-images"></i> Foto</span>
+                        <span class="badge-pill badge-video"><i class="bi bi-play-circle"></i> Video</span>
                     </div>
 
                     <p class="card-quote">${proj.desc}</p>
 
                     <div class="action-buttons-group">
-                        <a href="${proj.photoUrl}" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-photo" title="Buka Folder Foto"><i class="bi bi-images"></i></a>
-                        <a href="${proj.videoUrl}" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-video" title="Buka Folder Video"><i class="bi bi-camera-reels-fill"></i></a>
+                        <a href="${proj.photoUrl}" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-photo"><i class="bi bi-images"></i> Lihat Foto</a>
+                        <a href="${proj.videoUrl}" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-video"><i class="bi bi-camera-reels"></i> Lihat Video</a>
                     </div>
 
                     <div class="admin-controls" style="display: ${isAdminLoggedIn ? 'flex' : 'none'};">
@@ -783,7 +1050,6 @@
                 const inputPin = prompt("Masukkan PIN Admin:");
                 if (inputPin === ADMIN_PIN) {
                     isAdminLoggedIn = true;
-                    document.getElementById("adminStatusText").innerText = "ADMIN ACTIVE";
                     document.getElementById("adminAuthBtn").classList.add("active");
                     document.getElementById("adminPanelBar").style.display = "flex";
                     renderProjects();
@@ -793,7 +1059,6 @@
             } else {
                 if (confirm("Keluar dari mode Admin?")) {
                     isAdminLoggedIn = false;
-                    document.getElementById("adminStatusText").innerText = "ADMIN LOGIN";
                     document.getElementById("adminAuthBtn").classList.remove("active");
                     document.getElementById("adminPanelBar").style.display = "none";
                     renderProjects();
@@ -811,7 +1076,7 @@
             adminAvatarUrl = document.getElementById("inputAvatarUrl").value;
             applyAvatar();
             document.getElementById("avatarModal").style.display = "none";
-            alert("Foto profil berhasil diganti! Klik tombol EKSPOR KODE TERBARU untuk menyimpannya permanen.");
+            alert("Foto profil berhasil diganti! Klik 'EKSPOR KODE' untuk menyimpannya.");
         }
 
         function openMarqueeModal() {
@@ -824,7 +1089,7 @@
             runningTextContent = document.getElementById("inputMarqueeText").value.trim();
             applyMarquee();
             document.getElementById("marqueeModal").style.display = "none";
-            alert("Running text videotron berhasil diubah! Klik tombol EKSPOR KODE TERBARU untuk menyimpannya permanen.");
+            alert("Running text berhasil diubah! Klik 'EKSPOR KODE' untuk menyimpannya.");
         }
 
         function openModal(index = -1) {
@@ -880,7 +1145,6 @@
         function exportUpdatedCode() {
             const wasAdmin = isAdminLoggedIn;
             isAdminLoggedIn = false;
-            document.getElementById("adminStatusText").innerText = "ADMIN LOGIN";
             document.getElementById("adminAuthBtn").classList.remove("active");
             document.getElementById("adminPanelBar").style.display = "none";
             renderProjects();
@@ -896,7 +1160,6 @@
 
             if (wasAdmin) {
                 isAdminLoggedIn = true;
-                document.getElementById("adminStatusText").innerText = "ADMIN ACTIVE";
                 document.getElementById("adminAuthBtn").classList.add("active");
                 document.getElementById("adminPanelBar").style.display = "flex";
                 renderProjects();
@@ -907,7 +1170,7 @@
             const textarea = document.getElementById("exportTextarea");
             textarea.select();
             navigator.clipboard.writeText(textarea.value).then(() => {
-                alert("Kode berhasil disalin dalam kondisi Admin Nonaktif! Silakan paste ke index.html di GitHub.");
+                alert("Kode berhasil disalin! Silakan paste ke file index.html di GitHub.");
                 document.getElementById("exportModal").style.display = "none";
             }).catch(() => {
                 document.execCommand('copy');
