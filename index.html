@@ -1,20 +1,19 @@
 <!DOCTYPE html>
-<html lang="id">
-<head>
+<html lang="id"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Videotron Tech Hub - Portofolio</title>
     <!-- Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&amp;family=Rajdhani:wght@500;600;700&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
         :root {
             --bg-base: #060b13;
-            --card-bg: rgba(13, 23, 38, 0.85);
-            --border-glow: #00f0ff;
+            --card-bg: rgba(13, 23, 38, 0.9);
             --accent-cyan: #00f0ff;
             --accent-purple: #9d4edd;
             --accent-green: #00ff88;
+            --accent-wa: #25d366;
             --text-main: #e2e8f0;
             --text-muted: #8492a6;
         }
@@ -35,17 +34,17 @@
                 linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
             background-size: 100% 100%, 100% 100%, 30px 30px, 30px 30px;
             color: var(--text-main);
-            padding-bottom: 50px;
+            padding-bottom: 90px;
         }
 
+        /* Top Header */
         .tech-top-bar {
             background: rgba(8, 14, 26, 0.95);
             border-bottom: 1px solid rgba(0, 240, 255, 0.2);
-            padding: 12px 16px;
+            padding: 10px 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            backdrop-filter: blur(8px);
         }
 
         .admin-pill {
@@ -53,16 +52,14 @@
             border: 1px solid var(--accent-cyan);
             color: var(--accent-cyan);
             padding: 5px 14px;
-            border-radius: 4px;
-            font-size: 0.9rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
             font-weight: 700;
             display: inline-flex;
             align-items: center;
             gap: 8px;
             cursor: pointer;
             box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
-            letter-spacing: 1px;
-            transition: all 0.2s ease;
         }
 
         .admin-pill.active {
@@ -71,66 +68,186 @@
             box-shadow: 0 0 12px rgba(0, 255, 136, 0.3);
         }
 
-        .btn-add-item {
+        /* Admin Control Panel Toolbar */
+        .admin-panel-bar {
+            display: none;
+            background: rgba(13, 23, 38, 0.98);
+            border-bottom: 2px solid var(--accent-cyan);
+            padding: 10px 16px;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+            position: sticky;
+            top: 0;
+            z-index: 30;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-tech-action {
             background: linear-gradient(135deg, #00f0ff, #0077b6);
             color: #060b13;
             border: none;
             padding: 6px 14px;
             border-radius: 4px;
             font-weight: 700;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             cursor: pointer;
-            display: none;
+            display: inline-flex;
             align-items: center;
             gap: 6px;
-            letter-spacing: 0.5px;
         }
 
-        .navbar {
-            background: rgba(10, 18, 32, 0.8);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 14px 16px;
+        .btn-export {
+            background: linear-gradient(135deg, #00ff88, #00875a);
+            color: #060b13;
+        }
+
+        .btn-avatar {
+            background: linear-gradient(135deg, #9d4edd, #5a189a);
+            color: #ffffff;
+        }
+
+        /* Hero Profile Section */
+        .profile-hero {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
+            padding: 24px 16px 16px;
+            text-align: center;
         }
 
-        .brand-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
+        .profile-avatar-container {
+            position: relative;
+            cursor: pointer;
+            display: inline-block;
+            transition: transform 0.2s ease;
         }
 
-        .brand-logo-icon {
-            width: 36px;
-            height: 36px;
-            background: rgba(0, 240, 255, 0.1);
-            border: 1px solid var(--accent-cyan);
-            border-radius: 6px;
+        .profile-avatar-container:hover {
+            transform: scale(1.05);
+        }
+
+        .profile-avatar-large {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.4), inset 0 0 10px rgba(0, 240, 255, 0.3);
+            display: block;
+        }
+
+        .profile-badge-icon {
+            position: absolute;
+            bottom: 2px;
+            right: 4px;
+            background: #091a2f;
+            border: 1.5px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--accent-cyan);
-            box-shadow: 0 0 8px rgba(0, 240, 255, 0.3);
+            font-size: 0.8rem;
         }
 
-        .brand-text {
+        .profile-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.15rem;
+            font-size: 1.3rem;
             font-weight: 800;
             color: #ffffff;
+            margin-top: 12px;
             letter-spacing: 1px;
             text-transform: uppercase;
         }
 
-        .brand-text span {
+        .profile-title span {
             color: var(--accent-cyan);
         }
 
+        .profile-desc-box {
+            max-width: 480px;
+            margin-top: 12px;
+            background: rgba(13, 23, 38, 0.6);
+            border: 1px solid rgba(0, 240, 255, 0.15);
+            border-radius: 8px;
+            padding: 12px 16px;
+            text-align: center;
+            backdrop-filter: blur(4px);
+        }
+
+        .profile-desc-tag {
+            display: inline-block;
+            color: var(--accent-cyan);
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .profile-desc-text {
+            font-size: 0.88rem;
+            color: #cbd5e1;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        /* Profile WhatsApp Button */
+        .btn-wa-profile {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 14px;
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 0 15px rgba(37, 211, 102, 0.3);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn-wa-profile:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.5);
+        }
+
+        /* Floating WhatsApp Button */
+        .floating-wa-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 20px;
+            width: 54px;
+            height: 54px;
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            z-index: 99;
+            transition: transform 0.2s ease;
+        }
+
+        .floating-wa-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Container & Cards */
         .content-container {
             max-width: 500px;
-            margin: 18px auto;
+            margin: 10px auto;
             padding: 0 14px;
             display: flex;
             flex-direction: column;
@@ -143,10 +260,8 @@
             border-left: 3px solid var(--accent-cyan);
             border-radius: 8px;
             padding: 16px;
-            position: relative;
-            backdrop-filter: blur(10px);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            transition: transform 0.2s ease, border-color 0.2s ease;
+            backdrop-filter: blur(8px);
         }
 
         .card-top {
@@ -167,11 +282,6 @@
             justify-content: center;
             color: var(--accent-cyan);
             font-size: 1.3rem;
-            box-shadow: 0 0 10px rgba(0, 240, 255, 0.15);
-        }
-
-        .card-title-group {
-            flex: 1;
         }
 
         .card-title-group h3 {
@@ -179,20 +289,21 @@
             font-size: 0.95rem;
             color: #ffffff;
             letter-spacing: 0.5px;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
-        .info-row {
+        .location-text {
+            font-size: 0.85rem;
+            color: var(--accent-cyan);
             display: flex;
             align-items: center;
             gap: 6px;
-            font-size: 0.88rem;
-            color: var(--text-muted);
-            margin-bottom: 3px;
+            font-weight: 600;
         }
 
-        .info-row i.clock-icon { color: var(--accent-green); }
-        .info-row i.pin-icon { color: var(--accent-purple); }
+        .location-text i {
+            color: var(--accent-purple);
+        }
 
         .badges-wrapper {
             display: flex;
@@ -259,11 +370,6 @@
             color: #d8b4fe;
         }
 
-        .btn-drive-link:hover {
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
-        }
-
         .admin-controls {
             display: none;
             gap: 8px;
@@ -274,7 +380,7 @@
 
         .btn-admin-act {
             flex: 1;
-            padding: 5px;
+            padding: 6px;
             font-size: 0.78rem;
             font-weight: 700;
             border-radius: 4px;
@@ -298,6 +404,7 @@
             border: 1px solid #ef4444;
         }
 
+        /* Modal Elements */
         .modal {
             display: none;
             position: fixed;
@@ -317,7 +424,6 @@
             width: 100%;
             max-width: 440px;
             padding: 20px;
-            box-shadow: 0 0 25px rgba(0, 240, 255, 0.25);
         }
 
         .modal-card h3 {
@@ -327,126 +433,234 @@
             font-size: 1rem;
         }
 
-        .form-group {
-            margin-bottom: 12px;
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 4px; }
+        .form-control { width: 100%; background: #060b13; border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 4px; padding: 8px 10px; color: #ffffff; outline: none; }
+        .modal-actions { display: flex; gap: 10px; margin-top: 18px; }
+        .btn-submit { flex: 1; background: var(--accent-cyan); color: #060b13; border: none; padding: 8px; font-weight: 700; border-radius: 4px; cursor: pointer; }
+        .btn-cancel { flex: 1; background: transparent; color: var(--text-muted); border: 1px solid var(--text-muted); padding: 8px; border-radius: 4px; cursor: pointer; }
+
+        /* Fullscreen Lightbox */
+        .avatar-preview-box {
+            text-align: center;
         }
 
-        .form-group label {
-            display: block;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-bottom: 4px;
-            text-transform: uppercase;
-        }
-
-        .form-control {
+        .avatar-preview-img {
+            max-width: 280px;
+            max-height: 280px;
             width: 100%;
-            background: #060b13;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 4px;
-            padding: 8px 10px;
-            color: #ffffff;
-            font-size: 0.9rem;
-            outline: none;
-        }
-
-        .form-control:focus {
-            border-color: var(--accent-cyan);
-            box-shadow: 0 0 6px rgba(0, 240, 255, 0.3);
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 18px;
-        }
-
-        .btn-submit {
-            flex: 1;
-            background: var(--accent-cyan);
-            color: #060b13;
-            border: none;
-            padding: 8px;
-            font-weight: 700;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .btn-cancel {
-            flex: 1;
-            background: transparent;
-            color: var(--text-muted);
-            border: 1px solid var(--text-muted);
-            padding: 8px;
-            border-radius: 4px;
-            cursor: pointer;
+            height: auto;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent-cyan);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.4);
+            margin-bottom: 16px;
         }
     </style>
 </head>
 <body>
 
+    <!-- Header Atas -->
     <div class="tech-top-bar">
         <button id="adminAuthBtn" class="admin-pill" onclick="toggleAdminAuth()">
-            <i class="bi bi-cpu avatar-icon"></i>
+            <i class="bi bi-cpu"></i>
             <span id="adminStatusText">ADMIN LOGIN</span>
         </button>
+        <span style="font-size: 0.8rem; color: var(--text-muted);">STATUS: <b style="color: var(--accent-cyan);">ONLINE</b></span>
+    </div>
 
-        <button id="addNewBtn" class="btn-add-item" onclick="openModal()">
-            <i class="bi bi-plus-circle"></i> TAMBAH PROYEK
+    <!-- Panel Kontrol Khusus Admin -->
+    <div id="adminPanelBar" class="admin-panel-bar" style="display: none;">
+        <button class="btn-tech-action btn-avatar" onclick="openAvatarModal()">
+            <i class="bi bi-person-bounding-box"></i> UBAH AVATAR
+        </button>
+        <button class="btn-tech-action" onclick="openModal()">
+            <i class="bi bi-plus-circle-fill"></i> TAMBAH PROYEK
+        </button>
+        <button class="btn-tech-action btn-export" onclick="exportUpdatedCode()">
+            <i class="bi bi-code-slash"></i> EKSPOR KODE TERBARU
         </button>
     </div>
 
-    <header class="navbar">
-        <a href="#" class="brand-wrapper">
-            <div class="brand-logo-icon">
-                <i class="bi bi-display-fill"></i>
+    <!-- Hero Bagian Atas -->
+    <div class="profile-hero">
+        <div class="profile-avatar-container" onclick="viewAvatarModal()" title="Klik untuk melihat foto profil">
+            <img id="mainProfileAvatar" class="profile-avatar-large" src="https://drive.google.com/thumbnail?id=16alnfBBKXonHadKR6ZEC75npzvjUXIgb&amp;sz=w600" alt="Teknisi Videotron Mbong">
+            <div class="profile-badge-icon">
+                <i class="bi bi-search"></i>
             </div>
-            <span class="brand-text">VIDEOTRON<span>CORE</span></span>
-        </a>
-        <div style="color: var(--accent-cyan); font-size: 1.2rem;">
-            <i class="bi bi-grid-3x3-gap-fill"></i>
         </div>
-    </header>
+        <h1 class="profile-title">TEKNISI<span>VIDEOTRON</span></h1>
+        
+        <div class="profile-desc-box">
+            <div class="profile-desc-tag">Teknisi Videotron</div>
+            <p class="profile-desc-text">
+                Berpengalaman dalam setting videotron via remote, konfigurasi sistem, troubleshooting, hingga instalasi di lapangan. Terbiasa menangani kebutuhan teknis dengan cepat, rapi, dan menyesuaikan kondisi di lapangan.
+            </p>
+        </div>
 
-    <main class="content-container" id="projectContainer">
-    </main>
+        <!-- Tombol WhatsApp Profil -->
+        <a href="https://wa.me/628158855537?text=Halo%20Mas%20Mbong,%20saya%20ingin%20berkonsultasi%20mengenai%20proyek/instalasi%20videotron." target="_blank" rel="noopener noreferrer" class="btn-wa-profile">
+            <i class="bi bi-whatsapp"></i> Hubungi via WhatsApp
+        </a>
+    </div>
 
-    <div id="projectModal" class="modal">
+    <!-- Daftar Kartu Proyek -->
+    <main class="content-container" id="projectContainer"><article class="card-project">
+                    <div class="card-top">
+                        <div class="icon-circuit"><i class="bi bi-motherboard"></i></div>
+                        <div class="card-title-group">
+                            <h3>PEMASANGAN MODUL INDOOR P2.5 DAN P5 (CEILING)</h3>
+                            
+                    <div class="location-text">
+                        <i class="bi bi-geo-alt-fill"></i> KTV Glodok
+                    </div>
+                        </div>
+                    </div>
+
+                    <div class="badges-wrapper">
+                        <span class="badge-pill badge-photo">Foto Dokumentasi</span>
+                        <span class="badge-pill badge-video">Video Testing</span>
+                    </div>
+
+                    <p class="card-quote">pemasangan modul indoor P2.5 dan P5 ceiling atau diatas</p>
+
+                    <div class="action-buttons-group">
+                        <a href="https://drive.google.com/drive/folders/16ZEyJ6ZUtMIsPoSsXVr4AYNf5TIx1gn6" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-photo" title="Buka Folder Foto"><i class="bi bi-images"></i></a>
+                        <a href="https://drive.google.com/drive/folders/16ZEyJ6ZUtMIsPoSsXVr4AYNf5TIx1gn6" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-video" title="Buka Folder Video"><i class="bi bi-camera-reels-fill"></i></a>
+                    </div>
+
+                    <div class="admin-controls" style="display: none;">
+                        <button class="btn-admin-act btn-edit" onclick="editProject(0)"><i class="bi bi-pencil-square"></i> EDIT</button>
+                        <button class="btn-admin-act btn-delete" onclick="deleteProject(0)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
+                    </div>
+                </article><article class="card-project">
+                    <div class="card-top">
+                        <div class="icon-circuit"><i class="bi bi-motherboard"></i></div>
+                        <div class="card-title-group">
+                            <h3>INSTALASI VIDEOTRON INDOOR P2.5</h3>
+                            
+                    <div class="location-text">
+                        <i class="bi bi-geo-alt-fill"></i> BEKASI
+                    </div>
+                        </div>
+                    </div>
+
+                    <div class="badges-wrapper">
+                        <span class="badge-pill badge-photo">Foto Dokumentasi</span>
+                        <span class="badge-pill badge-video">Video Testing</span>
+                    </div>
+
+                    <p class="card-quote">Pemasangan modul indoor P2.5 menggunakan sistem dari Kystar</p>
+
+                    <div class="action-buttons-group">
+                        <a href="https://drive.google.com/drive/folders/1vRvSpK-aEwxjQqiEd-unvekPlbJWniWg" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-photo" title="Buka Folder Foto"><i class="bi bi-images"></i></a>
+                        <a href="https://drive.google.com/drive/folders/1vRvSpK-aEwxjQqiEd-unvekPlbJWniWg" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-video" title="Buka Folder Video"><i class="bi bi-camera-reels-fill"></i></a>
+                    </div>
+
+                    <div class="admin-controls" style="display: none;">
+                        <button class="btn-admin-act btn-edit" onclick="editProject(1)"><i class="bi bi-pencil-square"></i> EDIT</button>
+                        <button class="btn-admin-act btn-delete" onclick="deleteProject(1)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
+                    </div>
+                </article><article class="card-project">
+                    <div class="card-top">
+                        <div class="icon-circuit"><i class="bi bi-motherboard"></i></div>
+                        <div class="card-title-group">
+                            <h3>LED DISPLAY INDOOR P2</h3>
+                            
+                    <div class="location-text">
+                        <i class="bi bi-geo-alt-fill"></i> SINGAPORE INTERNATIONAL SCHOOL
+                    </div>
+                        </div>
+                    </div>
+
+                    <div class="badges-wrapper">
+                        <span class="badge-pill badge-photo">Foto Dokumentasi</span>
+                        <span class="badge-pill badge-video">Video Testing</span>
+                    </div>
+
+                    <p class="card-quote">Pemasangan modul indoor P2 menggunakan kabinet 64*48cm dengan real screen 512*288cm</p>
+
+                    <div class="action-buttons-group">
+                        <a href="https://drive.google.com/drive/folders/1ihZZG8qyJ_5Cfb0tNYzIhEtOtfY1289q" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-photo" title="Buka Folder Foto"><i class="bi bi-images"></i></a>
+                        <a href="https://drive.google.com/drive/folders/1ihZZG8qyJ_5Cfb0tNYzIhEtOtfY1289q" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-video" title="Buka Folder Video"><i class="bi bi-camera-reels-fill"></i></a>
+                    </div>
+
+                    <div class="admin-controls" style="display: none;">
+                        <button class="btn-admin-act btn-edit" onclick="editProject(2)"><i class="bi bi-pencil-square"></i> EDIT</button>
+                        <button class="btn-admin-act btn-delete" onclick="deleteProject(2)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
+                    </div>
+                </article><article class="card-project">
+                    <div class="card-top">
+                        <div class="icon-circuit"><i class="bi bi-motherboard"></i></div>
+                        <div class="card-title-group">
+                            <h3>PEMASANGAN MODUL INDOOR P2.5</h3>
+                            
+                    <div class="location-text">
+                        <i class="bi bi-geo-alt-fill"></i> GEREJA TM
+                    </div>
+                        </div>
+                    </div>
+
+                    <div class="badges-wrapper">
+                        <span class="badge-pill badge-photo">Foto Dokumentasi</span>
+                        <span class="badge-pill badge-video">Video Testing</span>
+                    </div>
+
+                    <p class="card-quote">pemasangan modul indoor P2.5 di gereja</p>
+
+                    <div class="action-buttons-group">
+                        <a href="https://drive.google.com/drive/folders/1oEkS8rXPr_3xlivlIx9bQJGpLBfVnwdg" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-photo" title="Buka Folder Foto"><i class="bi bi-images"></i></a>
+                        <a href="https://drive.google.com/drive/folders/1oEkS8rXPr_3xlivlIx9bQJGpLBfVnwdg" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-video" title="Buka Folder Video"><i class="bi bi-camera-reels-fill"></i></a>
+                    </div>
+
+                    <div class="admin-controls" style="display: none;">
+                        <button class="btn-admin-act btn-edit" onclick="editProject(3)"><i class="bi bi-pencil-square"></i> EDIT</button>
+                        <button class="btn-admin-act btn-delete" onclick="deleteProject(3)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
+                    </div>
+                </article></main>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/628158855537?text=Halo%20Teknisi%20Videotron,%20saya%20ingin%20berkonsultasi%20mengenai%20proyek/instalasi%20videotron." target="_blank" rel="noopener noreferrer" class="floating-wa-btn" title="Chat WhatsApp">
+        <i class="bi bi-whatsapp"></i>
+    </a>
+
+    <!-- Modal Lightbox Melihat Foto Profil Besar -->
+    <div id="viewAvatarModal" class="modal" onclick="closeViewAvatarModal(event)" style="display: none;">
+        <div class="modal-card avatar-preview-box" onclick="event.stopPropagation()">
+            <img id="modalPreviewImg" class="avatar-preview-img" src="https://drive.google.com/thumbnail?id=16alnfBBKXonHadKR6ZEC75npzvjUXIgb&amp;sz=w600" alt="Foto Profil">
+            <h3 style="margin-bottom: 6px;">TEKNISI VIDEOTRON MBONG</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 14px;">Spesialis Instalasi, Wiring, &amp; Setup Videotron</p>
+            <button type="button" class="btn-cancel" style="width: 100%;" onclick="document.getElementById('viewAvatarModal').style.display='none'">Tutup</button>
+        </div>
+    </div>
+
+    <!-- Modal Form Input / Edit Proyek -->
+    <div id="projectModal" class="modal" style="display: none;">
         <div class="modal-card">
-            <h3 id="modalTitle">INPUT DATA PROYEK</h3>
+            <h3 id="modalTitle">EDIT DATA PROYEK</h3>
             <form id="projectForm" onsubmit="handleFormSubmit(event)">
-                <input type="hidden" id="editIndex" value="-1">
-                
+                <input type="hidden" id="editIndex" value="0">
                 <div class="form-group">
-                    <label>Nama / Judul Proyek</label>
-                    <input type="text" id="inputTitle" class="form-control" required placeholder="Contoh: VIDEOTRON OUTDOOR P3.9...">
+                    <label>Nama Proyek</label>
+                    <input type="text" id="inputTitle" class="form-control" required="" placeholder="Contoh: VIDEOTRON OUTDOOR P3.9...">
                 </div>
-
                 <div class="form-group">
-                    <label>Tanggal / Status Selesai</label>
-                    <input type="text" id="inputDate" class="form-control" required placeholder="Contoh: Selesai: 24 Feb 2026">
+                    <label>Keterangan Tempat / Lokasi (Opsional)</label>
+                    <input type="text" id="inputLocation" class="form-control" placeholder="Contoh: Bestindo Sports Center / Jakarta Selatan">
                 </div>
-
-                <div class="form-group">
-                    <label>Lokasi Pemasangan</label>
-                    <input type="text" id="inputLocation" class="form-control" required placeholder="Contoh: Bestindo Sports Center">
-                </div>
-
                 <div class="form-group">
                     <label>Deskripsi Teknis</label>
-                    <textarea id="inputDesc" class="form-control" rows="2" required placeholder="Contoh: Konfigurasi NovaStar & kalibrasi..."></textarea>
+                    <textarea id="inputDesc" class="form-control" rows="2" required="" placeholder="Contoh: Konfigurasi NovaStar &amp; kalibrasi..."></textarea>
                 </div>
-
                 <div class="form-group">
                     <label>Direct Link Drive (Foto)</label>
-                    <input type="url" id="inputPhotoUrl" class="form-control" required placeholder="https://drive.google.com/...">
+                    <input type="url" id="inputPhotoUrl" class="form-control" required="" placeholder="https://drive.google.com/...">
                 </div>
-
                 <div class="form-group">
                     <label>Direct Link Drive (Video)</label>
-                    <input type="url" id="inputVideoUrl" class="form-control" required placeholder="https://drive.google.com/...">
+                    <input type="url" id="inputVideoUrl" class="form-control" required="" placeholder="https://drive.google.com/...">
                 </div>
-
                 <div class="modal-actions">
                     <button type="button" class="btn-cancel" onclick="closeModal()">Batal</button>
                     <button type="submit" class="btn-submit">Simpan Data</button>
@@ -455,68 +669,108 @@
         </div>
     </div>
 
+    <!-- Modal Ubah Foto Profil Admin -->
+    <div id="avatarModal" class="modal" style="display: none;">
+        <div class="modal-card">
+            <h3>GANTI FOTO PROFIL ADMIN</h3>
+            <form onsubmit="handleAvatarSubmit(event)">
+                <div class="form-group">
+                    <label>Direct Link / URL Foto Profil</label>
+                    <input type="url" id="inputAvatarUrl" class="form-control" required="" placeholder="https://... atau link direct foto drive">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" onclick="document.getElementById('avatarModal').style.display='none'">Batal</button>
+                    <button type="submit" class="btn-submit">Update Profil</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Tampilan Kode Ekspor -->
+    <div id="exportModal" class="modal" style="display: none;">
+        <div class="modal-card" style="max-width: 500px;">
+            <h3>KODE HASIL EKSPOR</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">
+                Kode di bawah telah mencakup seluruh data tempat dan proyek terbaru dalam keadaan <b>Admin Nonaktif (Guest Mode)</b>. Salin dan tempelkan ke file <b>index.html</b> di GitHub Anda.
+            </p>
+            <textarea id="exportTextarea" class="form-control" rows="8" readonly="" style="font-family: monospace; font-size: 0.75rem;"></textarea>
+            <div class="modal-actions">
+                <button type="button" class="btn-cancel" onclick="document.getElementById('exportModal').style.display='none'">Tutup</button>
+                <button type="button" class="btn-submit" onclick="copyExportedText()">Salin ke Clipboard</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         const ADMIN_PIN = "gretongers";
         let isAdminLoggedIn = false;
 
-        const defaultProjects = [
-            {
-                title: "INSTALASI VIDEOTRON OUTDOOR P3.9",
-                date: "Selesai: 22 Feb 2026",
-                location: "Bestindo Sports Center",
-                desc: "Pemasangan kabinet die-cast, wiring sending card NovaStar, dan kalibrasi pixel pitch.",
-                photoUrl: "https://drive.google.com",
-                videoUrl: "https://drive.google.com"
-            },
-            {
-                title: "LED DISPLAY INDOOR P2.5 STADIUM",
-                date: "Selesai: 23 Feb 2026",
-                location: "ASIOP Stadium",
-                desc: "Rangka bracket presisi, sinkronisasi controller, dan uji coba input Resolume Arena.",
-                photoUrl: "https://drive.google.com",
-                videoUrl: "https://drive.google.com"
-            },
-            {
-                title: "MAINTENANCE & RELOKASI VIDEOTRON",
-                date: "Selesai: 24 Feb 2026",
-                location: "Avion Sport Center",
-                desc: "Penggantian power supply module, perapian kabel HUB75, serta mapping pixel ulang.",
-                photoUrl: "https://drive.google.com",
-                videoUrl: "https://drive.google.com"
-            }
-        ];
+        let adminAvatarUrl = "https://drive.google.com/thumbnail?id=16alnfBBKXonHadKR6ZEC75npzvjUXIgb&sz=w600";
 
-        function loadProjects() {
-            const data = localStorage.getItem("tech_videotron_projects");
-            return data ? JSON.parse(data) : defaultProjects;
+        // DATA PROYEK UTAMA
+        let projectsData = [
+          {
+                    "title": "PEMASANGAN MODUL INDOOR P2.5 DAN P5 (CEILING)",
+                    "location": "KTV Glodok",
+                    "desc": "pemasangan modul indoor P2.5 dan P5 ceiling atau diatas",
+                    "photoUrl": "https://drive.google.com/drive/folders/16ZEyJ6ZUtMIsPoSsXVr4AYNf5TIx1gn6",
+                    "videoUrl": "https://drive.google.com/drive/folders/16ZEyJ6ZUtMIsPoSsXVr4AYNf5TIx1gn6"
+          },
+          {
+                    "title": "INSTALASI VIDEOTRON INDOOR P2.5",
+                    "location": "BEKASI",
+                    "desc": "Pemasangan modul indoor P2.5 menggunakan sistem dari Kystar",
+                    "photoUrl": "https://drive.google.com/drive/folders/1vRvSpK-aEwxjQqiEd-unvekPlbJWniWg",
+                    "videoUrl": "https://drive.google.com/drive/folders/1vRvSpK-aEwxjQqiEd-unvekPlbJWniWg"
+          },
+          {
+                    "title": "LED DISPLAY INDOOR P2",
+                    "location": "SINGAPORE INTERNATIONAL SCHOOL",
+                    "desc": "Pemasangan modul indoor P2 menggunakan kabinet 64*48cm dengan real screen 512*288cm",
+                    "photoUrl": "https://drive.google.com/drive/folders/1ihZZG8qyJ_5Cfb0tNYzIhEtOtfY1289q",
+                    "videoUrl": "https://drive.google.com/drive/folders/1ihZZG8qyJ_5Cfb0tNYzIhEtOtfY1289q"
+          },
+          {
+                    "title": "PEMASANGAN MODUL INDOOR P2.5",
+                    "location": "GEREJA TM",
+                    "desc": "pemasangan modul indoor P2.5 di gereja",
+                    "photoUrl": "https://drive.google.com/drive/folders/1oEkS8rXPr_3xlivlIx9bQJGpLBfVnwdg",
+                    "videoUrl": "https://drive.google.com/drive/folders/1oEkS8rXPr_3xlivlIx9bQJGpLBfVnwdg"
+          }
+];
+
+        function applyAvatar() {
+            document.getElementById("mainProfileAvatar").src = adminAvatarUrl;
+            document.getElementById("modalPreviewImg").src = adminAvatarUrl;
         }
 
-        function saveProjects(projects) {
-            localStorage.setItem("tech_videotron_projects", JSON.stringify(projects));
-            renderProjects();
+        function viewAvatarModal() {
+            document.getElementById("viewAvatarModal").style.display = "flex";
+        }
+
+        function closeViewAvatarModal(e) {
+            document.getElementById("viewAvatarModal").style.display = "none";
         }
 
         function renderProjects() {
-            const projects = loadProjects();
             const container = document.getElementById("projectContainer");
             container.innerHTML = "";
 
-            projects.forEach((proj, idx) => {
+            projectsData.forEach((proj, idx) => {
                 const card = document.createElement("article");
                 card.className = "card-project";
+                
+                const locationHtml = proj.location ? `
+                    <div class="location-text">
+                        <i class="bi bi-geo-alt-fill"></i> ${proj.location}
+                    </div>` : '';
+
                 card.innerHTML = `
                     <div class="card-top">
-                        <div class="icon-circuit">
-                            <i class="bi bi-motherboard"></i>
-                        </div>
+                        <div class="icon-circuit"><i class="bi bi-motherboard"></i></div>
                         <div class="card-title-group">
                             <h3>${proj.title}</h3>
-                            <div class="info-row">
-                                <i class="bi bi-clock-history clock-icon"></i> ${proj.date}
-                            </div>
-                            <div class="info-row">
-                                <i class="bi bi-geo-alt-fill pin-icon"></i> ${proj.location}
-                            </div>
+                            ${locationHtml}
                         </div>
                     </div>
 
@@ -528,21 +782,13 @@
                     <p class="card-quote">${proj.desc}</p>
 
                     <div class="action-buttons-group">
-                        <a href="${proj.photoUrl}" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-photo" title="Buka Folder Foto">
-                            <i class="bi bi-images"></i>
-                        </a>
-                        <a href="${proj.videoUrl}" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-video" title="Buka Folder Video">
-                            <i class="bi bi-camera-reels-fill"></i>
-                        </a>
+                        <a href="${proj.photoUrl}" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-photo" title="Buka Folder Foto"><i class="bi bi-images"></i></a>
+                        <a href="${proj.videoUrl}" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-video" title="Buka Folder Video"><i class="bi bi-camera-reels-fill"></i></a>
                     </div>
 
                     <div class="admin-controls" style="display: ${isAdminLoggedIn ? 'flex' : 'none'};">
-                        <button class="btn-admin-act btn-edit" onclick="editProject(${idx})">
-                            <i class="bi bi-pencil-square"></i> EDIT
-                        </button>
-                        <button class="btn-admin-act btn-delete" onclick="deleteProject(${idx})">
-                            <i class="bi bi-trash3-fill"></i> HAPUS
-                        </button>
+                        <button class="btn-admin-act btn-edit" onclick="editProject(${idx})"><i class="bi bi-pencil-square"></i> EDIT</button>
+                        <button class="btn-admin-act btn-delete" onclick="deleteProject(${idx})"><i class="bi bi-trash3-fill"></i> HAPUS</button>
                     </div>
                 `;
                 container.appendChild(card);
@@ -551,38 +797,48 @@
 
         function toggleAdminAuth() {
             if (!isAdminLoggedIn) {
-                const inputPin = prompt("Masukkan PIN/Password Admin:");
+                const inputPin = prompt("Masukkan PIN Admin:");
                 if (inputPin === ADMIN_PIN) {
                     isAdminLoggedIn = true;
                     document.getElementById("adminStatusText").innerText = "ADMIN ACTIVE";
                     document.getElementById("adminAuthBtn").classList.add("active");
-                    document.getElementById("addNewBtn").style.display = "inline-flex";
+                    document.getElementById("adminPanelBar").style.display = "flex";
                     renderProjects();
                 } else if (inputPin !== null) {
-                    alert("Akses ditolak: PIN salah.");
+                    alert("PIN salah.");
                 }
             } else {
-                if (confirm("Keluar dari sesi mode Admin?")) {
+                if (confirm("Keluar dari mode Admin?")) {
                     isAdminLoggedIn = false;
                     document.getElementById("adminStatusText").innerText = "ADMIN LOGIN";
                     document.getElementById("adminAuthBtn").classList.remove("active");
-                    document.getElementById("addNewBtn").style.display = "none";
+                    document.getElementById("adminPanelBar").style.display = "none";
                     renderProjects();
                 }
             }
         }
 
+        function openAvatarModal() {
+            document.getElementById("inputAvatarUrl").value = adminAvatarUrl;
+            document.getElementById("avatarModal").style.display = "flex";
+        }
+
+        function handleAvatarSubmit(e) {
+            e.preventDefault();
+            adminAvatarUrl = document.getElementById("inputAvatarUrl").value;
+            applyAvatar();
+            document.getElementById("avatarModal").style.display = "none";
+            alert("Foto profil berhasil diganti! Klik tombol EKSPOR KODE TERBARU untuk menyimpannya permanen.");
+        }
+
         function openModal(index = -1) {
             document.getElementById("projectModal").style.display = "flex";
             document.getElementById("editIndex").value = index;
-            
             if (index >= 0) {
-                const projects = loadProjects();
-                const item = projects[index];
+                const item = projectsData[index];
                 document.getElementById("modalTitle").innerText = "EDIT DATA PROYEK";
                 document.getElementById("inputTitle").value = item.title;
-                document.getElementById("inputDate").value = item.date;
-                document.getElementById("inputLocation").value = item.location;
+                document.getElementById("inputLocation").value = item.location || "";
                 document.getElementById("inputDesc").value = item.desc;
                 document.getElementById("inputPhotoUrl").value = item.photoUrl;
                 document.getElementById("inputVideoUrl").value = item.videoUrl;
@@ -598,41 +854,76 @@
 
         function handleFormSubmit(e) {
             e.preventDefault();
-            const projects = loadProjects();
             const index = parseInt(document.getElementById("editIndex").value);
-
             const payload = {
                 title: document.getElementById("inputTitle").value,
-                date: document.getElementById("inputDate").value,
-                location: document.getElementById("inputLocation").value,
+                location: document.getElementById("inputLocation").value.trim(),
                 desc: document.getElementById("inputDesc").value,
                 photoUrl: document.getElementById("inputPhotoUrl").value,
                 videoUrl: document.getElementById("inputVideoUrl").value
             };
 
             if (index >= 0) {
-                projects[index] = payload;
+                projectsData[index] = payload;
             } else {
-                projects.unshift(payload);
+                projectsData.unshift(payload);
             }
-
-            saveProjects(projects);
+            renderProjects();
             closeModal();
         }
 
-        function editProject(idx) {
-            openModal(idx);
-        }
+        function editProject(idx) { openModal(idx); }
 
         function deleteProject(idx) {
-            if (confirm("Hapus proyek ini secara permanen?")) {
-                const projects = loadProjects();
-                projects.splice(idx, 1);
-                saveProjects(projects);
+            if (confirm("Hapus proyek ini?")) {
+                projectsData.splice(idx, 1);
+                renderProjects();
             }
         }
 
+        function exportUpdatedCode() {
+            // Pastikan mode admin dinonaktifkan sebelum kode diekspor
+            const wasAdmin = isAdminLoggedIn;
+            isAdminLoggedIn = false;
+            document.getElementById("adminStatusText").innerText = "ADMIN LOGIN";
+            document.getElementById("adminAuthBtn").classList.remove("active");
+            document.getElementById("adminPanelBar").style.display = "none";
+            renderProjects();
+
+            const fullHtml = document.documentElement.outerHTML;
+            let updatedHtml = "<!DOCTYPE html>\n" + fullHtml
+                .replace(/let adminAvatarUrl = ".*?";/, `let adminAvatarUrl = "${adminAvatarUrl}";`)
+                .replace(/let projectsData = \[[\s\S]*?\];/, `let projectsData = ${JSON.stringify(projectsData, null, 12)};`);
+            
+            document.getElementById("exportTextarea").value = updatedHtml;
+            document.getElementById("exportModal").style.display = "flex";
+
+            // Kembalikan status admin aktif di layar kerja saat ini
+            if (wasAdmin) {
+                isAdminLoggedIn = true;
+                document.getElementById("adminStatusText").innerText = "ADMIN ACTIVE";
+                document.getElementById("adminAuthBtn").classList.add("active");
+                document.getElementById("adminPanelBar").style.display = "flex";
+                renderProjects();
+            }
+        }
+
+        function copyExportedText() {
+            const textarea = document.getElementById("exportTextarea");
+            textarea.select();
+            navigator.clipboard.writeText(textarea.value).then(() => {
+                alert("Kode berhasil disalin dalam kondisi Admin Nonaktif! Silakan paste ke index.html di GitHub.");
+                document.getElementById("exportModal").style.display = "none";
+            }).catch(() => {
+                document.execCommand('copy');
+                alert("Kode berhasil disalin!");
+                document.getElementById("exportModal").style.display = "none";
+            });
+        }
+
+        applyAvatar();
         renderProjects();
     </script>
-</body>
-</html>
+
+
+</body></html>
