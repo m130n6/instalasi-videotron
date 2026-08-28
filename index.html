@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html lang="id"><head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Videotron Tech Hub - Portofolio</title>
-    <!-- Fonts & Icons -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Videotron Tech Hub - Portofolio Teknisi &amp; Interactive Tools</title>
+    <!-- Font & Icon -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Syne:wght@700;800&amp;family=Orbitron:wght@700;900&amp;family=JetBrains+Mono:wght@700;800&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&amp;family=Orbitron:wght@600;800;900&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Syne:wght@700;800&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
     <style>
         :root {
-            --bg-deep: #02040a;
-            --card-glass: rgba(6, 11, 24, 0.82);
-            --card-border: rgba(0, 242, 254, 0.25);
+            --bg-deep: #030712;
+            --card-glass: rgba(10, 17, 34, 0.88);
+            --card-border: rgba(0, 242, 254, 0.22);
             --card-hover-border: rgba(0, 242, 254, 0.7);
             --neon-cyan: #00f2fe;
             --neon-blue: #38bdf8;
             --neon-purple: #a855f7;
             --neon-emerald: #10b981;
+            --neon-amber: #f59e0b;
             --neon-red: #ff1e56;
             --text-title: #f8fafc;
             --text-body: #94a3b8;
@@ -35,13 +37,14 @@
         body {
             background-color: var(--bg-deep);
             color: var(--text-title);
-            padding-bottom: 90px;
+            padding-bottom: 95px;
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
+            user-select: none;
         }
 
-        /* Canvas LED Module & Sinyal Data */
+        /* Canvas Latar Belakang Matrix LED & Sinyal Data */
         #videotronCanvas {
             position: fixed;
             top: 0;
@@ -52,7 +55,7 @@
             pointer-events: none;
         }
 
-        /* Struktur Grid Antar Kabinet Videotron */
+        /* Garis Grid Antar Kabinet Videotron */
         .cabinet-grid-overlay {
             position: fixed;
             top: 0;
@@ -62,12 +65,12 @@
             background-image: 
                 linear-gradient(to right, rgba(0, 242, 254, 0.04) 1px, transparent 1px),
                 linear-gradient(to bottom, rgba(0, 242, 254, 0.04) 1px, transparent 1px);
-            background-size: 160px 160px;
+            background-size: 120px 120px;
             pointer-events: none;
             z-index: -1;
         }
 
-        /* Scanline Overlay */
+        /* Efek Garis Scan CRT */
         .scanline-overlay {
             position: fixed;
             top: 0;
@@ -78,80 +81,49 @@
                 to bottom,
                 rgba(255, 255, 255, 0),
                 rgba(255, 255, 255, 0) 50%,
-                rgba(0, 0, 0, 0.5) 50%,
-                rgba(0, 0, 0, 0.5)
+                rgba(0, 0, 0, 0.45) 50%,
+                rgba(0, 0, 0, 0.45)
             );
             background-size: 100% 3px;
             pointer-events: none;
             z-index: 10;
-            opacity: 0.65;
+            opacity: 0.55;
         }
 
-        /* Laser Sweep Refresh Rate */
+        /* Laser Sweep Refresh Beam */
         .beam-scan {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
-            height: 6px;
-            background: linear-gradient(90deg, transparent, rgba(0, 242, 254, 0.8), transparent);
+            height: 4px;
+            background: linear-gradient(90deg, transparent, rgba(0, 242, 254, 0.9), transparent);
             box-shadow: 0 0 20px var(--neon-cyan);
             pointer-events: none;
             z-index: 11;
-            animation: beamMove 6s linear infinite;
-            opacity: 0.4;
+            animation: beamMove 5s linear infinite;
+            opacity: 0.45;
         }
 
         @keyframes beamMove {
             0% { top: -10px; opacity: 0; }
-            15% { opacity: 0.7; }
-            85% { opacity: 0.7; }
+            15% { opacity: 0.8; }
+            85% { opacity: 0.8; }
             100% { top: 100vh; opacity: 0; }
         }
 
-        /* Running Ticker / Marquee */
+        /* Teks Berjalan Running Text */
         .marquee-bar {
-            background: rgba(10, 2, 8, 0.95);
+            background: rgba(12, 4, 10, 0.95);
             border-bottom: 2px solid var(--neon-red);
-            box-shadow: 0 0 20px rgba(255, 30, 86, 0.45);
+            box-shadow: 0 0 20px rgba(255, 30, 86, 0.35);
             display: flex;
             align-items: center;
-            height: 48px;
+            height: 44px;
             overflow: hidden;
             position: relative;
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(14px);
             z-index: 25;
-        }
-
-        .marquee-tag {
-            background: linear-gradient(135deg, var(--neon-red), #88001d);
-            color: #ffffff;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.8rem;
-            font-weight: 900;
-            padding: 0 16px;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            z-index: 5;
-            letter-spacing: 1px;
-            box-shadow: 6px 0 20px rgba(0, 0, 0, 0.8);
-            white-space: nowrap;
-        }
-
-        .pulse-dot {
-            width: 8px;
-            height: 8px;
-            background: #ffffff;
-            border-radius: 50%;
-            box-shadow: 0 0 8px #ffffff;
-            animation: pulse-glow 1.2s infinite ease-in-out;
-        }
-
-        @keyframes pulse-glow {
-            0%, 100% { opacity: 1; transform: scale(1.1); }
-            50% { opacity: 0.3; transform: scale(0.8); }
         }
 
         .marquee-container {
@@ -166,13 +138,13 @@
             display: inline-block;
             white-space: nowrap;
             padding-left: 100%;
-            animation: marquee 20s linear infinite;
+            animation: marquee 22s linear infinite;
             font-family: 'Orbitron', monospace;
-            font-size: 1.08rem;
+            font-size: 0.95rem;
             font-weight: 800;
-            color: #ff3366;
-            text-shadow: 0 0 10px rgba(255, 51, 102, 0.9), 0 0 20px rgba(255, 30, 86, 0.6);
-            letter-spacing: 2px;
+            color: #ff4070;
+            text-shadow: 0 0 10px rgba(255, 51, 102, 0.9);
+            letter-spacing: 1.5px;
         }
 
         @keyframes marquee {
@@ -180,32 +152,32 @@
             100% { transform: translate(-100%, 0); }
         }
 
-        /* Floating Admin Icon Button */
+        /* Tombol Ikon Admin */
         .admin-icon-btn {
             position: absolute;
             top: 14px;
             right: 14px;
-            background: rgba(13, 22, 41, 0.75);
-            border: 1px solid rgba(0, 242, 254, 0.4);
+            background: rgba(10, 18, 36, 0.8);
+            border: 1px solid rgba(0, 242, 254, 0.35);
             color: var(--neon-cyan);
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
             border-radius: 12px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             cursor: pointer;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 14px rgba(0, 242, 254, 0.25);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.25s ease;
             backdrop-filter: blur(12px);
             z-index: 30;
         }
 
         .admin-icon-btn:hover {
-            transform: translateY(-2px) scale(1.05);
+            transform: translateY(-2px) scale(1.06);
             border-color: var(--neon-cyan);
-            box-shadow: 0 6px 24px rgba(0, 242, 254, 0.5);
+            box-shadow: 0 6px 24px rgba(0, 242, 254, 0.6);
         }
 
         .admin-icon-btn.active {
@@ -214,10 +186,10 @@
             box-shadow: 0 0 20px rgba(16, 185, 129, 0.6);
         }
 
-        /* Admin Toolbar */
+        /* Toolbar Admin */
         .admin-panel-bar {
             display: none;
-            background: rgba(8, 14, 28, 0.96);
+            background: rgba(6, 12, 26, 0.97);
             border-bottom: 2px solid var(--neon-cyan);
             padding: 12px 16px;
             gap: 8px;
@@ -226,8 +198,8 @@
             position: sticky;
             top: 0;
             z-index: 50;
-            backdrop-filter: blur(16px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(18px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
         }
 
         .btn-tech-action {
@@ -237,7 +209,7 @@
             padding: 8px 14px;
             border-radius: 8px;
             font-weight: 700;
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
@@ -247,8 +219,8 @@
         }
 
         .btn-tech-action:hover {
-            transform: translateY(-1px);
-            filter: brightness(1.15);
+            transform: translateY(-2px);
+            filter: brightness(1.2);
         }
 
         .btn-cover { background: linear-gradient(135deg, #0284c7, #2563eb); color: #fff; }
@@ -256,12 +228,12 @@
         .btn-avatar { background: linear-gradient(135deg, #a855f7, #7c3aed); color: #fff; }
         .btn-marquee { background: linear-gradient(135deg, #ff1e56, #be123c); color: #fff; }
 
-        /* Profile Hero Mentok ke Running Text */
+        /* Profile Hero */
         .profile-hero {
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 0 0 24px;
+            padding: 0 0 20px;
             text-align: center;
             position: relative;
             z-index: 20;
@@ -269,11 +241,10 @@
             margin: 0 auto;
         }
 
-        /* Container Cover Landscape Mentok Penuh */
         .cover-landscape-container {
             width: 100%;
-            max-width: 600px;
-            aspect-ratio: 16 / 7;
+            max-width: 650px;
+            aspect-ratio: 16 / 7.5;
             position: relative;
             border-bottom: 2px solid var(--card-border);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 25px rgba(0, 242, 254, 0.15);
@@ -296,7 +267,7 @@
         .cover-overlay-gradient {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(2, 4, 10, 0.05) 0%, rgba(2, 4, 10, 0.8) 100%);
+            background: linear-gradient(to bottom, rgba(2, 4, 10, 0.05) 0%, rgba(2, 4, 10, 0.85) 100%);
             pointer-events: none;
         }
 
@@ -313,7 +284,7 @@
         }
 
         .avatar-wrapper:hover {
-            transform: scale(1.06);
+            transform: scale(1.08);
         }
 
         .profile-avatar-large {
@@ -329,7 +300,7 @@
             position: absolute;
             bottom: 2px;
             right: 2px;
-            background: #0b1220;
+            background: #091020;
             border: 1.5px solid var(--neon-cyan);
             color: var(--neon-cyan);
             border-radius: 50%;
@@ -339,12 +310,12 @@
             align-items: center;
             justify-content: center;
             font-size: 0.85rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
         }
 
         .profile-title {
             font-family: 'Syne', sans-serif;
-            font-size: 1.65rem;
+            font-size: 1.7rem;
             font-weight: 800;
             color: #ffffff;
             margin-top: 14px;
@@ -356,12 +327,12 @@
             background: linear-gradient(135deg, var(--neon-cyan), #38bdf8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-left: 5px;
+            margin-left: 6px;
         }
 
         .profile-desc-box {
             width: calc(100% - 32px);
-            max-width: 480px;
+            max-width: 520px;
             margin: 12px 16px 0;
             background: var(--card-glass);
             border: 1px solid var(--card-border);
@@ -369,57 +340,190 @@
             padding: 16px 20px;
             backdrop-filter: blur(16px);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            text-align: left;
         }
 
         .profile-desc-tag {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
             color: var(--neon-cyan);
             font-weight: 700;
-            font-size: 0.82rem;
-            letter-spacing: 1.4px;
+            font-size: 0.8rem;
+            letter-spacing: 1.2px;
             text-transform: uppercase;
             margin-bottom: 6px;
         }
 
         .profile-desc-text {
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             color: #cbd5e1;
             line-height: 1.6;
         }
 
-        .btn-wa-profile {
+        .skills-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 12px;
+        }
+
+        .skill-chip {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            background: rgba(0, 242, 254, 0.08);
+            border: 1px solid rgba(0, 242, 254, 0.25);
+            color: var(--neon-cyan);
+            padding: 4px 9px;
+            border-radius: 6px;
+            text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            margin-top: 18px;
-            background: linear-gradient(135deg, #25d366, #15803d);
+            gap: 5px;
+            transition: all 0.2s ease;
+        }
+
+        .skill-chip:hover {
+            background: rgba(0, 242, 254, 0.22);
+            border-color: var(--neon-cyan);
             color: #ffffff;
-            text-decoration: none;
-            padding: 10px 24px;
-            border-radius: 30px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            box-shadow: 0 6px 22px rgba(37, 211, 102, 0.35);
-            transition: all 0.25s ease;
-        }
-
-        .btn-wa-profile:hover {
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.4);
             transform: translateY(-2px);
-            box-shadow: 0 8px 28px rgba(37, 211, 102, 0.5);
         }
 
-        /* Container & Proyek */
+        /* Navigasi Tab (3 Tab) */
+        .tab-nav-container {
+            max-width: 540px;
+            margin: 16px auto 8px;
+            padding: 0 16px;
+            width: 100%;
+            position: relative;
+            z-index: 21;
+        }
+
+        .tab-nav-pills {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            background: rgba(7, 14, 30, 0.85);
+            padding: 5px;
+            border-radius: 14px;
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            backdrop-filter: blur(14px);
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-body);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 8px 4px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn i {
+            font-size: 1.1rem;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.2), rgba(56, 189, 248, 0.1));
+            color: var(--neon-cyan);
+            border: 1px solid var(--neon-cyan);
+            box-shadow: 0 0 14px rgba(0, 242, 254, 0.3);
+        }
+
+        /* Container Bagian */
         .content-container {
-            max-width: 500px;
-            margin: 10px auto;
+            max-width: 540px;
+            margin: 12px auto;
             padding: 0 16px;
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 16px;
             position: relative;
             z-index: 20;
         }
 
+        /* Kolom Pencarian & Filter */
+        .filter-section {
+            background: var(--card-glass);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 12px;
+            backdrop-filter: blur(14px);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .search-box {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 12px;
+            color: var(--neon-cyan);
+            font-size: 1rem;
+        }
+
+        .search-input {
+            width: 100%;
+            background: rgba(4, 9, 20, 0.9);
+            border: 1px solid rgba(0, 242, 254, 0.25);
+            border-radius: 10px;
+            padding: 9px 12px 9px 38px;
+            color: #ffffff;
+            font-size: 0.85rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.25);
+        }
+
+        .filter-tags {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            padding-bottom: 2px;
+            scrollbar-width: none;
+        }
+        .filter-tags::-webkit-scrollbar { display: none; }
+
+        .filter-chip {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-body);
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .filter-chip.active {
+            background: var(--neon-cyan);
+            color: #030712;
+            font-weight: 700;
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.4);
+        }
+
+        /* Kartu Proyek */
         .card-project {
             background: var(--card-glass);
             border: 1px solid var(--card-border);
@@ -470,10 +574,10 @@
 
         .card-title-group h3 {
             font-family: 'Syne', sans-serif;
-            font-size: 1rem;
+            font-size: 1.02rem;
             color: #ffffff;
             letter-spacing: 0.3px;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
             line-height: 1.3;
         }
 
@@ -501,9 +605,12 @@
         .badge-pill {
             font-size: 0.72rem;
             font-weight: 700;
-            padding: 4px 10px;
+            padding: 3px 9px;
             border-radius: 6px;
             letter-spacing: 0.4px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
         }
 
         .badge-photo {
@@ -518,11 +625,18 @@
             border: 1px solid rgba(168, 85, 247, 0.3);
         }
 
+        .badge-pitch {
+            background: rgba(0, 242, 254, 0.1);
+            color: var(--neon-cyan);
+            border: 1px solid rgba(0, 242, 254, 0.25);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
         .card-quote {
             font-size: 0.88rem;
             color: var(--text-body);
             line-height: 1.5;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             border-left: 2px solid rgba(255, 255, 255, 0.14);
             padding-left: 10px;
         }
@@ -538,10 +652,10 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            height: 42px;
+            height: 40px;
             border-radius: 10px;
             text-decoration: none;
-            font-size: 0.84rem;
+            font-size: 0.82rem;
             font-weight: 700;
             transition: all 0.2s ease;
         }
@@ -602,37 +716,89 @@
             border: 1px solid #ef4444;
         }
 
-        /* Floating WhatsApp Button */
+        /* Kartu Alat / Tools Teknis */
+        .tech-tool-card {
+            background: var(--card-glass);
+            border: 1px solid var(--card-border);
+            border-radius: 18px;
+            padding: 20px;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .tool-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.15rem;
+            color: var(--neon-cyan);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .tool-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .calc-result-box {
+            background: rgba(3, 7, 18, 0.9);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            border-radius: 12px;
+            padding: 14px;
+            margin-top: 14px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .calc-stat-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            font-size: 0.84rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .calc-stat-row:last-child {
+            border-bottom: none;
+        }
+
+        .calc-val {
+            color: var(--neon-emerald);
+            font-weight: 700;
+        }
+
+        /* Tombol Mengambang WhatsApp */
         .floating-wa-btn {
             position: fixed;
             bottom: 24px;
             right: 20px;
-            width: 54px;
-            height: 54px;
+            width: 56px;
+            height: 56px;
             background: linear-gradient(135deg, #25d366, #128c7e);
             color: #ffffff;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.7rem;
+            font-size: 1.8rem;
             text-decoration: none;
-            box-shadow: 0 6px 28px rgba(37, 211, 102, 0.45);
+            box-shadow: 0 6px 28px rgba(37, 211, 102, 0.5);
             z-index: 99;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .floating-wa-btn:hover {
-            transform: scale(1.1);
+            transform: scale(1.12);
         }
 
-        /* Modals */
+        /* Kotak Dialog Modal */
         .modal {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(2, 6, 15, 0.88);
-            backdrop-filter: blur(10px);
+            background: rgba(2, 6, 15, 0.9);
+            backdrop-filter: blur(12px);
             z-index: 200;
             align-items: center;
             justify-content: center;
@@ -640,28 +806,30 @@
         }
 
         .modal-card {
-            background: #091020;
+            background: #081124;
             border: 1px solid var(--neon-cyan);
-            border-radius: 16px;
+            border-radius: 18px;
             width: 100%;
-            max-width: 440px;
+            max-width: 460px;
             padding: 24px;
-            box-shadow: 0 10px 40px rgba(0, 242, 254, 0.25);
+            box-shadow: 0 10px 40px rgba(0, 242, 254, 0.3);
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         .modal-card h3 {
             font-family: 'Syne', sans-serif;
             color: var(--neon-cyan);
-            margin-bottom: 16px;
-            font-size: 1.1rem;
+            margin-bottom: 14px;
+            font-size: 1.15rem;
         }
 
-        .form-group { margin-bottom: 14px; }
+        .form-group { margin-bottom: 13px; }
         .form-group label { display: block; font-size: 0.8rem; color: var(--text-body); margin-bottom: 5px; font-weight: 600; }
         .form-control { 
             width: 100%; 
-            background: #040813; 
-            border: 1px solid rgba(255, 255, 255, 0.15); 
+            background: #040916; 
+            border: 1px solid rgba(0, 242, 254, 0.2); 
             border-radius: 8px; 
             padding: 10px 12px; 
             color: #ffffff; 
@@ -669,7 +837,7 @@
             font-size: 0.88rem;
         }
         .form-control:focus { border-color: var(--neon-cyan); }
-        .modal-actions { display: flex; gap: 10px; margin-top: 20px; }
+        .modal-actions { display: flex; gap: 10px; margin-top: 18px; }
         .btn-submit { 
             flex: 1; 
             background: linear-gradient(135deg, var(--neon-cyan), #0284c7); 
@@ -690,32 +858,58 @@
             cursor: pointer; 
         }
 
-        .avatar-preview-box { text-align: center; }
-        .avatar-preview-img {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid var(--neon-cyan);
-            box-shadow: 0 0 30px rgba(0, 242, 254, 0.4);
-            margin: 0 auto 16px;
-            display: block;
+        /* Notifikasi Toast */
+        #toastContainer {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 300;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            pointer-events: none;
+            width: calc(100% - 32px);
+            max-width: 380px;
         }
+
+        .toast-msg {
+            background: rgba(6, 15, 33, 0.95);
+            border: 1px solid var(--neon-cyan);
+            color: #fff;
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-size: 0.84rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7), 0 0 14px rgba(0, 242, 254, 0.3);
+            animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .toast-msg i {
+            color: var(--neon-cyan);
+            font-size: 1.1rem;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
-    <!-- Canvas LED Videotron & Grid -->
-    <canvas id="videotronCanvas" width="411" height="784"></canvas>
+    <!-- Latar Belakang Interaktif Canvas Matrix LED & Grid -->
+    <canvas id="videotronCanvas" width="411" height="777"></canvas>
     <div class="cabinet-grid-overlay"></div>
     <div class="scanline-overlay"></div>
     <div class="beam-scan"></div>
 
-    <!-- Running Text Videotron Style -->
+    <!-- Teks Berjalan Running Text -->
     <div class="marquee-bar">
-        <div class="marquee-tag">
-            <span class="pulse-dot"></span> 
-        </div>
         <div class="marquee-container">
             <div id="marqueeDisplay" class="marquee-content">SELAMAT DATANG DI PORTOFOLIO TEKNISI VIDEOTRON • MELAYANI INSTALASI, MAINTENANCE, &amp; SETTING DISPLAY INDOOR/OUTDOOR SELURUH INDONESIA • HUBUNGI WHATSAPP KAMI</div>
         </div>
@@ -724,10 +918,10 @@
     <!-- Panel Kontrol Khusus Admin -->
     <div id="adminPanelBar" class="admin-panel-bar" style="display: none;">
         <button class="btn-tech-action btn-cover" onclick="openCoverModal()">
-            <i class="bi bi-image-fill"></i> UBAH COVER
+            <i class="bi bi-image-fill"></i> COVER
         </button>
         <button class="btn-tech-action btn-avatar" onclick="openAvatarModal()">
-            <i class="bi bi-person-bounding-box"></i> UBAH AVATAR
+            <i class="bi bi-person-bounding-box"></i> AVATAR
         </button>
         <button class="btn-tech-action btn-marquee" onclick="openMarqueeModal()">
             <i class="bi bi-chat-left-dots-fill"></i> RUNNING TEXT
@@ -740,18 +934,18 @@
         </button>
     </div>
 
-    <!-- Hero Profile: Cover Landscape Mentok Penuh ke Garis Running Text -->
+    <!-- Hero Profil & Banner Landscape -->
     <div class="profile-hero">
         <div class="cover-landscape-container">
-            <button id="adminAuthBtn" class="admin-icon-btn" onclick="toggleAdminAuth()" title="Admin Control">
+            <button id="adminAuthBtn" class="admin-icon-btn" onclick="toggleAdminAuth()" title="Admin Control Center">
                 <i class="bi bi-cpu-fill"></i>
             </button>
-            <img id="mainCoverBanner" class="cover-landscape-img" src="https://drive.google.com/thumbnail?id=1EFT_iZW2bGVe76LVr9N0JC_fooFDQxJX&amp;sz=w1600" alt="Cover Videotron Tech">
+            <img id="mainCoverBanner" class="cover-landscape-img" src="https://drive.google.com/thumbnail?id=1EFT_iZW2bGVe76LVr9N0JC_fooFDQxJX&amp;sz=w1600" alt="Cover Videotron Tech" onerror="this.src='https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&amp;fit=crop&amp;w=1200&amp;q=80'">
             <div class="cover-overlay-gradient"></div>
         </div>
 
         <div class="avatar-wrapper" onclick="viewAvatarModal()" title="Klik untuk melihat foto profil">
-            <img id="mainProfileAvatar" class="profile-avatar-large" src="https://drive.google.com/thumbnail?id=16alnfBBKXonHadKR6ZEC75npzvjUXIgb&amp;sz=w600" alt="Teknisi Videotron">
+            <img id="mainProfileAvatar" class="profile-avatar-large" src="https://drive.google.com/thumbnail?id=16alnfBBKXonHadKR6ZEC75npzvjUXIgb&amp;sz=w600" alt="Teknisi Videotron" onerror="this.src='https://images.unsplash.com/photo-1534972195531-a756b1146f35?auto=format&amp;fit=crop&amp;w=400&amp;q=80'">
             <div class="avatar-badge-lens">
                 <i class="bi bi-eye"></i>
             </div>
@@ -759,23 +953,70 @@
         <h1 class="profile-title">TEKNISI<span>VIDEOTRON</span></h1>
         
         <div class="profile-desc-box">
-            <div class="profile-desc-tag">Technical Specialist</div>
+            <div class="profile-desc-tag">
+                <i class="bi bi-patch-check-fill"></i> Technical Display Specialist
+            </div>
             <p class="profile-desc-text">
-                Berpengalaman dalam setting videotron via remote, konfigurasi sistem, troubleshooting, hingga instalasi di lapangan. Terbiasa menangani kebutuhan teknis dengan cepat, rapi, dan adaptif.
+                Berpengalaman dalam setting videotron via remote, konfigurasi receiving &amp; sending card, troubleshooting kabinet, kalibrasi warna, hingga instalasi rigging panggung dan gedung.
             </p>
+            <div class="skills-badges">
+                <a href="https://www.novastar.tech" target="_blank" rel="noopener noreferrer" class="skill-chip" title="Buka website resmi NovaStar">
+                    <i class="bi bi-cpu"></i> NovaStar
+                </a>
+                <a href="https://www.huidu.cn" target="_blank" rel="noopener noreferrer" class="skill-chip" title="Buka website resmi Huidu Technology">
+                    <i class="bi bi-motherboard"></i> Huidu
+                </a>
+                <a href="https://www.colorlightinside.com" target="_blank" rel="noopener noreferrer" class="skill-chip" title="Buka website resmi Colorlight">
+                    <i class="bi bi-broadcast"></i> Colorlight
+                </a>
+                <a href="http://www.kystar.com.cn" target="_blank" rel="noopener noreferrer" class="skill-chip" title="Buka website resmi Kystar">
+                    <i class="bi bi-sliders"></i> Kystar
+                </a>
+                <span class="skill-chip" style="cursor: default;"><i class="bi bi-lightning-charge"></i> COB / SMD</span>
+                <span class="skill-chip" style="cursor: default;"><i class="bi bi-tools"></i> 24/7 Remote</span>
+            </div>
         </div>
-
-        <a href="https://wa.me/628158855537?text=Halo%20Mas%20Mbong,%20saya%20ingin%20berkonsultasi%20mengenai%20proyek/instalasi%20videotron." target="_blank" rel="noopener noreferrer" class="btn-wa-profile">
-            <i class="bi bi-whatsapp"></i> Hubungi WhatsApp
-        </a>
     </div>
 
-    <!-- Container Daftar Proyek -->
-    <main class="content-container" id="projectContainer"><article class="card-project">
+    <!-- Tab Navigasi Aplikasi (3 Tab) -->
+    <div class="tab-nav-container">
+        <div class="tab-nav-pills">
+            <button class="tab-btn active" onclick="switchTab('projects', this)">
+                <i class="bi bi-grid-fill"></i>
+                <span>Proyek</span>
+            </button>
+            <button class="tab-btn" onclick="switchTab('calc', this)">
+                <i class="bi bi-calculator"></i>
+                <span>Kalkulator</span>
+            </button>
+            <button class="tab-btn" onclick="switchTab('consult', this)">
+                <i class="bi bi-whatsapp"></i>
+                <span>Estimasi</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- TAB 1: PORTOFOLIO PROYEK -->
+    <div id="tabProjects" class="content-container">
+        <div class="filter-section">
+            <div class="search-box">
+                <i class="bi bi-search"></i>
+                <input type="text" id="projectSearchInput" class="search-input" placeholder="Cari nama lokasi, jenis pitch (P2.5, P1.25)..." oninput="filterProjects()">
+            </div>
+            <div class="filter-tags">
+                <button class="filter-chip active" onclick="setPitchFilter('all', this)">Semua Proyek</button>
+                <button class="filter-chip" onclick="setPitchFilter('P1.25', this)">Pitch P1.25</button>
+                <button class="filter-chip" onclick="setPitchFilter('P2', this)">Pitch P2</button>
+                <button class="filter-chip" onclick="setPitchFilter('P2.5', this)">Pitch P2.5</button>
+                <button class="filter-chip" onclick="setPitchFilter('P5', this)">Pitch P5</button>
+            </div>
+        </div>
+
+        <main id="projectContainer" style="display:flex; flex-direction:column; gap:16px;"><article class="card-project">
                     <div class="card-top">
                         <div class="icon-circuit"><i class="bi bi-motherboard"></i></div>
-                        <div class="card-title-group">
-                            <h3>PEMASANGAN  MODUL INDOOR P1.25 COB</h3>
+                        <div class="card-title-group" style="flex:1;">
+                            <h3>PEMASANGAN MODUL INDOOR P1.25 COB</h3>
                             
                     <div class="location-text">
                         <i class="bi bi-geo-alt-fill"></i> Menara Mandiri
@@ -784,11 +1025,12 @@
                     </div>
 
                     <div class="badges-wrapper">
-                        <span class="badge-pill badge-photo"><i class="bi bi-images"></i> Foto</span>
-                        <span class="badge-pill badge-video"><i class="bi bi-play-circle"></i> Video</span>
+                        <span class="badge-pill badge-pitch"><i class="bi bi-grid-3x3"></i> P1.25</span>
+                        <span class="badge-pill badge-photo"><i class="bi bi-images"></i> Foto Galeri</span>
+                        <span class="badge-pill badge-video"><i class="bi bi-play-circle"></i> Video Testing</span>
                     </div>
 
-                    <p class="card-quote">Pemasangan modul indoor P1.25 COB magnetic tanpa kabinet</p>
+                    <p class="card-quote">Pemasangan modul indoor P1.25 COB magnetic tanpa kabinet presisi tinggi</p>
 
                     <div class="action-buttons-group">
                         <a href="https://drive.google.com/drive/folders/1DRz56h2LeVimIL2vCFcHEq8Ea8gugUsq" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-photo"><i class="bi bi-images"></i> Lihat Foto</a>
@@ -797,12 +1039,12 @@
 
                     <div class="admin-controls" style="display: none;">
                         <button class="btn-admin-act btn-edit" onclick="editProject(0)"><i class="bi bi-pencil-square"></i> EDIT</button>
-                        <button class="btn-admin-act btn-delete" onclick="deleteProject(0)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
+                        <button class="btn-admin-act btn-delete" onclick="promptDeleteProject(0)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
                     </div>
                 </article><article class="card-project">
                     <div class="card-top">
                         <div class="icon-circuit"><i class="bi bi-motherboard"></i></div>
-                        <div class="card-title-group">
+                        <div class="card-title-group" style="flex:1;">
                             <h3>PEMASANGAN MODUL INDOOR P2.5 DAN P5</h3>
                             
                     <div class="location-text">
@@ -812,11 +1054,12 @@
                     </div>
 
                     <div class="badges-wrapper">
-                        <span class="badge-pill badge-photo"><i class="bi bi-images"></i> Foto</span>
-                        <span class="badge-pill badge-video"><i class="bi bi-play-circle"></i> Video</span>
+                        <span class="badge-pill badge-pitch"><i class="bi bi-grid-3x3"></i> P2.5</span>
+                        <span class="badge-pill badge-photo"><i class="bi bi-images"></i> Foto Galeri</span>
+                        <span class="badge-pill badge-video"><i class="bi bi-play-circle"></i> Video Testing</span>
                     </div>
 
-                    <p class="card-quote">Pemasangan nodul indoor P2.5 dan Ceiling P5 beberapa titik</p>
+                    <p class="card-quote">Pemasangan modul indoor P2.5 dan Ceiling P5 di beberapa titik ruangan VIP</p>
 
                     <div class="action-buttons-group">
                         <a href="https://drive.google.com/drive/folders/16ZEyJ6ZUtMIsPoSsXVr4AYNf5TIx1gn6" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-photo"><i class="bi bi-images"></i> Lihat Foto</a>
@@ -825,12 +1068,12 @@
 
                     <div class="admin-controls" style="display: none;">
                         <button class="btn-admin-act btn-edit" onclick="editProject(1)"><i class="bi bi-pencil-square"></i> EDIT</button>
-                        <button class="btn-admin-act btn-delete" onclick="deleteProject(1)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
+                        <button class="btn-admin-act btn-delete" onclick="promptDeleteProject(1)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
                     </div>
                 </article><article class="card-project">
                     <div class="card-top">
                         <div class="icon-circuit"><i class="bi bi-motherboard"></i></div>
-                        <div class="card-title-group">
+                        <div class="card-title-group" style="flex:1;">
                             <h3>PEMASANGAN MODUL INDOOR P2.5 64S</h3>
                             
                     <div class="location-text">
@@ -840,11 +1083,12 @@
                     </div>
 
                     <div class="badges-wrapper">
-                        <span class="badge-pill badge-photo"><i class="bi bi-images"></i> Foto</span>
-                        <span class="badge-pill badge-video"><i class="bi bi-play-circle"></i> Video</span>
+                        <span class="badge-pill badge-pitch"><i class="bi bi-grid-3x3"></i> P2.5</span>
+                        <span class="badge-pill badge-photo"><i class="bi bi-images"></i> Foto Galeri</span>
+                        <span class="badge-pill badge-video"><i class="bi bi-play-circle"></i> Video Testing</span>
                     </div>
 
-                    <p class="card-quote">Pemasangan modul indoor P2.5 64s</p>
+                    <p class="card-quote">Pemasangan modul indoor P2.5 64s dengan controller NovaStar</p>
 
                     <div class="action-buttons-group">
                         <a href="https://drive.google.com/drive/folders/1TO4UO4LzMY_G0gj6KMuH53IG3E9f0eTP" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-photo"><i class="bi bi-images"></i> Lihat Foto</a>
@@ -853,12 +1097,12 @@
 
                     <div class="admin-controls" style="display: none;">
                         <button class="btn-admin-act btn-edit" onclick="editProject(2)"><i class="bi bi-pencil-square"></i> EDIT</button>
-                        <button class="btn-admin-act btn-delete" onclick="deleteProject(2)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
+                        <button class="btn-admin-act btn-delete" onclick="promptDeleteProject(2)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
                     </div>
                 </article><article class="card-project">
                     <div class="card-top">
                         <div class="icon-circuit"><i class="bi bi-motherboard"></i></div>
-                        <div class="card-title-group">
+                        <div class="card-title-group" style="flex:1;">
                             <h3>INSTALASI VIDEOTRON INDOOR P2.5</h3>
                             
                     <div class="location-text">
@@ -868,11 +1112,12 @@
                     </div>
 
                     <div class="badges-wrapper">
-                        <span class="badge-pill badge-photo"><i class="bi bi-images"></i> Foto</span>
-                        <span class="badge-pill badge-video"><i class="bi bi-play-circle"></i> Video</span>
+                        <span class="badge-pill badge-pitch"><i class="bi bi-grid-3x3"></i> P2.5</span>
+                        <span class="badge-pill badge-photo"><i class="bi bi-images"></i> Foto Galeri</span>
+                        <span class="badge-pill badge-video"><i class="bi bi-play-circle"></i> Video Testing</span>
                     </div>
 
-                    <p class="card-quote">Pemasangan modul indoor P2.5 menggunakan sistem dari Kystar</p>
+                    <p class="card-quote">Pemasangan modul indoor P2.5 menggunakan sistem prosesor dari Kystar</p>
 
                     <div class="action-buttons-group">
                         <a href="https://drive.google.com/drive/folders/1vRvSpK-aEwxjQqiEd-unvekPlbJWniWg" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-photo"><i class="bi bi-images"></i> Lihat Foto</a>
@@ -881,12 +1126,12 @@
 
                     <div class="admin-controls" style="display: none;">
                         <button class="btn-admin-act btn-edit" onclick="editProject(3)"><i class="bi bi-pencil-square"></i> EDIT</button>
-                        <button class="btn-admin-act btn-delete" onclick="deleteProject(3)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
+                        <button class="btn-admin-act btn-delete" onclick="promptDeleteProject(3)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
                     </div>
                 </article><article class="card-project">
                     <div class="card-top">
                         <div class="icon-circuit"><i class="bi bi-motherboard"></i></div>
-                        <div class="card-title-group">
+                        <div class="card-title-group" style="flex:1;">
                             <h3>LED DISPLAY INDOOR P2</h3>
                             
                     <div class="location-text">
@@ -896,8 +1141,9 @@
                     </div>
 
                     <div class="badges-wrapper">
-                        <span class="badge-pill badge-photo"><i class="bi bi-images"></i> Foto</span>
-                        <span class="badge-pill badge-video"><i class="bi bi-play-circle"></i> Video</span>
+                        <span class="badge-pill badge-pitch"><i class="bi bi-grid-3x3"></i> P2</span>
+                        <span class="badge-pill badge-photo"><i class="bi bi-images"></i> Foto Galeri</span>
+                        <span class="badge-pill badge-video"><i class="bi bi-play-circle"></i> Video Testing</span>
                     </div>
 
                     <p class="card-quote">Pemasangan modul indoor P2 menggunakan kabinet 64*48cm dengan real screen 512*288cm</p>
@@ -909,12 +1155,12 @@
 
                     <div class="admin-controls" style="display: none;">
                         <button class="btn-admin-act btn-edit" onclick="editProject(4)"><i class="bi bi-pencil-square"></i> EDIT</button>
-                        <button class="btn-admin-act btn-delete" onclick="deleteProject(4)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
+                        <button class="btn-admin-act btn-delete" onclick="promptDeleteProject(4)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
                     </div>
                 </article><article class="card-project">
                     <div class="card-top">
                         <div class="icon-circuit"><i class="bi bi-motherboard"></i></div>
-                        <div class="card-title-group">
+                        <div class="card-title-group" style="flex:1;">
                             <h3>PEMASANGAN MODUL INDOOR P2.5</h3>
                             
                     <div class="location-text">
@@ -924,11 +1170,12 @@
                     </div>
 
                     <div class="badges-wrapper">
-                        <span class="badge-pill badge-photo"><i class="bi bi-images"></i> Foto</span>
-                        <span class="badge-pill badge-video"><i class="bi bi-play-circle"></i> Video</span>
+                        <span class="badge-pill badge-pitch"><i class="bi bi-grid-3x3"></i> P2.5</span>
+                        <span class="badge-pill badge-photo"><i class="bi bi-images"></i> Foto Galeri</span>
+                        <span class="badge-pill badge-video"><i class="bi bi-play-circle"></i> Video Testing</span>
                     </div>
 
-                    <p class="card-quote">pemasangan modul indoor P2.5 di gereja</p>
+                    <p class="card-quote">Pemasangan modul indoor P2.5 di gereja untuk ibadah raya</p>
 
                     <div class="action-buttons-group">
                         <a href="https://drive.google.com/drive/folders/1oEkS8rXPr_3xlivlIx9bQJGpLBfVnwdg" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-photo"><i class="bi bi-images"></i> Lihat Foto</a>
@@ -937,33 +1184,184 @@
 
                     <div class="admin-controls" style="display: none;">
                         <button class="btn-admin-act btn-edit" onclick="editProject(5)"><i class="bi bi-pencil-square"></i> EDIT</button>
-                        <button class="btn-admin-act btn-delete" onclick="deleteProject(5)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
+                        <button class="btn-admin-act btn-delete" onclick="promptDeleteProject(5)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
                     </div>
                 </article></main>
+    </div>
 
-    <!-- Floating WhatsApp Button -->
+    <!-- TAB 2: KALKULATOR VIDEOTRON -->
+    <div id="tabCalc" class="content-container hidden">
+        <div class="tech-tool-card">
+            <div class="tool-title">
+                <i class="bi bi-calculator-fill"></i> Kalkulator Resolusi &amp; Modul LED
+            </div>
+            <p style="font-size:0.83rem; color:var(--text-body); margin-bottom:14px;">
+                Hitung estimasi resolusi total, kerapatan pixel, jarak pandang, dan kalkulasi daya listrik per m² modul secara presisi.
+            </p>
+
+            <div class="tool-grid-2">
+                <div class="form-group">
+                    <label>Lebar Layar (cm)</label>
+                    <input type="number" id="calcWidth" class="form-control" value="400" step="1" min="10" oninput="calculateLED()">
+                </div>
+                <div class="form-group">
+                    <label>Tinggi Layar (cm)</label>
+                    <input type="number" id="calcHeight" class="form-control" value="250" step="1" min="10" oninput="calculateLED()">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Pilih Pixel Pitch (Kerapatan Titik)</label>
+                <select id="calcPitch" class="form-control" onchange="calculateLED()">
+                    <option value="1.25" data-watt="620" data-type="indoor">P1.25 (Indoor COB/SMD)</option>
+                    <option value="1.53" data-watt="580" data-type="indoor">P1.53 (Indoor COB/SMD)</option>
+                    <option value="1.86" data-watt="550" data-type="indoor">P1.86 (Indoor Fine Pitch)</option>
+                    <option value="2.0" data-watt="520" data-type="indoor">P2 (Indoor High Res)</option>
+                    <option value="2.5" data-watt="480" data-type="indoor" selected="">P2.5 (Indoor Standar Meeting/Hall)</option>
+                    <option value="2.6" data-watt="460" data-type="indoor">P2.6 (Indoor Stage Rental)</option>
+                    <option value="2.9" data-watt="440" data-type="indoor">P2.9 (Indoor Stage Rental)</option>
+                    <option value="3.0" data-watt="420" data-type="indoor">P3 Indoor (Ballroom/Gereja)</option>
+                    <option value="3.0" data-watt="750" data-type="outdoor">P3 Outdoor (High Brightness)</option>
+                    <option value="3.91" data-watt="400" data-type="indoor">P3.91 Indoor (Event/Rental)</option>
+                    <option value="3.91" data-watt="800" data-type="outdoor">P3.91 Outdoor (Rental Panggung)</option>
+                    <option value="4.0" data-watt="380" data-type="indoor">P4 Indoor (Lobby/Auditorium)</option>
+                    <option value="4.0" data-watt="820" data-type="outdoor">P4 Outdoor (Billboard/Fasade)</option>
+                    <option value="5.0" data-watt="320" data-type="indoor">P5 Indoor (Ceiling/Display Besar)</option>
+                    <option value="5.0" data-watt="850" data-type="outdoor">P5 Outdoor (Billboard Standar)</option>
+                    <option value="8.0" data-watt="280" data-type="indoor">P8 Indoor (Stadium Ribbon)</option>
+                    <option value="8.0" data-watt="900" data-type="outdoor">P8 Outdoor (JPO/Jalan Raya)</option>
+                    <option value="10.0" data-watt="240" data-type="indoor">P10 Indoor (Display Teks/Jauh)</option>
+                    <option value="10.0" data-watt="950" data-type="outdoor">P10 Outdoor (Billboard Raksasa)</option>
+                </select>
+            </div>
+
+            <div class="calc-result-box">
+                <div class="calc-stat-row">
+                    <span>Dimensi &amp; Luas:</span>
+                    <span id="resDimensions" class="calc-val">400 × 250 cm (10.00 m²)</span>
+                </div>
+                <div class="calc-stat-row">
+                    <span>Total Resolusi:</span>
+                    <span id="resPixelCount" class="calc-val">1600 × 1000 px</span>
+                </div>
+                <div class="calc-stat-row">
+                    <span>Total Kerapatan Dot LED:</span>
+                    <span id="resTotalDots" class="calc-val">1.600.000 Pixels</span>
+                </div>
+                <div class="calc-stat-row">
+                    <span>Rasio Aspek Layar:</span>
+                    <span id="resAspectRatio" class="calc-val">8 : 5</span>
+                </div>
+                <div class="calc-stat-row">
+                    <span>Jarak Pandang Minimum:</span>
+                    <span id="resMinDistance" class="calc-val">~2.5 Meter</span>
+                </div>
+                <div class="calc-stat-row" style="background: rgba(0, 242, 254, 0.05); margin: 4px -6px; padding: 6px 6px; border-radius: 6px;">
+                    <span style="color:var(--neon-cyan); font-weight:700;">Daya Maksimal (Full White):</span>
+                    <span id="resMaxPower" class="calc-val" style="color:#38bdf8;">~4.800 Watt</span>
+                </div>
+                <div class="calc-stat-row">
+                    <span>Daya Rata-Rata (Pemakaian Normal):</span>
+                    <span id="resAvgPower" class="calc-val">~1.680 Watt</span>
+                </div>
+                <div class="calc-stat-row">
+                    <span>Beban Arus Listrik (@220V):</span>
+                    <span id="resCurrentAmp" class="calc-val">~24.2 Ampere</span>
+                </div>
+                <div class="calc-stat-row">
+                    <span>Rekomendasi MCB (Safety Factor 1.25x):</span>
+                    <span id="resMcbRecommend" class="calc-val" style="color:var(--neon-amber);">32A (1 Fasa)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3: ESTIMASI & KONSULTASI WHATSAPP -->
+    <div id="tabConsult" class="content-container hidden">
+        <div class="tech-tool-card">
+            <div class="tool-title">
+                <i class="bi bi-chat-text-fill"></i> Fast Quote &amp; Konsultasi Teknis
+            </div>
+            <p style="font-size:0.83rem; color:var(--text-body); margin-bottom:14px;">
+                Lengkapi rincian berikut untuk membuat draf konsultasi terstruktur yang langsung terhubung ke kontak teknisi.
+            </p>
+
+            <form onsubmit="handleQuickQuote(event)">
+                <div class="form-group">
+                    <label>Nama / Instansi</label>
+                    <input type="text" id="quoteName" class="form-control" placeholder="Contoh: Pak Budi (Jakarta)" required="">
+                </div>
+                <div class="form-group">
+                    <label>Jenis Kebutuhan</label>
+                    <select id="quoteService" class="form-control">
+                        <option value="Instalasi Baru (Pemasangan Videotron)">Instalasi Baru (Indoor / Outdoor)</option>
+                        <option value="Setting Remote Controller (NovaStar/Kystar)">Setting Remote Controller (NovaStar/Kystar)</option>
+                        <option value="Troubleshooting / Perbaikan Modul Rusak">Troubleshooting &amp; Perbaikan Modul</option>
+                        <option value="Maintenance Rutin / Kalibrasi Layar">Maintenance &amp; Kalibrasi Layar</option>
+                        <option value="Pengadaan Modul &amp; Sparepart">Pengadaan Modul &amp; Sparepart</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Lokasi Pemasangan</label>
+                    <input type="text" id="quoteLocation" class="form-control" placeholder="Contoh: Gedung Perkantoran / Gereja / Hall" required="">
+                </div>
+                <div class="form-group">
+                    <label>Catatan Tambahan (Ukuran / Spesifikasi)</label>
+                    <textarea id="quoteNotes" class="form-control" rows="2" placeholder="Contoh: Modul P2.5 ukuran 400x250cm atau modul padam pada 2 baris"></textarea>
+                </div>
+                <button type="submit" class="btn-submit" style="width:100%; display:inline-flex; justify-content:center; align-items:center; gap:8px; height:44px; margin-top:6px;">
+                    <i class="bi bi-whatsapp"></i> Hubungi WhatsApp Sekarang
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tombol WhatsApp Mengambang -->
     <a href="https://wa.me/628158855537?text=Halo%20Teknisi%20Videotron,%20saya%20ingin%20berkonsultasi%20mengenai%20proyek/instalasi%20videotron." target="_blank" rel="noopener noreferrer" class="floating-wa-btn" title="Chat WhatsApp">
         <i class="bi bi-whatsapp"></i>
     </a>
 
-    <!-- Modal Lightbox Foto Profil -->
+    <!-- Penampung Toast Pesan -->
+    <div id="toastContainer"></div>
+
+    <!-- Modal PIN Admin -->
+    <div id="adminPinModal" class="modal" style="display: none;">
+        <div class="modal-card">
+            <h3><i class="bi bi-shield-lock-fill"></i> AKSES ADMIN</h3>
+            <p style="font-size: 0.85rem; color: var(--text-body); margin-bottom: 14px;">
+                Masukkan PIN Admin untuk mengelola konten dan proyek:
+            </p>
+            <form onsubmit="handleAdminLogin(event)">
+                <div class="form-group">
+                    <label>PIN Admin</label>
+                    <input type="password" id="inputAdminPin" class="form-control" required="" placeholder="Masukkan PIN...">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" onclick="closeAdminPinModal()">Batal</button>
+                    <button type="submit" class="btn-submit">Buka Akses</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Tinjau Foto Profil -->
     <div id="viewAvatarModal" class="modal" onclick="closeViewAvatarModal(event)" style="display: none;">
-        <div class="modal-card avatar-preview-box" onclick="event.stopPropagation()">
-            <img id="modalPreviewImg" class="avatar-preview-img" src="https://drive.google.com/thumbnail?id=16alnfBBKXonHadKR6ZEC75npzvjUXIgb&amp;sz=w600" alt="Foto Profil">
+        <div class="modal-card" style="text-align:center;" onclick="event.stopPropagation()">
+            <img id="modalPreviewImg" style="width:190px; height:190px; border-radius:50%; object-fit:cover; border:3px solid var(--neon-cyan); box-shadow:0 0 30px rgba(0,242,254,0.4); margin:0 auto 16px; display:block;" src="https://drive.google.com/thumbnail?id=16alnfBBKXonHadKR6ZEC75npzvjUXIgb&amp;sz=w600" alt="Foto Profil" onerror="this.src='https://images.unsplash.com/photo-1534972195531-a756b1146f35?auto=format&amp;fit=crop&amp;w=400&amp;q=80'">
             <h3 style="margin-bottom: 4px;">TEKNISI VIDEOTRON MBONG</h3>
             <p style="font-size: 0.85rem; color: var(--text-body); margin-bottom: 16px;">Spesialis Instalasi, Wiring, &amp; Setup Videotron</p>
             <button type="button" class="btn-cancel" style="width: 100%;" onclick="document.getElementById('viewAvatarModal').style.display='none'">Tutup</button>
         </div>
     </div>
 
-    <!-- Modal Ubah Cover Landscape -->
+    <!-- Modal Ubah Cover Banner -->
     <div id="coverModal" class="modal">
         <div class="modal-card">
             <h3>GANTI COVER BANNER (LANDSCAPE)</h3>
             <form onsubmit="handleCoverSubmit(event)">
                 <div class="form-group">
-                    <label>Link Foto / Link Google Drive</label>
-                    <input type="url" id="inputCoverUrl" class="form-control" required="" placeholder="Paste link Google Drive atau direct link gambar di sini...">
+                    <label>Link Foto / Google Drive</label>
+                    <input type="url" id="inputCoverUrl" class="form-control" required="" placeholder="Paste link Google Drive atau direct URL...">
                 </div>
                 <div class="modal-actions">
                     <button type="button" class="btn-cancel" onclick="document.getElementById('coverModal').style.display='none'">Batal</button>
@@ -973,14 +1371,14 @@
         </div>
     </div>
 
-    <!-- Modal Avatar -->
+    <!-- Modal Ubah Foto Profil -->
     <div id="avatarModal" class="modal">
         <div class="modal-card">
             <h3>GANTI FOTO PROFIL ADMIN</h3>
             <form onsubmit="handleAvatarSubmit(event)">
                 <div class="form-group">
-                    <label>Link Foto / Link Google Drive</label>
-                    <input type="url" id="inputAvatarUrl" class="form-control" required="" placeholder="https://drive.google.com/...">
+                    <label>Link Foto / Google Drive</label>
+                    <input type="url" id="inputAvatarUrl" class="form-control" required="" placeholder="Paste link Google Drive atau direct URL...">
                 </div>
                 <div class="modal-actions">
                     <button type="button" class="btn-cancel" onclick="document.getElementById('avatarModal').style.display='none'">Batal</button>
@@ -1015,22 +1413,22 @@
                 <input type="hidden" id="editIndex" value="-1">
                 <div class="form-group">
                     <label>Nama Proyek</label>
-                    <input type="text" id="inputTitle" class="form-control" required="" placeholder="Contoh: VIDEOTRON OUTDOOR P3.9...">
+                    <input type="text" id="inputTitle" class="form-control" required="" placeholder="Contoh: PEMASANGAN MODUL INDOOR P2.5...">
                 </div>
                 <div class="form-group">
-                    <label>Lokasi (Opsional)</label>
-                    <input type="text" id="inputLocation" class="form-control" placeholder="Contoh: BEKASI / JAKARTA">
+                    <label>Lokasi</label>
+                    <input type="text" id="inputLocation" class="form-control" placeholder="Contoh: Menara Mandiri, Jakarta">
                 </div>
                 <div class="form-group">
                     <label>Deskripsi Teknis</label>
-                    <textarea id="inputDesc" class="form-control" rows="2" required="" placeholder="Contoh: Konfigurasi NovaStar &amp; kalibrasi..."></textarea>
+                    <textarea id="inputDesc" class="form-control" rows="2" required="" placeholder="Contoh: Konfigurasi NovaStar &amp; kalibrasi magnetik..."></textarea>
                 </div>
                 <div class="form-group">
-                    <label>Link Direct Drive (Foto)</label>
+                    <label>Link Google Drive (Foto)</label>
                     <input type="url" id="inputPhotoUrl" class="form-control" required="" placeholder="https://drive.google.com/...">
                 </div>
                 <div class="form-group">
-                    <label>Link Direct Drive (Video)</label>
+                    <label>Link Google Drive (Video)</label>
                     <input type="url" id="inputVideoUrl" class="form-control" required="" placeholder="https://drive.google.com/...">
                 </div>
                 <div class="modal-actions">
@@ -1041,27 +1439,41 @@
         </div>
     </div>
 
-    <!-- Modal Ekspor Kode -->
-    <div id="exportModal" class="modal">
-        <div class="modal-card" style="max-width: 500px;">
-            <h3>KODE EKSPOR</h3>
-            <p style="font-size: 0.85rem; color: var(--text-body); margin-bottom: 12px;">
-                Salin seluruh kode di bawah dan timpa ke file <b>index.html</b> di GitHub Anda.
+    <!-- Modal Konfirmasi Hapus Data -->
+    <div id="confirmDeleteModal" class="modal">
+        <div class="modal-card">
+            <h3><i class="bi bi-exclamation-triangle-fill" style="color:var(--neon-red);"></i> KONFIRMASI HAPUS</h3>
+            <p style="font-size:0.85rem; color:var(--text-body); margin-bottom:16px;">
+                Apakah Anda yakin ingin menghapus data proyek ini dari portofolio?
             </p>
-            <textarea id="exportTextarea" class="form-control" rows="8" readonly="" style="font-family: monospace; font-size: 0.75rem;"></textarea>
             <div class="modal-actions">
-                <button type="button" class="btn-cancel" onclick="document.getElementById('exportModal').style.display='none'">Tutup</button>
-                <button type="submit" class="btn-submit" onclick="copyExportedText()">Salin ke Clipboard</button>
+                <button type="button" class="btn-cancel" onclick="closeDeleteModal()">Batal</button>
+                <button type="button" class="btn-submit" style="background:linear-gradient(135deg, #ef4444, #991b1b); color:#fff;" onclick="executeDeleteProject()">Hapus Sekarang</button>
             </div>
         </div>
     </div>
 
-    <!-- Engine Canvas -->
+    <!-- Modal Ekspor Kode -->
+    <div id="exportModal" class="modal">
+        <div class="modal-card" style="max-width: 500px;">
+            <h3>KODE EKSPOR TERBARU</h3>
+            <p style="font-size: 0.85rem; color: var(--text-body); margin-bottom: 12px;">
+                Salin seluruh kode di bawah ini lalu timpa ke file <b>index.html</b> di repository hosting Anda.
+            </p>
+            <textarea id="exportTextarea" class="form-control" rows="8" readonly="" style="font-family: monospace; font-size: 0.75rem;"></textarea>
+            <div class="modal-actions">
+                <button type="button" class="btn-cancel" onclick="document.getElementById('exportModal').style.display='none'">Tutup</button>
+                <button type="button" class="btn-submit" onclick="copyExportedText()">Salin ke Clipboard</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mesin Animasi Canvas Matrix LED & Sinyal -->
     <script>
         const canvas = document.getElementById('videotronCanvas');
         const ctx = canvas.getContext('2d');
         let width, height;
-        let mouse = { x: -1000, y: -1000, radius: 150 };
+        let mouse = { x: -1000, y: -1000, radius: 140 };
 
         function resizeCanvas() {
             width = canvas.width = window.innerWidth;
@@ -1086,12 +1498,12 @@
         window.addEventListener('touchend', () => { mouse.x = -1000; mouse.y = -1000; });
 
         const packets = [];
-        for (let i = 0; i < 24; i++) {
+        for (let i = 0; i < 28; i++) {
             packets.push({
                 x: Math.random() * window.innerWidth,
                 y: Math.random() * window.innerHeight,
-                len: Math.random() * 80 + 40,
-                speed: Math.random() * 3.5 + 2.5,
+                len: Math.random() * 90 + 40,
+                speed: Math.random() * 3 + 2,
                 color: Math.random() > 0.4 ? 'rgba(0, 242, 254,' : 'rgba(168, 85, 247,'
             });
         }
@@ -1099,9 +1511,9 @@
         let tick = 0;
         function renderLEDCanvas() {
             ctx.clearRect(0, 0, width, height);
-            tick += 0.03;
+            tick += 0.025;
 
-            const pitch = 22;
+            const pitch = 24;
             const rows = Math.ceil(height / pitch);
             const cols = Math.ceil(width / pitch);
 
@@ -1113,18 +1525,18 @@
 
                     if (dist < mouse.radius) {
                         const intensity = (1 - dist / mouse.radius);
-                        ctx.fillStyle = `rgba(0, 242, 254, ${intensity * 0.9})`;
+                        ctx.fillStyle = `rgba(0, 242, 254, ${intensity * 0.85})`;
                         ctx.fillRect(x - 1.5, y - 1.5, 3, 3);
 
-                        ctx.fillStyle = `rgba(255, 30, 86, ${intensity * 0.7})`;
+                        ctx.fillStyle = `rgba(255, 30, 86, ${intensity * 0.6})`;
                         ctx.fillRect(x + 2, y - 1.5, 1.5, 3);
                     } else {
-                        const wave = Math.sin(tick + (r * 0.15) + (c * 0.1));
-                        if (wave > 0.85) {
-                            ctx.fillStyle = 'rgba(0, 242, 254, 0.18)';
+                        const wave = Math.sin(tick + (r * 0.12) + (c * 0.08));
+                        if (wave > 0.88) {
+                            ctx.fillStyle = 'rgba(0, 242, 254, 0.14)';
                             ctx.fillRect(x, y, 1.8, 1.8);
                         } else {
-                            ctx.fillStyle = 'rgba(255, 255, 255, 0.03)';
+                            ctx.fillStyle = 'rgba(255, 255, 255, 0.02)';
                             ctx.fillRect(x, y, 1.2, 1.2);
                         }
                     }
@@ -1141,7 +1553,7 @@
 
                 const grad = ctx.createLinearGradient(p.x, p.y - p.len, p.x, p.y);
                 grad.addColorStop(0, p.color + '0)');
-                grad.addColorStop(1, p.color + '0.65)');
+                grad.addColorStop(1, p.color + '0.6)');
 
                 ctx.strokeStyle = grad;
                 ctx.lineWidth = 1.5;
@@ -1159,12 +1571,13 @@
         renderLEDCanvas();
     </script>
 
-    <!-- App Logic Script -->
+    <!-- Logika Aplikasi & State Management -->
     <script>
         const ADMIN_PIN = "gretongers";
         let isAdminLoggedIn = false;
+        let selectedPitchFilter = 'all';
+        let deleteCandidateIndex = -1;
 
-        // Auto convert Google Drive share link ke CDN image link
         function formatDriveUrl(url, size = 'w1600') {
             if (!url) return '';
             const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/) || url.match(/id=([a-zA-Z0-9_-]+)/);
@@ -1180,30 +1593,30 @@
 
         let projectsData = [
           {
-                    "title": "PEMASANGAN  MODUL INDOOR P1.25 COB",
+                    "title": "PEMASANGAN MODUL INDOOR P1.25 COB",
                     "location": "Menara Mandiri",
-                    "desc": "Pemasangan modul indoor P1.25 COB magnetic tanpa kabinet",
+                    "desc": "Pemasangan modul indoor P1.25 COB magnetic tanpa kabinet presisi tinggi",
                     "photoUrl": "https://drive.google.com/drive/folders/1DRz56h2LeVimIL2vCFcHEq8Ea8gugUsq",
                     "videoUrl": "https://drive.google.com/drive/folders/1DRz56h2LeVimIL2vCFcHEq8Ea8gugUsq"
           },
           {
                     "title": "PEMASANGAN MODUL INDOOR P2.5 DAN P5",
                     "location": "KTV Glodok",
-                    "desc": "Pemasangan nodul indoor P2.5 dan Ceiling P5 beberapa titik",
+                    "desc": "Pemasangan modul indoor P2.5 dan Ceiling P5 di beberapa titik ruangan VIP",
                     "photoUrl": "https://drive.google.com/drive/folders/16ZEyJ6ZUtMIsPoSsXVr4AYNf5TIx1gn6",
                     "videoUrl": "https://drive.google.com/drive/folders/16ZEyJ6ZUtMIsPoSsXVr4AYNf5TIx1gn6"
           },
           {
                     "title": "PEMASANGAN MODUL INDOOR P2.5 64S",
                     "location": "Gereja daerah Ancol",
-                    "desc": "Pemasangan modul indoor P2.5 64s",
+                    "desc": "Pemasangan modul indoor P2.5 64s dengan controller NovaStar",
                     "photoUrl": "https://drive.google.com/drive/folders/1TO4UO4LzMY_G0gj6KMuH53IG3E9f0eTP",
                     "videoUrl": "https://drive.google.com/drive/folders/1TO4UO4LzMY_G0gj6KMuH53IG3E9f0eTP"
           },
           {
                     "title": "INSTALASI VIDEOTRON INDOOR P2.5",
                     "location": "BEKASI",
-                    "desc": "Pemasangan modul indoor P2.5 menggunakan sistem dari Kystar",
+                    "desc": "Pemasangan modul indoor P2.5 menggunakan sistem prosesor dari Kystar",
                     "photoUrl": "https://drive.google.com/drive/folders/1vRvSpK-aEwxjQqiEd-unvekPlbJWniWg",
                     "videoUrl": "https://drive.google.com/drive/folders/1vRvSpK-aEwxjQqiEd-unvekPlbJWniWg"
           },
@@ -1217,11 +1630,241 @@
           {
                     "title": "PEMASANGAN MODUL INDOOR P2.5",
                     "location": "GEREJA TM",
-                    "desc": "pemasangan modul indoor P2.5 di gereja",
+                    "desc": "Pemasangan modul indoor P2.5 di gereja untuk ibadah raya",
                     "photoUrl": "https://drive.google.com/drive/folders/1oEkS8rXPr_3xlivlIx9bQJGpLBfVnwdg",
                     "videoUrl": "https://drive.google.com/drive/folders/1oEkS8rXPr_3xlivlIx9bQJGpLBfVnwdg"
           }
 ];
+
+        function showToast(message, icon = 'bi-check-circle-fill') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast-msg';
+            toast.innerHTML = `<i class="bi ${icon}"></i> <span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.4s ease';
+                setTimeout(() => toast.remove(), 400);
+            }, 3000);
+        }
+
+        function switchTab(tabId, el) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            el.classList.add('active');
+
+            document.getElementById('tabProjects').classList.add('hidden');
+            document.getElementById('tabCalc').classList.add('hidden');
+            document.getElementById('tabConsult').classList.add('hidden');
+
+            if (tabId === 'projects') document.getElementById('tabProjects').classList.remove('hidden');
+            if (tabId === 'calc') {
+                document.getElementById('tabCalc').classList.remove('hidden');
+                calculateLED();
+            }
+            if (tabId === 'consult') document.getElementById('tabConsult').classList.remove('hidden');
+        }
+
+        function extractPitchTag(title, desc) {
+            const str = (title + " " + desc).toUpperCase();
+            if (str.includes("P1.25")) return "P1.25";
+            if (str.includes("P1.53")) return "P1.53";
+            if (str.includes("P1.86")) return "P1.86";
+            if (str.includes("P2.5")) return "P2.5";
+            if (str.includes("P2.6")) return "P2.6";
+            if (str.includes("P2.9")) return "P2.9";
+            if (str.includes("P2")) return "P2";
+            if (str.includes("P3.91") || str.includes("P3.9")) return "P3.91";
+            if (str.includes("P3")) return "P3";
+            if (str.includes("P4")) return "P4";
+            if (str.includes("P5")) return "P5";
+            if (str.includes("P8")) return "P8";
+            if (str.includes("P10")) return "P10";
+            return "LED DISPLAY";
+        }
+
+        function renderProjects() {
+            const container = document.getElementById("projectContainer");
+            container.innerHTML = "";
+            const searchQuery = (document.getElementById("projectSearchInput")?.value || "").toLowerCase();
+
+            let visibleCount = 0;
+
+            projectsData.forEach((proj, idx) => {
+                const pitch = extractPitchTag(proj.title, proj.desc);
+                const matchesSearch = proj.title.toLowerCase().includes(searchQuery) ||
+                                     (proj.location && proj.location.toLowerCase().includes(searchQuery)) ||
+                                     proj.desc.toLowerCase().includes(searchQuery) ||
+                                     pitch.toLowerCase().includes(searchQuery);
+
+                const matchesFilter = selectedPitchFilter === 'all' || pitch.toLowerCase() === selectedPitchFilter.toLowerCase();
+
+                if (!matchesSearch || !matchesFilter) return;
+
+                visibleCount++;
+                const card = document.createElement("article");
+                card.className = "card-project";
+                
+                const locationHtml = proj.location ? `
+                    <div class="location-text">
+                        <i class="bi bi-geo-alt-fill"></i> ${proj.location}
+                    </div>` : '';
+
+                card.innerHTML = `
+                    <div class="card-top">
+                        <div class="icon-circuit"><i class="bi bi-motherboard"></i></div>
+                        <div class="card-title-group" style="flex:1;">
+                            <h3>${proj.title}</h3>
+                            ${locationHtml}
+                        </div>
+                    </div>
+
+                    <div class="badges-wrapper">
+                        <span class="badge-pill badge-pitch"><i class="bi bi-grid-3x3"></i> ${pitch}</span>
+                        <span class="badge-pill badge-photo"><i class="bi bi-images"></i> Foto Galeri</span>
+                        <span class="badge-pill badge-video"><i class="bi bi-play-circle"></i> Video Testing</span>
+                    </div>
+
+                    <p class="card-quote">${proj.desc}</p>
+
+                    <div class="action-buttons-group">
+                        <a href="${proj.photoUrl}" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-photo"><i class="bi bi-images"></i> Lihat Foto</a>
+                        <a href="${proj.videoUrl}" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-video"><i class="bi bi-camera-reels"></i> Lihat Video</a>
+                    </div>
+
+                    <div class="admin-controls" style="display: ${isAdminLoggedIn ? 'flex' : 'none'};">
+                        <button class="btn-admin-act btn-edit" onclick="editProject(${idx})"><i class="bi bi-pencil-square"></i> EDIT</button>
+                        <button class="btn-admin-act btn-delete" onclick="promptDeleteProject(${idx})"><i class="bi bi-trash3-fill"></i> HAPUS</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            if (visibleCount === 0) {
+                container.innerHTML = `
+                    <div style="text-align:center; padding:30px 10px; color:var(--text-muted); background:var(--card-glass); border-radius:14px; border:1px dashed var(--card-border);">
+                        <i class="bi bi-search" style="font-size:1.8rem; color:var(--neon-cyan); display:block; margin-bottom:8px;"></i>
+                        <p style="font-size:0.9rem;">Tidak ada proyek yang sesuai dengan kata kunci.</p>
+                    </div>
+                `;
+            }
+
+            const badge = document.getElementById("projectCountBadge");
+            if (badge) badge.innerText = `${projectsData.length} PROYEK`;
+        }
+
+        function filterProjects() {
+            renderProjects();
+        }
+
+        function setPitchFilter(pitch, el) {
+            selectedPitchFilter = pitch;
+            document.querySelectorAll('#tabProjects .filter-chip').forEach(chip => chip.classList.remove('active'));
+            el.classList.add('active');
+            renderProjects();
+        }
+
+        function calculateLED() {
+            const wCm = parseFloat(document.getElementById('calcWidth').value) || 0;
+            const hCm = parseFloat(document.getElementById('calcHeight').value) || 0;
+            const pitchSelect = document.getElementById('calcPitch');
+            const pitchMm = parseFloat(pitchSelect.value) || 2.5;
+            const selectedOption = pitchSelect.options[pitchSelect.selectedIndex];
+            
+            const wattPerSqm = parseFloat(selectedOption.getAttribute('data-watt')) || 480;
+
+            if (wCm <= 0 || hCm <= 0) return;
+
+            const wMm = wCm * 10;
+            const hMm = hCm * 10;
+            const wMeter = wCm / 100;
+            const hMeter = hCm / 100;
+            const areaSqm = wMeter * hMeter;
+
+            const resX = Math.round(wMm / pitchMm);
+            const resY = Math.round(hMm / pitchMm);
+            const totalDots = resX * resY;
+
+            const gcd = (a, b) => b ? gcd(b, a % b) : a;
+            const divisor = gcd(Math.round(wCm), Math.round(hCm));
+            const ratioX = Math.round(wCm / divisor);
+            const ratioY = Math.round(hCm / divisor);
+            
+            const minDistance = (pitchMm * 1).toFixed(1);
+            
+            const maxPowerWatt = Math.round(areaSqm * wattPerSqm);
+            const avgPowerWatt = Math.round(maxPowerWatt * 0.35);
+            
+            const currentAmpere = (maxPowerWatt / (220 * 0.9)).toFixed(1);
+            
+            const recommendedAmp = Math.ceil((maxPowerWatt / (220 * 0.9)) * 1.25);
+            let mcbRating = "10A";
+            if (recommendedAmp <= 6) mcbRating = "6A (1 Fasa)";
+            else if (recommendedAmp <= 10) mcbRating = "10A (1 Fasa)";
+            else if (recommendedAmp <= 16) mcbRating = "16A (1 Fasa)";
+            else if (recommendedAmp <= 20) mcbRating = "20A (1 Fasa)";
+            else if (recommendedAmp <= 25) mcbRating = "25A (1 Fasa)";
+            else if (recommendedAmp <= 32) mcbRating = "32A (1 Fasa)";
+            else if (recommendedAmp <= 40) mcbRating = "40A (1 Fasa)";
+            else if (recommendedAmp <= 50) mcbRating = "50A (1 Fasa)";
+            else if (recommendedAmp <= 63) mcbRating = "63A (1 Fasa / Sarankan 3 Fasa)";
+            else mcbRating = `${recommendedAmp}A (Gunakan Distribusi 3 Fasa)`;
+
+            document.getElementById('resDimensions').innerText = `${wCm} × ${hCm} cm (${areaSqm.toFixed(2)} m²)`;
+            document.getElementById('resPixelCount').innerText = `${resX} × ${resY} px`;
+            document.getElementById('resTotalDots').innerText = `${totalDots.toLocaleString('id-ID')} Pixels`;
+            document.getElementById('resAspectRatio').innerText = `${ratioX} : ${ratioY}`;
+            document.getElementById('resMinDistance').innerText = `~${minDistance} Meter`;
+            document.getElementById('resMaxPower').innerText = `~${maxPowerWatt.toLocaleString('id-ID')} Watt`;
+            document.getElementById('resAvgPower').innerText = `~${avgPowerWatt.toLocaleString('id-ID')} Watt`;
+            document.getElementById('resCurrentAmp').innerText = `~${currentAmpere} Ampere`;
+            document.getElementById('resMcbRecommend').innerText = mcbRating;
+        }
+
+        function handleQuickQuote(e) {
+            e.preventDefault();
+            const name = document.getElementById('quoteName').value;
+            const service = document.getElementById('quoteService').value;
+            const location = document.getElementById('quoteLocation').value;
+            const notes = document.getElementById('quoteNotes').value;
+
+            const text = `Halo Teknisi Videotron, saya ${name}.\n\nSaya ingin konsultasi/penawaran terkait:\n- Kebutuhan: ${service}\n- Lokasi: ${location}\n- Catatan Tambahan: ${notes || 'Mohon infokan estimasi biayanya'}`;
+            const encoded = encodeURIComponent(text);
+            window.open(`https://wa.me/628158855537?text=${encoded}`, '_blank');
+        }
+
+        function toggleAdminAuth() {
+            if (!isAdminLoggedIn) {
+                document.getElementById('inputAdminPin').value = '';
+                document.getElementById('adminPinModal').style.display = 'flex';
+                document.getElementById('inputAdminPin').focus();
+            } else {
+                isAdminLoggedIn = false;
+                document.getElementById("adminAuthBtn").classList.remove("active");
+                document.getElementById("adminPanelBar").style.display = "none";
+                renderProjects();
+                showToast("Mode Admin Dinonaktifkan", "bi-shield-slash-fill");
+            }
+        }
+
+        function closeAdminPinModal() {
+            document.getElementById('adminPinModal').style.display = 'none';
+        }
+
+        function handleAdminLogin(e) {
+            e.preventDefault();
+            const pin = document.getElementById('inputAdminPin').value;
+            if (pin === ADMIN_PIN) {
+                isAdminLoggedIn = true;
+                document.getElementById("adminAuthBtn").classList.add("active");
+                document.getElementById("adminPanelBar").style.display = "flex";
+                closeAdminPinModal();
+                renderProjects();
+                showToast("Berhasil Masuk Mode Admin!", "bi-shield-check");
+            } else {
+                showToast("PIN Admin Salah!", "bi-x-circle-fill");
+            }
+        }
 
         function applyCover() {
             document.getElementById("mainCoverBanner").src = adminCoverUrl;
@@ -1244,70 +1887,6 @@
             document.getElementById("viewAvatarModal").style.display = "none";
         }
 
-        function renderProjects() {
-            const container = document.getElementById("projectContainer");
-            container.innerHTML = "";
-
-            projectsData.forEach((proj, idx) => {
-                const card = document.createElement("article");
-                card.className = "card-project";
-                
-                const locationHtml = proj.location ? `
-                    <div class="location-text">
-                        <i class="bi bi-geo-alt-fill"></i> ${proj.location}
-                    </div>` : '';
-
-                card.innerHTML = `
-                    <div class="card-top">
-                        <div class="icon-circuit"><i class="bi bi-motherboard"></i></div>
-                        <div class="card-title-group">
-                            <h3>${proj.title}</h3>
-                            ${locationHtml}
-                        </div>
-                    </div>
-
-                    <div class="badges-wrapper">
-                        <span class="badge-pill badge-photo"><i class="bi bi-images"></i> Foto</span>
-                        <span class="badge-pill badge-video"><i class="bi bi-play-circle"></i> Video</span>
-                    </div>
-
-                    <p class="card-quote">${proj.desc}</p>
-
-                    <div class="action-buttons-group">
-                        <a href="${proj.photoUrl}" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-photo"><i class="bi bi-images"></i> Lihat Foto</a>
-                        <a href="${proj.videoUrl}" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-video"><i class="bi bi-camera-reels"></i> Lihat Video</a>
-                    </div>
-
-                    <div class="admin-controls" style="display: ${isAdminLoggedIn ? 'flex' : 'none'};">
-                        <button class="btn-admin-act btn-edit" onclick="editProject(${idx})"><i class="bi bi-pencil-square"></i> EDIT</button>
-                        <button class="btn-admin-act btn-delete" onclick="deleteProject(${idx})"><i class="bi bi-trash3-fill"></i> HAPUS</button>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        function toggleAdminAuth() {
-            if (!isAdminLoggedIn) {
-                const inputPin = prompt("Masukkan PIN Admin:");
-                if (inputPin === ADMIN_PIN) {
-                    isAdminLoggedIn = true;
-                    document.getElementById("adminAuthBtn").classList.add("active");
-                    document.getElementById("adminPanelBar").style.display = "flex";
-                    renderProjects();
-                } else if (inputPin !== null) {
-                    alert("PIN salah.");
-                }
-            } else {
-                if (confirm("Keluar dari mode Admin?")) {
-                    isAdminLoggedIn = false;
-                    document.getElementById("adminAuthBtn").classList.remove("active");
-                    document.getElementById("adminPanelBar").style.display = "none";
-                    renderProjects();
-                }
-            }
-        }
-
         function openCoverModal() {
             document.getElementById("inputCoverUrl").value = adminCoverUrl;
             document.getElementById("coverModal").style.display = "flex";
@@ -1319,7 +1898,7 @@
             adminCoverUrl = formatDriveUrl(rawUrl, 'w1600');
             applyCover();
             document.getElementById("coverModal").style.display = "none";
-            alert("Cover banner berhasil diganti! Klik 'EKSPOR KODE' untuk menyimpannya permanen.");
+            showToast("Cover banner diperbarui!");
         }
 
         function openAvatarModal() {
@@ -1333,7 +1912,7 @@
             adminAvatarUrl = formatDriveUrl(rawUrl, 'w600');
             applyAvatar();
             document.getElementById("avatarModal").style.display = "none";
-            alert("Foto profil berhasil diganti! Klik 'EKSPOR KODE' untuk menyimpannya permanen.");
+            showToast("Foto profil diperbarui!");
         }
 
         function openMarqueeModal() {
@@ -1346,7 +1925,7 @@
             runningTextContent = document.getElementById("inputMarqueeText").value.trim();
             applyMarquee();
             document.getElementById("marqueeModal").style.display = "none";
-            alert("Running text berhasil diubah! Klik 'EKSPOR KODE' untuk menyimpannya.");
+            showToast("Running text diperbarui!");
         }
 
         function openModal(index = -1) {
@@ -1383,8 +1962,10 @@
 
             if (index >= 0) {
                 projectsData[index] = payload;
+                showToast("Proyek berhasil diedit!");
             } else {
                 projectsData.unshift(payload);
+                showToast("Proyek baru ditambahkan!");
             }
             renderProjects();
             closeModal();
@@ -1392,11 +1973,23 @@
 
         function editProject(idx) { openModal(idx); }
 
-        function deleteProject(idx) {
-            if (confirm("Hapus proyek ini?")) {
-                projectsData.splice(idx, 1);
+        function promptDeleteProject(idx) {
+            deleteCandidateIndex = idx;
+            document.getElementById('confirmDeleteModal').style.display = 'flex';
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('confirmDeleteModal').style.display = 'none';
+            deleteCandidateIndex = -1;
+        }
+
+        function executeDeleteProject() {
+            if (deleteCandidateIndex >= 0 && deleteCandidateIndex < projectsData.length) {
+                projectsData.splice(deleteCandidateIndex, 1);
                 renderProjects();
+                showToast("Proyek berhasil dihapus!", "bi-trash");
             }
+            closeDeleteModal();
         }
 
         function exportUpdatedCode() {
@@ -1427,22 +2020,18 @@
         function copyExportedText() {
             const textarea = document.getElementById("exportTextarea");
             textarea.select();
-            navigator.clipboard.writeText(textarea.value).then(() => {
-                alert("Kode berhasil disalin! Silakan paste ke file index.html di GitHub.");
-                document.getElementById("exportModal").style.display = "none";
-            }).catch(() => {
-                document.execCommand('copy');
-                alert("Kode berhasil disalin!");
-                document.getElementById("exportModal").style.display = "none";
-            });
+            document.execCommand('copy');
+            showToast("Kode disalin ke clipboard! Silakan paste ke file index.html Anda.");
+            document.getElementById("exportModal").style.display = "none";
         }
 
+        // Inisialisasi awal
         applyCover();
         applyAvatar();
         applyMarquee();
         renderProjects();
+        calculateLED();
     </script>
-
 
 
 
