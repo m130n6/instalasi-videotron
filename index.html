@@ -1,12 +1,19 @@
 <!DOCTYPE html>
-<html lang="id"><head>
+<html lang="id">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Videotron Tech Hub - Portofolio Teknisi &amp; Interactive Tools</title>
-    <!-- Font & Icon -->
+    
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#030712">
+
+    <title>Videotron Tech Hub - Portofolio Teknisi & Interactive Tools</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&amp;family=Orbitron:wght@600;800;900&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Syne:wght@700;800&amp;display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Orbitron:wght@600;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     
     <style>
@@ -152,6 +159,34 @@
             100% { transform: translate(-100%, 0); }
         }
 
+        /* Tombol Layar Penuh */
+        .fullscreen-btn {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            background: rgba(10, 18, 36, 0.8);
+            border: 1px solid rgba(0, 242, 254, 0.35);
+            color: var(--neon-cyan);
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 14px rgba(0, 242, 254, 0.25);
+            transition: all 0.25s ease;
+            backdrop-filter: blur(12px);
+            z-index: 30;
+        }
+
+        .fullscreen-btn:hover {
+            transform: translateY(-2px) scale(1.06);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 6px 24px rgba(0, 242, 254, 0.6);
+        }
+
         /* Tombol Ikon Admin */
         .admin-icon-btn {
             position: absolute;
@@ -243,13 +278,17 @@
 
         .cover-landscape-container {
             width: 100%;
-            max-width: 650px;
-            aspect-ratio: 16 / 7.5;
+            max-width: 100%; /* Dibuat Layar Penuh */
+            aspect-ratio: 16 / 5.5; /* Disesuaikan agar tidak terlalu tinggi di desktop */
             position: relative;
             border-bottom: 2px solid var(--card-border);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 25px rgba(0, 242, 254, 0.15);
             background: #060b17;
             overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .cover-landscape-container { aspect-ratio: 16 / 7.5; }
         }
 
         .cover-landscape-img {
@@ -332,7 +371,7 @@
 
         .profile-desc-box {
             width: calc(100% - 32px);
-            max-width: 520px;
+            max-width: 900px; /* Diperlebar untuk mode Desktop */
             margin: 12px 16px 0;
             background: var(--card-glass);
             border: 1px solid var(--card-border);
@@ -393,7 +432,7 @@
 
         /* Navigasi Tab (3 Tab) */
         .tab-nav-container {
-            max-width: 540px;
+            max-width: 100%; /* Dibuat Penuh */
             margin: 16px auto 8px;
             padding: 0 16px;
             width: 100%;
@@ -405,6 +444,8 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 6px;
+            max-width: 650px; /* Batasi menu tab agar tidak terlalu melar */
+            margin: 0 auto;
             background: rgba(7, 14, 30, 0.85);
             padding: 5px;
             border-radius: 14px;
@@ -439,11 +480,11 @@
             box-shadow: 0 0 14px rgba(0, 242, 254, 0.3);
         }
 
-        /* Container Bagian */
+        /* Container Bagian Utama */
         .content-container {
-            max-width: 540px;
+            max-width: 100%; /* Mode Layar Penuh */
             margin: 12px auto;
-            padding: 0 16px;
+            padding: 0 16px 40px;
             display: flex;
             flex-direction: column;
             gap: 16px;
@@ -534,6 +575,8 @@
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         .card-project::before {
@@ -639,12 +682,14 @@
             margin-bottom: 14px;
             border-left: 2px solid rgba(255, 255, 255, 0.14);
             padding-left: 10px;
+            flex: 1; /* Supaya seragam jika di grid desktop */
         }
 
         .action-buttons-group {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
+            margin-top: auto;
         }
 
         .btn-drive-link {
@@ -724,6 +769,9 @@
             padding: 20px;
             backdrop-filter: blur(16px);
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            max-width: 900px; /* Batas form agar tidak terlalu melar */
+            margin: 0 auto;
+            width: 100%;
         }
 
         .tool-title {
@@ -766,6 +814,7 @@
         .calc-val {
             color: var(--neon-emerald);
             font-weight: 700;
+            text-align: right;
         }
 
         /* Tombol Mengambang WhatsApp */
@@ -902,20 +951,17 @@
 </head>
 <body>
 
-    <!-- Latar Belakang Interaktif Canvas Matrix LED & Grid -->
-    <canvas id="videotronCanvas" width="411" height="777"></canvas>
+    <canvas id="videotronCanvas" width="1528" height="771"></canvas>
     <div class="cabinet-grid-overlay"></div>
     <div class="scanline-overlay"></div>
     <div class="beam-scan"></div>
 
-    <!-- Teks Berjalan Running Text -->
     <div class="marquee-bar">
         <div class="marquee-container">
             <div id="marqueeDisplay" class="marquee-content">SELAMAT DATANG DI PORTOFOLIO TEKNISI VIDEOTRON • MELAYANI INSTALASI, MAINTENANCE, &amp; SETTING DISPLAY INDOOR/OUTDOOR SELURUH INDONESIA • HUBUNGI WHATSAPP KAMI</div>
         </div>
     </div>
 
-    <!-- Panel Kontrol Khusus Admin -->
     <div id="adminPanelBar" class="admin-panel-bar" style="display: none;">
         <button class="btn-tech-action btn-cover" onclick="openCoverModal()">
             <i class="bi bi-image-fill"></i> COVER
@@ -934,18 +980,21 @@
         </button>
     </div>
 
-    <!-- Hero Profil & Banner Landscape -->
     <div class="profile-hero">
         <div class="cover-landscape-container">
+            <button id="fullscreenBtn" class="fullscreen-btn" onclick="toggleFullScreen()" title="Mode Layar Penuh">
+                <i class="bi bi-arrows-fullscreen"></i>
+            </button>
             <button id="adminAuthBtn" class="admin-icon-btn" onclick="toggleAdminAuth()" title="Admin Control Center">
                 <i class="bi bi-cpu-fill"></i>
             </button>
-            <img id="mainCoverBanner" class="cover-landscape-img" src="https://drive.google.com/thumbnail?id=1EFT_iZW2bGVe76LVr9N0JC_fooFDQxJX&amp;sz=w1600" alt="Cover Videotron Tech" onerror="this.src='https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&amp;fit=crop&amp;w=1200&amp;q=80'">
+
+            <img id="mainCoverBanner" class="cover-landscape-img" src="https://drive.google.com/thumbnail?id=1EFT_iZW2bGVe76LVr9N0JC_fooFDQxJX&amp;sz=w1600" alt="Cover Videotron Tech" onerror="this.src='https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80'">
             <div class="cover-overlay-gradient"></div>
         </div>
 
         <div class="avatar-wrapper" onclick="viewAvatarModal()" title="Klik untuk melihat foto profil">
-            <img id="mainProfileAvatar" class="profile-avatar-large" src="https://drive.google.com/thumbnail?id=16alnfBBKXonHadKR6ZEC75npzvjUXIgb&amp;sz=w600" alt="Teknisi Videotron" onerror="this.src='https://images.unsplash.com/photo-1534972195531-a756b1146f35?auto=format&amp;fit=crop&amp;w=400&amp;q=80'">
+            <img id="mainProfileAvatar" class="profile-avatar-large" src="https://drive.google.com/thumbnail?id=16alnfBBKXonHadKR6ZEC75npzvjUXIgb&amp;sz=w600" alt="Teknisi Videotron" onerror="this.src='https://images.unsplash.com/photo-1534972195531-a756b1146f35?auto=format&fit=crop&w=400&q=80'">
             <div class="avatar-badge-lens">
                 <i class="bi bi-eye"></i>
             </div>
@@ -978,7 +1027,6 @@
         </div>
     </div>
 
-    <!-- Tab Navigasi Aplikasi (3 Tab) -->
     <div class="tab-nav-container">
         <div class="tab-nav-pills">
             <button class="tab-btn active" onclick="switchTab('projects', this)">
@@ -996,9 +1044,8 @@
         </div>
     </div>
 
-    <!-- TAB 1: PORTOFOLIO PROYEK -->
     <div id="tabProjects" class="content-container">
-        <div class="filter-section">
+        <div class="filter-section" style="max-width: 900px; margin: 0 auto; width: 100%;">
             <div class="search-box">
                 <i class="bi bi-search"></i>
                 <input type="text" id="projectSearchInput" class="search-input" placeholder="Cari nama lokasi, jenis pitch (P2.5, P1.25)..." oninput="filterProjects()">
@@ -1012,271 +1059,99 @@
             </div>
         </div>
 
-        <main id="projectContainer" style="display:flex; flex-direction:column; gap:16px;"><article class="card-project">
-                    <div class="card-top">
-                        <div class="icon-circuit"><i class="bi bi-motherboard"></i></div>
-                        <div class="card-title-group" style="flex:1;">
-                            <h3>PEMASANGAN MODUL INDOOR P1.25 COB</h3>
-                            
-                    <div class="location-text">
-                        <i class="bi bi-geo-alt-fill"></i> Menara Mandiri
-                    </div>
-                        </div>
-                    </div>
-
-                    <div class="badges-wrapper">
-                        <span class="badge-pill badge-pitch"><i class="bi bi-grid-3x3"></i> P1.25</span>
-                        <span class="badge-pill badge-photo"><i class="bi bi-images"></i> Foto Galeri</span>
-                        <span class="badge-pill badge-video"><i class="bi bi-play-circle"></i> Video Testing</span>
-                    </div>
-
-                    <p class="card-quote">Pemasangan modul indoor P1.25 COB magnetic tanpa kabinet presisi tinggi</p>
-
-                    <div class="action-buttons-group">
-                        <a href="https://drive.google.com/drive/folders/1DRz56h2LeVimIL2vCFcHEq8Ea8gugUsq" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-photo"><i class="bi bi-images"></i> Lihat Foto</a>
-                        <a href="https://drive.google.com/drive/folders/1DRz56h2LeVimIL2vCFcHEq8Ea8gugUsq" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-video"><i class="bi bi-camera-reels"></i> Lihat Video</a>
-                    </div>
-
-                    <div class="admin-controls" style="display: none;">
-                        <button class="btn-admin-act btn-edit" onclick="editProject(0)"><i class="bi bi-pencil-square"></i> EDIT</button>
-                        <button class="btn-admin-act btn-delete" onclick="promptDeleteProject(0)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
-                    </div>
-                </article><article class="card-project">
-                    <div class="card-top">
-                        <div class="icon-circuit"><i class="bi bi-motherboard"></i></div>
-                        <div class="card-title-group" style="flex:1;">
-                            <h3>PEMASANGAN MODUL INDOOR P2.5 DAN P5</h3>
-                            
-                    <div class="location-text">
-                        <i class="bi bi-geo-alt-fill"></i> KTV Glodok
-                    </div>
-                        </div>
-                    </div>
-
-                    <div class="badges-wrapper">
-                        <span class="badge-pill badge-pitch"><i class="bi bi-grid-3x3"></i> P2.5</span>
-                        <span class="badge-pill badge-photo"><i class="bi bi-images"></i> Foto Galeri</span>
-                        <span class="badge-pill badge-video"><i class="bi bi-play-circle"></i> Video Testing</span>
-                    </div>
-
-                    <p class="card-quote">Pemasangan modul indoor P2.5 dan Ceiling P5 di beberapa titik ruangan VIP</p>
-
-                    <div class="action-buttons-group">
-                        <a href="https://drive.google.com/drive/folders/16ZEyJ6ZUtMIsPoSsXVr4AYNf5TIx1gn6" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-photo"><i class="bi bi-images"></i> Lihat Foto</a>
-                        <a href="https://drive.google.com/drive/folders/16ZEyJ6ZUtMIsPoSsXVr4AYNf5TIx1gn6" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-video"><i class="bi bi-camera-reels"></i> Lihat Video</a>
-                    </div>
-
-                    <div class="admin-controls" style="display: none;">
-                        <button class="btn-admin-act btn-edit" onclick="editProject(1)"><i class="bi bi-pencil-square"></i> EDIT</button>
-                        <button class="btn-admin-act btn-delete" onclick="promptDeleteProject(1)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
-                    </div>
-                </article><article class="card-project">
-                    <div class="card-top">
-                        <div class="icon-circuit"><i class="bi bi-motherboard"></i></div>
-                        <div class="card-title-group" style="flex:1;">
-                            <h3>PEMASANGAN MODUL INDOOR P2.5 64S</h3>
-                            
-                    <div class="location-text">
-                        <i class="bi bi-geo-alt-fill"></i> Gereja daerah Ancol
-                    </div>
-                        </div>
-                    </div>
-
-                    <div class="badges-wrapper">
-                        <span class="badge-pill badge-pitch"><i class="bi bi-grid-3x3"></i> P2.5</span>
-                        <span class="badge-pill badge-photo"><i class="bi bi-images"></i> Foto Galeri</span>
-                        <span class="badge-pill badge-video"><i class="bi bi-play-circle"></i> Video Testing</span>
-                    </div>
-
-                    <p class="card-quote">Pemasangan modul indoor P2.5 64s dengan controller NovaStar</p>
-
-                    <div class="action-buttons-group">
-                        <a href="https://drive.google.com/drive/folders/1TO4UO4LzMY_G0gj6KMuH53IG3E9f0eTP" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-photo"><i class="bi bi-images"></i> Lihat Foto</a>
-                        <a href="https://drive.google.com/drive/folders/1TO4UO4LzMY_G0gj6KMuH53IG3E9f0eTP" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-video"><i class="bi bi-camera-reels"></i> Lihat Video</a>
-                    </div>
-
-                    <div class="admin-controls" style="display: none;">
-                        <button class="btn-admin-act btn-edit" onclick="editProject(2)"><i class="bi bi-pencil-square"></i> EDIT</button>
-                        <button class="btn-admin-act btn-delete" onclick="promptDeleteProject(2)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
-                    </div>
-                </article><article class="card-project">
-                    <div class="card-top">
-                        <div class="icon-circuit"><i class="bi bi-motherboard"></i></div>
-                        <div class="card-title-group" style="flex:1;">
-                            <h3>INSTALASI VIDEOTRON INDOOR P2.5</h3>
-                            
-                    <div class="location-text">
-                        <i class="bi bi-geo-alt-fill"></i> BEKASI
-                    </div>
-                        </div>
-                    </div>
-
-                    <div class="badges-wrapper">
-                        <span class="badge-pill badge-pitch"><i class="bi bi-grid-3x3"></i> P2.5</span>
-                        <span class="badge-pill badge-photo"><i class="bi bi-images"></i> Foto Galeri</span>
-                        <span class="badge-pill badge-video"><i class="bi bi-play-circle"></i> Video Testing</span>
-                    </div>
-
-                    <p class="card-quote">Pemasangan modul indoor P2.5 menggunakan sistem prosesor dari Kystar</p>
-
-                    <div class="action-buttons-group">
-                        <a href="https://drive.google.com/drive/folders/1vRvSpK-aEwxjQqiEd-unvekPlbJWniWg" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-photo"><i class="bi bi-images"></i> Lihat Foto</a>
-                        <a href="https://drive.google.com/drive/folders/1vRvSpK-aEwxjQqiEd-unvekPlbJWniWg" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-video"><i class="bi bi-camera-reels"></i> Lihat Video</a>
-                    </div>
-
-                    <div class="admin-controls" style="display: none;">
-                        <button class="btn-admin-act btn-edit" onclick="editProject(3)"><i class="bi bi-pencil-square"></i> EDIT</button>
-                        <button class="btn-admin-act btn-delete" onclick="promptDeleteProject(3)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
-                    </div>
-                </article><article class="card-project">
-                    <div class="card-top">
-                        <div class="icon-circuit"><i class="bi bi-motherboard"></i></div>
-                        <div class="card-title-group" style="flex:1;">
-                            <h3>LED DISPLAY INDOOR P2</h3>
-                            
-                    <div class="location-text">
-                        <i class="bi bi-geo-alt-fill"></i> SINGAPORE INTERNATIONAL SCHOOL
-                    </div>
-                        </div>
-                    </div>
-
-                    <div class="badges-wrapper">
-                        <span class="badge-pill badge-pitch"><i class="bi bi-grid-3x3"></i> P2</span>
-                        <span class="badge-pill badge-photo"><i class="bi bi-images"></i> Foto Galeri</span>
-                        <span class="badge-pill badge-video"><i class="bi bi-play-circle"></i> Video Testing</span>
-                    </div>
-
-                    <p class="card-quote">Pemasangan modul indoor P2 menggunakan kabinet 64*48cm dengan real screen 512*288cm</p>
-
-                    <div class="action-buttons-group">
-                        <a href="https://drive.google.com/drive/folders/1ihZZG8qyJ_5Cfb0tNYzIhEtOtfY1289q" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-photo"><i class="bi bi-images"></i> Lihat Foto</a>
-                        <a href="https://drive.google.com/drive/folders/1ihZZG8qyJ_5Cfb0tNYzIhEtOtfY1289q" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-video"><i class="bi bi-camera-reels"></i> Lihat Video</a>
-                    </div>
-
-                    <div class="admin-controls" style="display: none;">
-                        <button class="btn-admin-act btn-edit" onclick="editProject(4)"><i class="bi bi-pencil-square"></i> EDIT</button>
-                        <button class="btn-admin-act btn-delete" onclick="promptDeleteProject(4)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
-                    </div>
-                </article><article class="card-project">
-                    <div class="card-top">
-                        <div class="icon-circuit"><i class="bi bi-motherboard"></i></div>
-                        <div class="card-title-group" style="flex:1;">
-                            <h3>PEMASANGAN MODUL INDOOR P2.5</h3>
-                            
-                    <div class="location-text">
-                        <i class="bi bi-geo-alt-fill"></i> GEREJA TM
-                    </div>
-                        </div>
-                    </div>
-
-                    <div class="badges-wrapper">
-                        <span class="badge-pill badge-pitch"><i class="bi bi-grid-3x3"></i> P2.5</span>
-                        <span class="badge-pill badge-photo"><i class="bi bi-images"></i> Foto Galeri</span>
-                        <span class="badge-pill badge-video"><i class="bi bi-play-circle"></i> Video Testing</span>
-                    </div>
-
-                    <p class="card-quote">Pemasangan modul indoor P2.5 di gereja untuk ibadah raya</p>
-
-                    <div class="action-buttons-group">
-                        <a href="https://drive.google.com/drive/folders/1oEkS8rXPr_3xlivlIx9bQJGpLBfVnwdg" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-photo"><i class="bi bi-images"></i> Lihat Foto</a>
-                        <a href="https://drive.google.com/drive/folders/1oEkS8rXPr_3xlivlIx9bQJGpLBfVnwdg" target="_blank" rel="noopener noreferrer" class="btn-drive-link btn-drive-video"><i class="bi bi-camera-reels"></i> Lihat Video</a>
-                    </div>
-
-                    <div class="admin-controls" style="display: none;">
-                        <button class="btn-admin-act btn-edit" onclick="editProject(5)"><i class="bi bi-pencil-square"></i> EDIT</button>
-                        <button class="btn-admin-act btn-delete" onclick="promptDeleteProject(5)"><i class="bi bi-trash3-fill"></i> HAPUS</button>
-                    </div>
-                </article></main>
+        <main id="projectContainer" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap:16px; width: 100%;"></main>
     </div>
 
-    <!-- TAB 2: KALKULATOR VIDEOTRON -->
     <div id="tabCalc" class="content-container hidden">
         <div class="tech-tool-card">
             <div class="tool-title">
-                <i class="bi bi-calculator-fill"></i> Kalkulator Resolusi &amp; Modul LED
+                <i class="bi bi-calculator-fill"></i> Kalkulator Akurasi Modul LED
             </div>
             <p style="font-size:0.83rem; color:var(--text-body); margin-bottom:14px;">
-                Hitung estimasi resolusi total, kerapatan pixel, jarak pandang, dan kalkulasi daya listrik per m² modul secara presisi.
+                Hitung jumlah modul yang dibutuhkan, penyesuaian resolusi aktual, jarak pandang, dan estimasi daya listrik secara otomatis.
             </p>
 
             <div class="tool-grid-2">
                 <div class="form-group">
-                    <label>Lebar Layar (cm)</label>
+                    <label>Lebar Layar Target (cm)</label>
                     <input type="number" id="calcWidth" class="form-control" value="400" step="1" min="10" oninput="calculateLED()">
                 </div>
                 <div class="form-group">
-                    <label>Tinggi Layar (cm)</label>
+                    <label>Tinggi Layar Target (cm)</label>
                     <input type="number" id="calcHeight" class="form-control" value="250" step="1" min="10" oninput="calculateLED()">
                 </div>
             </div>
 
             <div class="form-group">
-                <label>Pilih Pixel Pitch (Kerapatan Titik)</label>
+                <label>Pilih Pixel Pitch & Ukuran Modul</label>
                 <select id="calcPitch" class="form-control" onchange="calculateLED()">
-                    <option value="1.25" data-watt="620" data-type="indoor">P1.25 (Indoor COB/SMD)</option>
-                    <option value="1.53" data-watt="580" data-type="indoor">P1.53 (Indoor COB/SMD)</option>
-                    <option value="1.86" data-watt="550" data-type="indoor">P1.86 (Indoor Fine Pitch)</option>
-                    <option value="2.0" data-watt="520" data-type="indoor">P2 (Indoor High Res)</option>
-                    <option value="2.5" data-watt="480" data-type="indoor" selected="">P2.5 (Indoor Standar Meeting/Hall)</option>
-                    <option value="2.6" data-watt="460" data-type="indoor">P2.6 (Indoor Stage Rental)</option>
-                    <option value="2.9" data-watt="440" data-type="indoor">P2.9 (Indoor Stage Rental)</option>
-                    <option value="3.0" data-watt="420" data-type="indoor">P3 Indoor (Ballroom/Gereja)</option>
-                    <option value="3.0" data-watt="750" data-type="outdoor">P3 Outdoor (High Brightness)</option>
-                    <option value="3.91" data-watt="400" data-type="indoor">P3.91 Indoor (Event/Rental)</option>
-                    <option value="3.91" data-watt="800" data-type="outdoor">P3.91 Outdoor (Rental Panggung)</option>
-                    <option value="4.0" data-watt="380" data-type="indoor">P4 Indoor (Lobby/Auditorium)</option>
-                    <option value="4.0" data-watt="820" data-type="outdoor">P4 Outdoor (Billboard/Fasade)</option>
-                    <option value="5.0" data-watt="320" data-type="indoor">P5 Indoor (Ceiling/Display Besar)</option>
-                    <option value="5.0" data-watt="850" data-type="outdoor">P5 Outdoor (Billboard Standar)</option>
-                    <option value="8.0" data-watt="280" data-type="indoor">P8 Indoor (Stadium Ribbon)</option>
-                    <option value="8.0" data-watt="900" data-type="outdoor">P8 Outdoor (JPO/Jalan Raya)</option>
-                    <option value="10.0" data-watt="240" data-type="indoor">P10 Indoor (Display Teks/Jauh)</option>
-                    <option value="10.0" data-watt="950" data-type="outdoor">P10 Outdoor (Billboard Raksasa)</option>
+                    <option value="1.25" data-watt="620" data-type="indoor" data-modw="32" data-modh="16">P1.25 (Indoor COB/SMD) [320x160mm]</option>
+                    <option value="1.53" data-watt="580" data-type="indoor" data-modw="32" data-modh="16">P1.53 (Indoor COB/SMD) [320x160mm]</option>
+                    <option value="1.86" data-watt="550" data-type="indoor" data-modw="32" data-modh="16">P1.86 (Indoor Fine Pitch) [320x160mm]</option>
+                    <option value="2.0" data-watt="520" data-type="indoor" data-modw="32" data-modh="16">P2 (Indoor High Res) [320x160mm]</option>
+                    <option value="2.5" data-watt="480" data-type="indoor" data-modw="32" data-modh="16" selected>P2.5 (Indoor Standar Meeting/Hall) [320x160mm]</option>
+                    <option value="2.6" data-watt="460" data-type="indoor" data-modw="25" data-modh="25">P2.6 (Indoor Stage Rental) [250x250mm]</option>
+                    <option value="2.9" data-watt="440" data-type="indoor" data-modw="25" data-modh="25">P2.9 (Indoor Stage Rental) [250x250mm]</option>
+                    <option value="3.0" data-watt="420" data-type="indoor" data-modw="19.2" data-modh="19.2">P3 Indoor (Ballroom/Gereja) [192x192mm]</option>
+                    <option value="3.0" data-watt="750" data-type="outdoor" data-modw="19.2" data-modh="19.2">P3 Outdoor (High Brightness) [192x192mm]</option>
+                    <option value="3.91" data-watt="400" data-type="indoor" data-modw="25" data-modh="25">P3.91 Indoor (Event/Rental) [250x250mm]</option>
+                    <option value="3.91" data-watt="800" data-type="outdoor" data-modw="25" data-modh="25">P3.91 Outdoor (Rental Panggung) [250x250mm]</option>
+                    <option value="4.0" data-watt="380" data-type="indoor" data-modw="32" data-modh="16">P4 Indoor (Lobby/Auditorium) [320x160mm]</option>
+                    <option value="4.0" data-watt="820" data-type="outdoor" data-modw="32" data-modh="16">P4 Outdoor (Billboard/Fasade) [320x160mm]</option>
+                    <option value="5.0" data-watt="320" data-type="indoor" data-modw="32" data-modh="16">P5 Indoor (Ceiling/Display Besar) [320x160mm]</option>
+                    <option value="5.0" data-watt="850" data-type="outdoor" data-modw="32" data-modh="16">P5 Outdoor (Billboard Standar) [320x160mm]</option>
+                    <option value="8.0" data-watt="280" data-type="indoor" data-modw="32" data-modh="16">P8 Indoor (Stadium Ribbon) [320x160mm]</option>
+                    <option value="8.0" data-watt="900" data-type="outdoor" data-modw="32" data-modh="16">P8 Outdoor (JPO/Jalan Raya) [320x160mm]</option>
+                    <option value="10.0" data-watt="240" data-type="indoor" data-modw="32" data-modh="16">P10 Indoor (Display Teks/Jauh) [320x160mm]</option>
+                    <option value="10.0" data-watt="950" data-type="outdoor" data-modw="32" data-modh="16">P10 Outdoor (Billboard Raksasa) [320x160mm]</option>
                 </select>
             </div>
 
             <div class="calc-result-box">
-                <div class="calc-stat-row">
-                    <span>Dimensi &amp; Luas:</span>
-                    <span id="resDimensions" class="calc-val">400 × 250 cm (10.00 m²)</span>
+                <div class="calc-stat-row" style="background: rgba(16, 185, 129, 0.1); margin: -4px -6px 6px; padding: 10px 10px; border-radius: 8px;">
+                    <span style="color:var(--neon-emerald); font-weight:700;">Total Modul Dibutuhkan:</span>
+                    <span id="resModuleCount" class="calc-val" style="color:var(--text-title); font-size: 1rem;"></span>
                 </div>
                 <div class="calc-stat-row">
-                    <span>Total Resolusi:</span>
-                    <span id="resPixelCount" class="calc-val">1600 × 1000 px</span>
+                    <span>Dimensi Aktual Layar:</span>
+                    <span id="resDimensions" class="calc-val"></span>
                 </div>
                 <div class="calc-stat-row">
-                    <span>Total Kerapatan Dot LED:</span>
-                    <span id="resTotalDots" class="calc-val">1.600.000 Pixels</span>
+                    <span>Total Resolusi Aktual:</span>
+                    <span id="resPixelCount" class="calc-val"></span>
+                </div>
+                <div class="calc-stat-row">
+                    <span>Total Kerapatan Titik LED:</span>
+                    <span id="resTotalDots" class="calc-val"></span>
                 </div>
                 <div class="calc-stat-row">
                     <span>Rasio Aspek Layar:</span>
-                    <span id="resAspectRatio" class="calc-val">8 : 5</span>
+                    <span id="resAspectRatio" class="calc-val"></span>
                 </div>
                 <div class="calc-stat-row">
                     <span>Jarak Pandang Minimum:</span>
-                    <span id="resMinDistance" class="calc-val">~2.5 Meter</span>
+                    <span id="resMinDistance" class="calc-val"></span>
                 </div>
                 <div class="calc-stat-row" style="background: rgba(0, 242, 254, 0.05); margin: 4px -6px; padding: 6px 6px; border-radius: 6px;">
                     <span style="color:var(--neon-cyan); font-weight:700;">Daya Maksimal (Full White):</span>
-                    <span id="resMaxPower" class="calc-val" style="color:#38bdf8;">~4.800 Watt</span>
+                    <span id="resMaxPower" class="calc-val" style="color:#38bdf8;"></span>
                 </div>
                 <div class="calc-stat-row">
                     <span>Daya Rata-Rata (Pemakaian Normal):</span>
-                    <span id="resAvgPower" class="calc-val">~1.680 Watt</span>
+                    <span id="resAvgPower" class="calc-val"></span>
                 </div>
                 <div class="calc-stat-row">
                     <span>Beban Arus Listrik (@220V):</span>
-                    <span id="resCurrentAmp" class="calc-val">~24.2 Ampere</span>
+                    <span id="resCurrentAmp" class="calc-val"></span>
                 </div>
                 <div class="calc-stat-row">
                     <span>Rekomendasi MCB (Safety Factor 1.25x):</span>
-                    <span id="resMcbRecommend" class="calc-val" style="color:var(--neon-amber);">32A (1 Fasa)</span>
+                    <span id="resMcbRecommend" class="calc-val" style="color:var(--neon-amber);"></span>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- TAB 3: ESTIMASI & KONSULTASI WHATSAPP -->
     <div id="tabConsult" class="content-container hidden">
         <div class="tech-tool-card">
             <div class="tool-title">
@@ -1316,16 +1191,13 @@
         </div>
     </div>
 
-    <!-- Tombol WhatsApp Mengambang -->
     <a href="https://wa.me/628158855537?text=Halo%20Teknisi%20Videotron,%20saya%20ingin%20berkonsultasi%20mengenai%20proyek/instalasi%20videotron." target="_blank" rel="noopener noreferrer" class="floating-wa-btn" title="Chat WhatsApp">
         <i class="bi bi-whatsapp"></i>
     </a>
 
-    <!-- Penampung Toast Pesan -->
     <div id="toastContainer"></div>
 
-    <!-- Modal PIN Admin -->
-    <div id="adminPinModal" class="modal" style="display: none;">
+    <div id="adminPinModal" class="modal">
         <div class="modal-card">
             <h3><i class="bi bi-shield-lock-fill"></i> AKSES ADMIN</h3>
             <p style="font-size: 0.85rem; color: var(--text-body); margin-bottom: 14px;">
@@ -1344,17 +1216,15 @@
         </div>
     </div>
 
-    <!-- Modal Tinjau Foto Profil -->
-    <div id="viewAvatarModal" class="modal" onclick="closeViewAvatarModal(event)" style="display: none;">
+    <div id="viewAvatarModal" class="modal" onclick="closeViewAvatarModal(event)">
         <div class="modal-card" style="text-align:center;" onclick="event.stopPropagation()">
-            <img id="modalPreviewImg" style="width:190px; height:190px; border-radius:50%; object-fit:cover; border:3px solid var(--neon-cyan); box-shadow:0 0 30px rgba(0,242,254,0.4); margin:0 auto 16px; display:block;" src="https://drive.google.com/thumbnail?id=16alnfBBKXonHadKR6ZEC75npzvjUXIgb&amp;sz=w600" alt="Foto Profil" onerror="this.src='https://images.unsplash.com/photo-1534972195531-a756b1146f35?auto=format&amp;fit=crop&amp;w=400&amp;q=80'">
+            <img id="modalPreviewImg" style="width:190px; height:190px; border-radius:50%; object-fit:cover; border:3px solid var(--neon-cyan); box-shadow:0 0 30px rgba(0,242,254,0.4); margin:0 auto 16px; display:block;" src="" alt="Foto Profil">
             <h3 style="margin-bottom: 4px;">TEKNISI VIDEOTRON MBONG</h3>
             <p style="font-size: 0.85rem; color: var(--text-body); margin-bottom: 16px;">Spesialis Instalasi, Wiring, &amp; Setup Videotron</p>
-            <button type="button" class="btn-cancel" style="width: 100%;" onclick="document.getElementById('viewAvatarModal').style.display='none'">Tutup</button>
+            <button type="button" class="btn-cancel" style="width: 100%;" onclick="closeViewAvatarModal(event)">Tutup</button>
         </div>
     </div>
 
-    <!-- Modal Ubah Cover Banner -->
     <div id="coverModal" class="modal">
         <div class="modal-card">
             <h3>GANTI COVER BANNER (LANDSCAPE)</h3>
@@ -1371,7 +1241,6 @@
         </div>
     </div>
 
-    <!-- Modal Ubah Foto Profil -->
     <div id="avatarModal" class="modal">
         <div class="modal-card">
             <h3>GANTI FOTO PROFIL ADMIN</h3>
@@ -1388,7 +1257,6 @@
         </div>
     </div>
 
-    <!-- Modal Running Text -->
     <div id="marqueeModal" class="modal">
         <div class="modal-card">
             <h3>EDIT RUNNING TEXT</h3>
@@ -1405,7 +1273,6 @@
         </div>
     </div>
 
-    <!-- Modal Form Tambah/Edit Proyek -->
     <div id="projectModal" class="modal">
         <div class="modal-card">
             <h3 id="modalTitle">INPUT PROYEK BARU</h3>
@@ -1439,7 +1306,6 @@
         </div>
     </div>
 
-    <!-- Modal Konfirmasi Hapus Data -->
     <div id="confirmDeleteModal" class="modal">
         <div class="modal-card">
             <h3><i class="bi bi-exclamation-triangle-fill" style="color:var(--neon-red);"></i> KONFIRMASI HAPUS</h3>
@@ -1453,7 +1319,6 @@
         </div>
     </div>
 
-    <!-- Modal Ekspor Kode -->
     <div id="exportModal" class="modal">
         <div class="modal-card" style="max-width: 500px;">
             <h3>KODE EKSPOR TERBARU</h3>
@@ -1468,7 +1333,6 @@
         </div>
     </div>
 
-    <!-- Mesin Animasi Canvas Matrix LED & Sinyal -->
     <script>
         const canvas = document.getElementById('videotronCanvas');
         const ctx = canvas.getContext('2d');
@@ -1571,12 +1435,26 @@
         renderLEDCanvas();
     </script>
 
-    <!-- Logika Aplikasi & State Management -->
     <script>
         const ADMIN_PIN = "gretongers";
         let isAdminLoggedIn = false;
         let selectedPitchFilter = 'all';
         let deleteCandidateIndex = -1;
+
+        // Fungsi Tombol Fullscreen Web Native
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    showToast("Perangkat tidak mendukung fitur Layar Penuh", "bi-exclamation-circle");
+                });
+                document.querySelector('#fullscreenBtn i').className = "bi bi-fullscreen-exit";
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                    document.querySelector('#fullscreenBtn i').className = "bi bi-arrows-fullscreen";
+                }
+            }
+        }
 
         function formatDriveUrl(url, size = 'w1600') {
             if (!url) return '';
@@ -1634,7 +1512,7 @@
                     "photoUrl": "https://drive.google.com/drive/folders/1oEkS8rXPr_3xlivlIx9bQJGpLBfVnwdg",
                     "videoUrl": "https://drive.google.com/drive/folders/1oEkS8rXPr_3xlivlIx9bQJGpLBfVnwdg"
           }
-];
+        ];
 
         function showToast(message, icon = 'bi-check-circle-fill') {
             const container = document.getElementById('toastContainer');
@@ -1742,15 +1620,12 @@
 
             if (visibleCount === 0) {
                 container.innerHTML = `
-                    <div style="text-align:center; padding:30px 10px; color:var(--text-muted); background:var(--card-glass); border-radius:14px; border:1px dashed var(--card-border);">
+                    <div style="text-align:center; padding:30px 10px; color:var(--text-muted); background:var(--card-glass); border-radius:14px; border:1px dashed var(--card-border); grid-column: 1 / -1;">
                         <i class="bi bi-search" style="font-size:1.8rem; color:var(--neon-cyan); display:block; margin-bottom:8px;"></i>
                         <p style="font-size:0.9rem;">Tidak ada proyek yang sesuai dengan kata kunci.</p>
                     </div>
                 `;
             }
-
-            const badge = document.getElementById("projectCountBadge");
-            if (badge) badge.innerText = `${projectsData.length} PROYEK`;
         }
 
         function filterProjects() {
@@ -1765,38 +1640,58 @@
         }
 
         function calculateLED() {
-            const wCm = parseFloat(document.getElementById('calcWidth').value) || 0;
-            const hCm = parseFloat(document.getElementById('calcHeight').value) || 0;
+            const inputWCm = parseFloat(document.getElementById('calcWidth').value) || 0;
+            const inputHCm = parseFloat(document.getElementById('calcHeight').value) || 0;
             const pitchSelect = document.getElementById('calcPitch');
             const pitchMm = parseFloat(pitchSelect.value) || 2.5;
             const selectedOption = pitchSelect.options[pitchSelect.selectedIndex];
-            
             const wattPerSqm = parseFloat(selectedOption.getAttribute('data-watt')) || 480;
 
-            if (wCm <= 0 || hCm <= 0) return;
+            // Ukuran Modul LED otomatis membaca dari data-attribute pilihan (dalam cm)
+            const inputModWCm = parseFloat(selectedOption.getAttribute('data-modw')) || 32;
+            const inputModHCm = parseFloat(selectedOption.getAttribute('data-modh')) || 16;
+            const modWMm = inputModWCm * 10;
+            const modHMm = inputModHCm * 10;
 
-            const wMm = wCm * 10;
-            const hMm = hCm * 10;
-            const wMeter = wCm / 100;
-            const hMeter = hCm / 100;
-            const areaSqm = wMeter * hMeter;
+            if (inputWCm <= 0 || inputHCm <= 0) return;
 
-            const resX = Math.round(wMm / pitchMm);
-            const resY = Math.round(hMm / pitchMm);
+            // 1. Target Dimensi (mm)
+            const targetWMm = inputWCm * 10;
+            const targetHMm = inputHCm * 10;
+
+            // 2. Hitung Kebutuhan Modul (Dibulatkan ke atas / ceil)
+            const modCountW = Math.ceil(targetWMm / modWMm);
+            const modCountH = Math.ceil(targetHMm / modHMm);
+            const totalModules = modCountW * modCountH;
+
+            // 3. Hitung Dimensi Aktual (Setelah digenapkan berdasarkan jumlah modul)
+            const actualWMm = modCountW * modWMm;
+            const actualHMm = modCountH * modHMm;
+            const actualWCm = actualWMm / 10;
+            const actualHCm = actualHMm / 10;
+            const areaSqm = (actualWCm / 100) * (actualHCm / 100);
+
+            // 4. Resolusi per Modul dan Total Resolusi Aktual
+            const modResX = Math.round(modWMm / pitchMm);
+            const modResY = Math.round(modHMm / pitchMm);
+            const resX = modCountW * modResX;
+            const resY = modCountH * modResY;
             const totalDots = resX * resY;
 
+            // 5. Rasio Aspek
             const gcd = (a, b) => b ? gcd(b, a % b) : a;
-            const divisor = gcd(Math.round(wCm), Math.round(hCm));
-            const ratioX = Math.round(wCm / divisor);
-            const ratioY = Math.round(hCm / divisor);
+            const divisor = gcd(resX, resY);
+            const ratioX = resX / divisor;
+            const ratioY = resY / divisor;
             
             const minDistance = (pitchMm * 1).toFixed(1);
             
+            // 6. Kalkulasi Daya (Dihitung dari Luas Aktual)
             const maxPowerWatt = Math.round(areaSqm * wattPerSqm);
             const avgPowerWatt = Math.round(maxPowerWatt * 0.35);
             
+            // 7. Kalkulasi Arus dan MCB
             const currentAmpere = (maxPowerWatt / (220 * 0.9)).toFixed(1);
-            
             const recommendedAmp = Math.ceil((maxPowerWatt / (220 * 0.9)) * 1.25);
             let mcbRating = "10A";
             if (recommendedAmp <= 6) mcbRating = "6A (1 Fasa)";
@@ -1810,8 +1705,10 @@
             else if (recommendedAmp <= 63) mcbRating = "63A (1 Fasa / Sarankan 3 Fasa)";
             else mcbRating = `${recommendedAmp}A (Gunakan Distribusi 3 Fasa)`;
 
-            document.getElementById('resDimensions').innerText = `${wCm} × ${hCm} cm (${areaSqm.toFixed(2)} m²)`;
-            document.getElementById('resPixelCount').innerText = `${resX} × ${resY} px`;
+            // 8. Tampilkan Output
+            document.getElementById('resModuleCount').innerText = `${modCountW} × ${modCountH} = ${totalModules.toLocaleString('id-ID')} Pcs`;
+            document.getElementById('resDimensions').innerText = `${actualWCm} × ${actualHCm} cm (${areaSqm.toFixed(2)} m²)`;
+            document.getElementById('resPixelCount').innerText = `${resX.toLocaleString('id-ID')} × ${resY.toLocaleString('id-ID')} px`;
             document.getElementById('resTotalDots').innerText = `${totalDots.toLocaleString('id-ID')} Pixels`;
             document.getElementById('resAspectRatio').innerText = `${ratioX} : ${ratioY}`;
             document.getElementById('resMinDistance').innerText = `~${minDistance} Meter`;
@@ -2032,7 +1929,5 @@
         renderProjects();
         calculateLED();
     </script>
-
-
-
-</body></html>
+</body>
+</html>
