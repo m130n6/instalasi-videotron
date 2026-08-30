@@ -278,8 +278,8 @@
 
         .cover-landscape-container {
             width: 100%;
-            max-width: 100%; /* Dibuat Layar Penuh */
-            aspect-ratio: 16 / 5.5; /* Disesuaikan agar tidak terlalu tinggi di desktop */
+            max-width: 100%; 
+            aspect-ratio: 16 / 5.5; 
             position: relative;
             border-bottom: 2px solid var(--card-border);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 25px rgba(0, 242, 254, 0.15);
@@ -371,7 +371,7 @@
 
         .profile-desc-box {
             width: calc(100% - 32px);
-            max-width: 900px; /* Diperlebar untuk mode Desktop */
+            max-width: 900px; 
             margin: 12px 16px 0;
             background: var(--card-glass);
             border: 1px solid var(--card-border);
@@ -432,7 +432,7 @@
 
         /* Navigasi Tab (3 Tab) */
         .tab-nav-container {
-            max-width: 100%; /* Dibuat Penuh */
+            max-width: 100%; 
             margin: 16px auto 8px;
             padding: 0 16px;
             width: 100%;
@@ -444,7 +444,7 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 6px;
-            max-width: 650px; /* Batasi menu tab agar tidak terlalu melar */
+            max-width: 650px; 
             margin: 0 auto;
             background: rgba(7, 14, 30, 0.85);
             padding: 5px;
@@ -482,7 +482,7 @@
 
         /* Container Bagian Utama */
         .content-container {
-            max-width: 100%; /* Mode Layar Penuh */
+            max-width: 100%; 
             margin: 12px auto;
             padding: 0 16px 40px;
             display: flex;
@@ -682,7 +682,7 @@
             margin-bottom: 14px;
             border-left: 2px solid rgba(255, 255, 255, 0.14);
             padding-left: 10px;
-            flex: 1; /* Supaya seragam jika di grid desktop */
+            flex: 1; 
         }
 
         .action-buttons-group {
@@ -769,7 +769,7 @@
             padding: 20px;
             backdrop-filter: blur(16px);
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
-            max-width: 900px; /* Batas form agar tidak terlalu melar */
+            max-width: 900px; 
             margin: 0 auto;
             width: 100%;
         }
@@ -1055,6 +1055,8 @@
                 <button class="filter-chip" onclick="setPitchFilter('P1.25', this)">Pitch P1.25</button>
                 <button class="filter-chip" onclick="setPitchFilter('P2', this)">Pitch P2</button>
                 <button class="filter-chip" onclick="setPitchFilter('P2.5', this)">Pitch P2.5</button>
+                <button class="filter-chip" onclick="setPitchFilter('P3.076', this)">Pitch P3.076</button>
+                <button class="filter-chip" onclick="setPitchFilter('P3.91', this)">Pitch P3.91</button>
                 <button class="filter-chip" onclick="setPitchFilter('P5', this)">Pitch P5</button>
             </div>
         </div>
@@ -1085,25 +1087,25 @@
             <div class="form-group">
                 <label>Pilih Pixel Pitch & Ukuran Modul</label>
                 <select id="calcPitch" class="form-control" onchange="calculateLED()">
-                    <option value="1.25" data-watt="620" data-type="indoor" data-modw="32" data-modh="16">P1.25 (Indoor COB/SMD) [320x160mm]</option>
-                    <option value="1.53" data-watt="580" data-type="indoor" data-modw="32" data-modh="16">P1.53 (Indoor COB/SMD) [320x160mm]</option>
-                    <option value="1.86" data-watt="550" data-type="indoor" data-modw="32" data-modh="16">P1.86 (Indoor Fine Pitch) [320x160mm]</option>
-                    <option value="2.0" data-watt="520" data-type="indoor" data-modw="32" data-modh="16">P2 (Indoor High Res) [320x160mm]</option>
-                    <option value="2.5" data-watt="480" data-type="indoor" data-modw="32" data-modh="16" selected>P2.5 (Indoor Standar Meeting/Hall) [320x160mm]</option>
-                    <option value="2.6" data-watt="460" data-type="indoor" data-modw="25" data-modh="25">P2.6 (Indoor Stage Rental) [250x250mm]</option>
-                    <option value="2.9" data-watt="440" data-type="indoor" data-modw="25" data-modh="25">P2.9 (Indoor Stage Rental) [250x250mm]</option>
-                    <option value="3.0" data-watt="420" data-type="indoor" data-modw="19.2" data-modh="19.2">P3 Indoor (Ballroom/Gereja) [192x192mm]</option>
-                    <option value="3.0" data-watt="750" data-type="outdoor" data-modw="19.2" data-modh="19.2">P3 Outdoor (High Brightness) [192x192mm]</option>
-                    <option value="3.91" data-watt="400" data-type="indoor" data-modw="25" data-modh="25">P3.91 Indoor (Event/Rental) [250x250mm]</option>
-                    <option value="3.91" data-watt="800" data-type="outdoor" data-modw="25" data-modh="25">P3.91 Outdoor (Rental Panggung) [250x250mm]</option>
-                    <option value="4.0" data-watt="380" data-type="indoor" data-modw="32" data-modh="16">P4 Indoor (Lobby/Auditorium) [320x160mm]</option>
-                    <option value="4.0" data-watt="820" data-type="outdoor" data-modw="32" data-modh="16">P4 Outdoor (Billboard/Fasade) [320x160mm]</option>
-                    <option value="5.0" data-watt="320" data-type="indoor" data-modw="32" data-modh="16">P5 Indoor (Ceiling/Display Besar) [320x160mm]</option>
-                    <option value="5.0" data-watt="850" data-type="outdoor" data-modw="32" data-modh="16">P5 Outdoor (Billboard Standar) [320x160mm]</option>
-                    <option value="8.0" data-watt="280" data-type="indoor" data-modw="32" data-modh="16">P8 Indoor (Stadium Ribbon) [320x160mm]</option>
-                    <option value="8.0" data-watt="900" data-type="outdoor" data-modw="32" data-modh="16">P8 Outdoor (JPO/Jalan Raya) [320x160mm]</option>
-                    <option value="10.0" data-watt="240" data-type="indoor" data-modw="32" data-modh="16">P10 Indoor (Display Teks/Jauh) [320x160mm]</option>
-                    <option value="10.0" data-watt="950" data-type="outdoor" data-modw="32" data-modh="16">P10 Outdoor (Billboard Raksasa) [320x160mm]</option>
+                    <option value="1.25" data-watt="620" data-type="indoor" data-modw="320" data-modh="160">P1.25 (Indoor COB/SMD) [320x160mm]</option>
+                    <option value="1.538" data-watt="580" data-type="indoor" data-modw="320" data-modh="160">P1.538 (Indoor COB/SMD) [320x160mm]</option>
+                    <option value="1.86" data-watt="550" data-type="indoor" data-modw="320" data-modh="160">P1.86 (Indoor Fine Pitch) [320x160mm]</option>
+                    <option value="2.0" data-watt="520" data-type="indoor" data-modw="320" data-modh="160">P2 (Indoor High Res) [320x160mm]</option>
+                    <option value="2.5" data-watt="480" data-type="indoor" data-modw="320" data-modh="160" selected>P2.5 (Indoor Standar Meeting/Hall) [320x160mm]</option>
+                    <option value="2.6" data-watt="460" data-type="indoor" data-modw="250" data-modh="250">P2.6 (Indoor Stage Rental) [250x250mm]</option>
+                    <option value="2.976" data-watt="440" data-type="indoor" data-modw="250" data-modh="250">P2.976 (Indoor Stage Rental) [250x250mm]</option>
+                    <option value="3.076" data-watt="420" data-type="indoor" data-modw="320" data-modh="160">P3.076 (P3) Indoor (Ballroom/Gereja) [320x160mm]</option>
+                    <option value="3.076" data-watt="750" data-type="outdoor" data-modw="320" data-modh="160">P3.076 (P3) Outdoor (High Brightness) [320x160mm]</option>
+                    <option value="3.91" data-watt="400" data-type="indoor" data-modw="250" data-modh="250">P3.91 Indoor (Event/Rental) [250x250mm]</option>
+                    <option value="3.91" data-watt="800" data-type="outdoor" data-modw="250" data-modh="250">P3.91 Outdoor (Rental Panggung) [250x250mm]</option>
+                    <option value="4.0" data-watt="380" data-type="indoor" data-modw="320" data-modh="160">P4 Indoor (Lobby/Auditorium) [320x160mm]</option>
+                    <option value="4.0" data-watt="820" data-type="outdoor" data-modw="320" data-modh="160">P4 Outdoor (Billboard/Fasade) [320x160mm]</option>
+                    <option value="5.0" data-watt="320" data-type="indoor" data-modw="320" data-modh="160">P5 Indoor (Ceiling/Display Besar) [320x160mm]</option>
+                    <option value="5.0" data-watt="850" data-type="outdoor" data-modw="320" data-modh="160">P5 Outdoor (Billboard Standar) [320x160mm]</option>
+                    <option value="8.0" data-watt="280" data-type="indoor" data-modw="320" data-modh="160">P8 Indoor (Stadium Ribbon) [320x160mm]</option>
+                    <option value="8.0" data-watt="900" data-type="outdoor" data-modw="320" data-modh="160">P8 Outdoor (JPO/Jalan Raya) [320x160mm]</option>
+                    <option value="10.0" data-watt="240" data-type="indoor" data-modw="320" data-modh="160">P10 Indoor (Display Teks/Jauh) [320x160mm]</option>
+                    <option value="10.0" data-watt="950" data-type="outdoor" data-modw="320" data-modh="160">P10 Outdoor (Billboard Raksasa) [320x160mm]</option>
                 </select>
             </div>
 
@@ -1191,7 +1193,7 @@
         </div>
     </div>
 
-    <a href="https://wa.me/628158855537?text=Halo%20Teknisi%20Videotron,%20saya%20ingin%20berkonsultasi%20mengenai%20proyek/instalasi%20videotron." target="_blank" rel="noopener noreferrer" class="floating-wa-btn" title="Chat WhatsApp">
+    <a href="https://wa.me/628158855537?text=Halo%20Bang%20Mbong,%20saya%20ingin%20berkonsultasi%20mengenai%20proyek/instalasi%20videotron." target="_blank" rel="noopener noreferrer" class="floating-wa-btn" title="Chat WhatsApp">
         <i class="bi bi-whatsapp"></i>
     </a>
 
@@ -1546,14 +1548,14 @@
         function extractPitchTag(title, desc) {
             const str = (title + " " + desc).toUpperCase();
             if (str.includes("P1.25")) return "P1.25";
-            if (str.includes("P1.53")) return "P1.53";
+            if (str.includes("P1.538") || str.includes("P1.53")) return "P1.538";
             if (str.includes("P1.86")) return "P1.86";
             if (str.includes("P2.5")) return "P2.5";
             if (str.includes("P2.6")) return "P2.6";
-            if (str.includes("P2.9")) return "P2.9";
-            if (str.includes("P2")) return "P2";
+            if (str.includes("P2.976") || str.includes("P2.9")) return "P2.976";
+            if (str.includes("P3.076") || (str.match(/P3(?![.\d])/))) return "P3.076";
             if (str.includes("P3.91") || str.includes("P3.9")) return "P3.91";
-            if (str.includes("P3")) return "P3";
+            if (str.includes("P2")) return "P2";
             if (str.includes("P4")) return "P4";
             if (str.includes("P5")) return "P5";
             if (str.includes("P8")) return "P8";
@@ -1647,15 +1649,13 @@
             const selectedOption = pitchSelect.options[pitchSelect.selectedIndex];
             const wattPerSqm = parseFloat(selectedOption.getAttribute('data-watt')) || 480;
 
-            // Ukuran Modul LED otomatis membaca dari data-attribute pilihan (dalam cm)
-            const inputModWCm = parseFloat(selectedOption.getAttribute('data-modw')) || 32;
-            const inputModHCm = parseFloat(selectedOption.getAttribute('data-modh')) || 16;
-            const modWMm = inputModWCm * 10;
-            const modHMm = inputModHCm * 10;
+            // Ukuran Modul LED otomatis membaca dari data-attribute pilihan (dalam mm)
+            const modWMm = parseFloat(selectedOption.getAttribute('data-modw')) || 320;
+            const modHMm = parseFloat(selectedOption.getAttribute('data-modh')) || 160;
 
             if (inputWCm <= 0 || inputHCm <= 0) return;
 
-            // 1. Target Dimensi (mm)
+            // 1. Target Dimensi Layar (dikonversi ke mm)
             const targetWMm = inputWCm * 10;
             const targetHMm = inputHCm * 10;
 
@@ -1664,14 +1664,14 @@
             const modCountH = Math.ceil(targetHMm / modHMm);
             const totalModules = modCountW * modCountH;
 
-            // 3. Hitung Dimensi Aktual (Setelah digenapkan berdasarkan jumlah modul)
+            // 3. Hitung Dimensi Aktual Fisik Layar (Setelah digenapkan berdasarkan jumlah modul)
             const actualWMm = modCountW * modWMm;
             const actualHMm = modCountH * modHMm;
             const actualWCm = actualWMm / 10;
             const actualHCm = actualHMm / 10;
             const areaSqm = (actualWCm / 100) * (actualHCm / 100);
 
-            // 4. Resolusi per Modul dan Total Resolusi Aktual
+            // 4. Resolusi per Modul dan Total Resolusi Aktual (Sangat presisi dengan Math.round)
             const modResX = Math.round(modWMm / pitchMm);
             const modResY = Math.round(modHMm / pitchMm);
             const resX = modCountW * modResX;
